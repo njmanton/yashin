@@ -1,6 +1,6 @@
 # yashin
 
-Goalmine v9 - WOrld Cup Russia 2018
+Goalmine v9 - World Cup Russia 2018
 
 ## History
 
