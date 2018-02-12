@@ -1,0 +1,17 @@
+{
+  "name": "yashin",
+  "version": "9.0.0",
+  "description": "Goalmine world cup 2018 edition",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "goalmine",
+    "football",
+    "soccer",
+    "world cup"
+  ],
+  "author": "Nick Manton",
+  "license": "ISC"
+}
