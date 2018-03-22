@@ -1,0 +1,24 @@
+<section>
+  <h3>Goals</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Team</th>
+        <th>Time</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data }}
+      <tr>
+        <td>{{ scorer }}</td>
+        <td>{{ team.name }}</td>
+        <td>{{ time }}{{#if tao }}+{{ tao }}{{/if }}' {{#if type }}({{ type }}){{/if }}</td>
+        <td><a href="/matches/{{ match.id }}"><i class="fas fa-eye"></i></a></td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+  
+</section>

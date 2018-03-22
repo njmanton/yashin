@@ -1,0 +1,59 @@
+<section id="preds">
+  <h3>My Predictions</h3>
+  <div id="carouselExampleControls" class="carousel slide" data-interval="false">
+    <ol class="carousel-indicators">
+      {{#each table }}
+      <li data-target="#carouselExampleControls" data-slide-to="{{ @index }}" {{#if @first }}class="active"{{/if }}>{{ @key }}</li>
+      {{/each }}
+    </ol>
+    <div class="carousel-inner">
+      {{#each table }}
+      <div class="carousel-item {{#if @first }}active{{/if }}">
+        {{ groupPrefix @key }}
+        <table class="preds table">
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>Pred</th>
+              <th>Result</th>
+              <th>&nbsp;</th>
+            </th>
+          </thead>
+          <tbody>
+            {{#each this }}
+            <tr {{#if expired }}class="expired"{{/if }}>
+              <td><a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
+              <td class="pred {{#if joker }}joker{{/if }}">
+                {{#if expired }}
+                  <span>{{ pred }}</span>
+                  <input type="radio" disabled="disabled" {{#if joker }}checked{{/if }} />
+                {{ else }}
+                  <span class="ajax hide"><i class="fas fa-check-circle"></i></span><input placeholder="X-X" pattern="\d{1,2}-\d{1,2}" maxlength="5" tabindex="{{ mid }}" type="text" value="{{ pred }}" data-mid="{{ mid }}" />
+                  <input type="radio" data-mid="{{ mid }}" data-stage="{{ stage }}" name="joker[{{ @../key }}]" {{#if group_expired }}disabled="disabled"{{/if }} />
+                {{/if }}
+              </td>
+              <td>{{ result }}</td>
+              <td><a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a></td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+      </div>
+      {{/each }}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+</section>
+<style>
+  tr.expired td {
+    background-color: #ccc;
+  }
+</style>

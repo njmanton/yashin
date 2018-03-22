@@ -1,0 +1,19 @@
+<section>
+  <h3 data-uid="{{ user.id }}">quick links</h3>
+  <ul>
+    <li><a href="/predictions">edit predictions</a></li>
+    <li><a href="/leagues/add">add a new user league</a></li>
+    <li><a href="/users/invite">invite a friend</a></li>
+  </ul>
+  {{#if user.admin }}
+  <h3>admin options</h3>
+  <ul>
+    <li><a href="/admin/payment">manage payments</a></li>
+  </ul>
+  {{/if }}
+  <h3>your user leagues</h3>
+  <ol id="homeUserLeagues">
+    
+  </ol>
+  
+</section>

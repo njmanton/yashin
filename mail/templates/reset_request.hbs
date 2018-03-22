@@ -1,0 +1,15 @@
+<p>Hi {{ user }},</p>
+
+<p>You asked for your World Cup Goalmine password to be reset on {{ date }}.</p>
+
+<p>To reset your password, please click on <a href="https://worldcup.goalmine.eu/users/reset/{{ reset }}">this</a> link, or copy and paste the url below into a browser.</p>
+
+<pre>https://worldcup.goalmine.eu/users/reset/{{ reset }}</pre>
+
+<p>If you did not request a reset, please ignore this email and continue to access Goalmine as normal.</p>
+
+<footer>
+  <hr />
+  World Cup Goalmine v{{ app.version }} ({{ app.name }})
+  <small>mail sent by <a href="https://mailgun.org">mailgun</a>.</small>
+</footer>

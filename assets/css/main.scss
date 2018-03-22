@@ -1,0 +1,33 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css);
+@import url(/assets/flags/css/flag-icon.min.css);
+
+$table_hilite: #6c6;
+
+@import 'sass/_tables';
+@import 'sass/_forms';
+
+// debug screen for showing JSON passed to view
+.debug {
+  background-color: #222;
+  color: #fff;
+  font-family: monospace;
+  pre {
+    color: inherit;
+  }
+}
+
+header {
+  background-color: #222;
+  color: #fff;
+  margin-bottom: 1em;
+}
+
+.team-flag {
+  width: 15em;
+  &>div {
+    width: 100%;
+    padding-bottom: 75%;
+  } 
+}
+
+@import 'sass/_media'; // last

@@ -1,0 +1,30 @@
+<section>
+  <h4>Matches</h4>
+  {{#each matches }}
+  <table class="table">
+    <caption>{{ groupPrefix @key }}</caption>
+    <thead>
+      <tr>
+        <th>Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
+        <th>Venue</th>
+        <th>&nbsp;</th>
+        <th>Result</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this }}
+      <tr>
+        <td>{{ fdate }}</td>
+        <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
+        <td><a href="/teams/{{ TeamA.id }}">{{ TeamA.name }}</a></td>
+        <td>{{ result }}</td>
+        <td><a href="/teams/{{ TeamB.id }}">{{ TeamB.name }}</a></td>
+        <td><a href="/matches/{{ id }}"><i class="fas fa-eye"></i></a></td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+  {{/each }}
+</section>

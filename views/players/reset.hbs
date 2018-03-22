@@ -1,0 +1,23 @@
+<section>
+  <h2>Reset password</h2>
+
+  <p>You can now reset your password using the form below. Please enter the password associated with your account, and choose a new password (minimum 8 characters).</p>
+
+  <form action="/users/reset" id="resetPassword" method="post">
+    <fieldset class="form-group">
+      <label for="email">email</label>
+      <input class="form-control" type="email" disabled placeholder="email" id="email" value="{{ user.email }}" />
+      <span role="alert" class="intrainput" id="email-not-valid"></span><br />
+      <label for="password">password <small class="text-muted">(minimum 8 characters. some <a href="https://xkcd.com/936/" target="_blank">tips</a> for strong passwords)</small></label>
+      <input class="form-control" placeholder="min 8 characters" type="password" name="pwd" required id="password" />
+      <span role="alert" class="intrainput" id="password-not-valid"></span><br />
+      <label for="repeat">repeat password</label>
+      <input class="form-control" type="password" placeholder="repeat password" name="rpt" required id="repeat" />
+      <span role="alert" class="intrainput" id="password-not-repeated"></span><br />
+    </fieldset>
+    <input type="hidden" name="code" id="code" value="{{ user.resetpwd }}" />
+    <input type="hidden" name="email" value="{{ user.email }}" />
+    <input type="submit" id="confirm-reset" class="btn btn-primary" value="confirm" />
+  </form>
+
+</section>

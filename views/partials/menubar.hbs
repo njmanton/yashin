@@ -1,0 +1,13 @@
+<header class="{{#if dev }}dev_platform{{/if }}">
+  <span>
+    {{#if user}}
+    {{ user.username }} 
+    {{#if user.admin }}
+    <span class="badge badge-warning">admin</span>
+    {{/if }}
+    <a href="/logout">logout</a>
+    {{ else }}
+    <a href="/login">login</a>
+    {{/if }}
+  </span>
+</header>

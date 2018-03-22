@@ -2,12 +2,14 @@
 
 Goalmine v9 - World Cup Russia 2018
 
+Named in honour of [Lev Yashin](https://en.wikipedia.org/wiki/Lev_Yashin)
+
 ## History
 
-* **9.0 ([yashin](https://github.com/njmanton/yashin)**)
+* **9.0 ([yashin](https://github.com/njmanton/yashin))**
 June 2018 World Cup 2018
 
-* **8.0 ([dicanio](https://github.com/njmanton/dicanio)**)
+* **8.0 ([dicanio](https://github.com/njmanton/dicanio))**
 Summer 2017
 First premiership verison of Goalmine to use Node
 

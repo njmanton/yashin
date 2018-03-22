@@ -1,0 +1,27 @@
+<section>
+  <h3>Payments <i class="fas fa-lock" title="Admin function"></i></h3>
+  <div>
+    <table id="payments" class="table">
+      <thead>
+        <tr>
+          <th>Player</th>
+          <th>Paid?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users }}
+        <tr>
+          <td>{{ username }}</td>
+          <td>
+          {{#if paid }}
+          <i class="fas fa-check"></i>
+          {{ else }}
+          <input type="checkbox" data-uid="{{ id }}" />
+          {{/if }}
+          </td>
+        </tr>
+        {{/each }}
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,56 @@
+<section>
+  <h2>User Leagues</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>League</th>
+        <th>Organiser</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each confirmed }}
+      <tr>
+        <td>
+          <a href="/leagues/{{ id }}">{{ name }}</a>
+          {{#unless public }}<i class="fas fa-lock" title="private league"></i>{{/unless }}
+        </td>
+        <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+  <p>Public leagues are open to everyone. Leagues marked with a <i class="fas fa-lock"></i> are private. You can request to join these leagues.</p>
+
+  {{#if pending }}
+  <section class="admin">
+    <h4>Pending Leagues <i title="Admin function" class="fas fa-lock"></i></h4>
+
+    <table id="pending_league" class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Organiser</th>
+          <th>Decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each pending }}
+        <tr>
+          <td>{{ name }}</td>
+          <td>{{ description }}</td>
+          <td>{{ user.username }}</td>
+          <td>
+            <button type="button" data-decision="A" data-lid="{{ id }}" class="btn btn-success"><i class="fas fa-thumbs-up"></i></button>
+            <button type="button" data-decision="R" data-lid="{{ id }}" class="btn btn-danger"><i class="fas fa-thumbs-down"></i></button>
+          </td>
+        </tr>
+        {{/each }}
+      </tbody>
+    </table>
+  </section>
+  {{/if }}
+
+
+</section>

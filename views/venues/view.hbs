@@ -1,0 +1,36 @@
+<section>
+  <h3>{{ venue.stadium }}, <small>{{ venue.city }}</small></h3>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
+        <th>Stage</th>
+        <th>&nbsp;</th>
+        <th>Result</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each matches }}
+      <tr>
+        <td>{{ date }}</td>
+        <td>{{ groupPrefix stage }}</td>
+        {{#unless teama.id }}
+          <td>{{ teama.name }}</td>
+        {{ else }}
+          <td><a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
+        {{/unless }}
+        <td>{{ result }}</td>
+        {{#unless teamb.id }}
+          <td>{{ teamb.name }}</td>
+        {{ else }}
+          <td><a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a></td>
+        {{/unless }}        
+        <td><a href="/matches/{{ id }}"><i class="fas fa-eye"></i></a></td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+</section>
