@@ -20,13 +20,13 @@
         {{#unless teama.id }}
           <td>{{ teama.name }}</td>
         {{ else }}
-          <td><a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
+          <td><span class="flag-icon flag-icon-{{ teama.flag }}"></span> <a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
         {{/unless }}
         <td>{{ result }}</td>
         {{#unless teamb.id }}
           <td>{{ teamb.name }}</td>
         {{ else }}
-          <td><a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a></td>
+          <td><a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a> <span class="flag-icon flag-icon-{{ teamb.flag }}"></span></td>
         {{/unless }}        
         <td><a href="/matches/{{ id }}"><i class="fas fa-eye"></i></a></td>
       </tr>

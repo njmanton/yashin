@@ -13,7 +13,7 @@
     <tbody>
       {{#each data }}
       <tr>
-        <td><a href="/teams/{{ id }}">{{ name }}</a></td>
+        <td><span class="flag-icon flag-icon-{{ sname }}"></span> <a href="/teams/{{ id }}">{{ name }}</a></td>
         <td>{{ group }}</td>
         <td>{{ ranking }}</td>
       </tr>
