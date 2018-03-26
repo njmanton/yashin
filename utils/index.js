@@ -95,7 +95,11 @@ var utils = {
 
   validScore: score => {
     return !!score && !!score.match(/^\b\d{1,2}[-|_|=]\d{1,2}\b$/);
-  }
+  },
+
+  ldateFormat: () => { return 'ddd DD MMM, ha'; },
+
+  sdateFormat: () => { return 'DD/MM, ha'; }
 
 };
 

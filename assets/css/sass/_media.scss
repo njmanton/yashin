@@ -1,0 +1,15 @@
+.longdate {
+  display: none;
+}
+.shortdate {
+  display: table-cell;
+}
+
+@media (min-width: 992px) {
+  td.date::before {
+    content: attr(data-ld);
+  }
+  td.date span {
+    display: none;
+  }
+}

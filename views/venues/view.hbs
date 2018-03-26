@@ -15,7 +15,7 @@
     <tbody>
       {{#each matches }}
       <tr>
-        <td>{{ date }}</td>
+        <td class="date" data-ld="{{ date }}"><span>{{ sdate }}</span></td>
         <td>{{ groupPrefix stage }}</td>
         {{#unless teama.id }}
           <td>{{ teama.name }}</td>

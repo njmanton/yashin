@@ -1,70 +1,83 @@
-<section>
-  <h3>{{ team.name }}</h3>
-  <p>{{ team.coach }}</p>
-  <div class="team-flag">
-    <div class="flag-icon-background flag-icon-{{ team.sname }}"></div>
-  </div>
-  <section id="fixtures">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Stage</th>
-          <th>Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
-          <th>Venue</th>
-          <th>Opponent</th>
-          <th>Result</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each matches }}
-        <tr>
-          <td>{{ groupPrefix stage}}</td>
-          <td>{{ date }}</td>
-          <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
-          <td><span class="flag-icon flag-icon-{{ opponent.flag }}"></span> <a href="/teams/{{ opponent.id }}">{{ opponent.name }}</a></td>
-          <td>{{ result }}</td>
-          <td><a href="/matches/{{ id }}"><i title="view game" class="fas fa-eye"></i></a></td>
-        </tr>
-        {{/each }}
-      </tbody>
-    </table>
-    
-  </section>
+<section class="row" role="main">
 
-  <section id="grouptable">
+  <section class="sideteam col-md-4 col-lg-3">
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Played</th>
-          <th>Win</th>
-          <th>Draw</th>
-          <th>Lose</th>
-          <th>GF</th>
-          <th>GA</th>
-          <th>Points</th>
-          <th>GD</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each table }}
-        <tr class="{{#if sel }}self{{/if }}">
-          <td><span class="flag-icon flag-icon-{{ flag }}"></span> {{ name }}</td>
-          <td>{{ pl }}</td>
-          <td>{{ w }}</td>
-          <td>{{ d }}</td>
-          <td>{{ l }}</td>
-          <td>{{ gf }}</td>
-          <td>{{ ga }}</td>
-          <td>{{ pts }}</td>
-          <td>{{ gd }}</td>
-        </tr>
-        {{/each }}
-      </tbody>
-    </table>
-    
-  </section>
+    <h3>{{ team.name }}</h3>
+    <div class="team-flag">
+      <div class="flag-icon-background flag-icon-{{ team.sname }}"></div>
+    </div>
+    <p>Coach: {{ team.coach }}</p>
+    <p>FIFA <a href="https://www.fifa.com/fifa-world-ranking/ranking-table/men/" target="_blank">ranking</a>: {{ team.ranking }}</p>
   
+  </section>
+
+  <section class="col">
+
+    <section id="fixtures">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
+            <th>Venue</th>
+            <th>Opponent</th>
+            <th>Result</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each matches }}
+          <tr>
+            <td>{{ groupPrefix stage}}</td>
+            <td class="date" data-ld="{{ ldate }}"><span>{{ sdate }}</span></td>
+            <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
+            <td><span class="flag-icon flag-icon-{{ opponent.flag }}"></span> <a href="/teams/{{ opponent.id }}">{{ opponent.name }}</a></td>
+            <td>{{ result }}</td>
+            <td><a href="/matches/{{ id }}"><i title="view game" class="fas fa-eye"></i></a></td>
+          </tr>
+          {{/each }}
+        </tbody>
+      </table>
+      
+    </section>
+
+    <section id="grouptable">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Played</th>
+            <th>Win</th>
+            <th>Draw</th>
+            <th>Lose</th>
+            <th>GF</th>
+            <th>GA</th>
+            <th>Points</th>
+            <th>GD</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each table }}
+          <tr class="{{#if sel }}self{{/if }}">
+            <td><span class="flag-icon flag-icon-{{ flag }}"></span> {{ name }}</td>
+            <td>{{ pl }}</td>
+            <td>{{ w }}</td>
+            <td>{{ d }}</td>
+            <td>{{ l }}</td>
+            <td>{{ gf }}</td>
+            <td>{{ ga }}</td>
+            <td>{{ pts }}</td>
+            <td>{{ gd }}</td>
+          </tr>
+          {{/each }}
+        </tbody>
+      </table>
+      
+    </section>
+
+  </section>
+
+
+
 </section>

@@ -30,4 +30,9 @@ header {
   } 
 }
 
+// add a gap between online flag icon and team name
+.flag-icon {
+  margin-right: 0.5em;
+}
+
 @import 'sass/_media'; // last

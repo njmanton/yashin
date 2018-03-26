@@ -37,7 +37,10 @@ const controller = {
         attributes: ['id', 'stadium', 'city']
       }]
     }).then(data => {
-      data.map(m => { m.fdate = moment(m.date).format('ddd MMM DD'); });
+      data.map(m => { 
+        m.ldate = moment(m.date).format(utils.ldateFormat());
+        m.sdate = moment(m.date).format(utils.sdateFormat());
+      });
       res.render(folder + '/index', {
         title: 'Goalmine | Matches',
         matches: ga(data, 'stage'),

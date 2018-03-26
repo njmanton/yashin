@@ -269,6 +269,17 @@ $(function() {
     checkForm();
 
   })
+
+  $('#postPreview').on('click', function() {
+    $.post({
+      url: '/preview/',
+      data: { text: $('#leagueDesc').val() }
+    }).done(function(res) {
+      $('#postPreviewPane').html(res);
+    }).fail(function(e) {
+      $('#postPreviewPane').text(`Could not render text`);
+    })
+  })
   
 });
 

@@ -4,6 +4,7 @@
 const models  = require('../models'),
       folder  = 'teams',
       moment  = require('moment'),
+      utils   = require('../utils'),
       Promise = require('bluebird'),
       _       = require('lodash'),
       cfg     = require('../config');
@@ -76,7 +77,8 @@ const controller = {
 
           games.push({
             id: m.id,
-            date: moment(m.date).format('ddd DD MMM, HH:mm'),
+            ldate: moment(m.date).format(utils.ldateFormat()),
+            sdate: moment(m.date).format(utils.sdateFormat()),
             group: m.group,
             stage: m.stage,
             opponent: oppo,

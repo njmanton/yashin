@@ -16,7 +16,7 @@
     <tbody>
       {{#each this }}
       <tr>
-        <td>{{ fdate }}</td>
+        <td class="date" data-ld="{{ ldate }}"><span>{{ sdate }}</span></td>
         <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
         <td><a href="/teams/{{ TeamA.id }}">{{ TeamA.name }}</a></td>
         <td>{{ result }}</td>

@@ -33,6 +33,7 @@ const venue = (sequelize, DataTypes) => {
     classMethods: {
       getMatches: id => {
         const models = require('.'),
+              utils  = require('../utils'),
               moment = require('moment');
 
         return models.Match.findAll({
@@ -60,7 +61,8 @@ const venue = (sequelize, DataTypes) => {
             let row = {
               id: match.id,
               result: match.result || '-',
-              date: moment(match.date).format('ddd DD MMM, ha'),
+              date: moment(match.date).format(utils.ldateFormat()),
+              sdate: moment(match.date).format(utils.sdateFormat()),
               stage: match.stage,
               group: match.group,
               teama: {
