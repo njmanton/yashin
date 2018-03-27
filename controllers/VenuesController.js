@@ -32,6 +32,7 @@ const controller = {
             m = models.Venue.getMatches(id);
 
       Promise.join(v, m, (venue, matches) => {
+        venue.capacity = venue.capacity.toLocaleString();
         res.render(folder + '/view', {
           title: venue.stadium,
           matches: matches,
