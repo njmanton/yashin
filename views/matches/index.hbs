@@ -18,9 +18,9 @@
       <tr>
         <td class="date" data-ld="{{ ldate }}"><span>{{ sdate }}</span></td>
         <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
-        <td><a href="/teams/{{ TeamA.id }}">{{ TeamA.name }}</a></td>
+        <td><span class="flag-icon flag-icon-{{ TeamA.sname }}"></span><a href="/teams/{{ TeamA.id }}">{{ TeamA.name }}</a></td>
         <td>{{ result }}</td>
-        <td><a href="/teams/{{ TeamB.id }}">{{ TeamB.name }}</a></td>
+        <td><a href="/teams/{{ TeamB.id }}">{{ TeamB.name }}</a> <span class="flag-icon flag-icon-{{ TeamB.sname }}"></span></td>
         <td><a href="/matches/{{ id }}"><i class="fas fa-eye"></i></a></td>
       </tr>
       {{/each }}
