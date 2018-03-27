@@ -13,7 +13,7 @@ const controller = {
 
   get_index: function(req, res) {
     models.Team.findAll({
-      attributes: ['id', 'name', 'sname', 'group', 'coach', 'notes', 'ranking']
+      attributes: ['id', 'name', 'sname', 'group', 'coach', 'notes', 'ranking', 'confederation']
     }).then(teams => {
       res.render(folder + '/index', {
         title: 'All Teams',

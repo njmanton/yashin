@@ -27,6 +27,10 @@ const team = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(11),
       allowNull: true
     },
+    confederation: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     coach: {
       type: DataTypes.STRING,
       allowNull: true

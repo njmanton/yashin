@@ -7,7 +7,9 @@
       <tr>
         <th>Team</th>
         <th>Group</th>
+        <th>Coach</th>
         <th>Ranking</th>
+        <th>Confederation</th>
       </tr>
     </thead>
     <tbody>
@@ -15,7 +17,9 @@
       <tr>
         <td><span class="flag-icon flag-icon-{{ sname }}"></span> <a href="/teams/{{ id }}">{{ name }}</a></td>
         <td>{{ group }}</td>
+        <td>{{ coach }}</td>
         <td>{{ ranking }}</td>
+        <td>{{ confederation }}</td>
       </tr>
       {{/each }}
     </tbody>
