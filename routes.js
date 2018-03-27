@@ -4,6 +4,8 @@
 var models    = require('./models'),
     moment    = require('moment'),
     mail      = require('./mail'),
+    emoji     = require('node-emoji'),
+    marked    = require('marked'),
     fs        = require('fs'),
     utils     = require('./utils'),
     chalk     = require('chalk'),
@@ -103,6 +105,12 @@ const routes = app => {
     req.flash('info', 'Logged Off');
     res.redirect('/');
   });
+
+  // ajax route to emojify and markdown format submitted text, for previewing
+  app.post('/preview', utils.isAjax, (req, res) => {
+    console.log(req.body);
+    res.send(emoji.emojify(marked(req.body.text)));
+  })
 
   // any other static content
   app.get('/pages/:page', (req, res) => {
