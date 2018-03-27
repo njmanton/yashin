@@ -78,7 +78,7 @@ const controller = {
           table: table,
           pending: pending,
           usr: user,
-          debug: JSON.stringify([user, pending], null, 2)
+          //debug: JSON.stringify([user, pending], null, 2)
         })        
       } else {
         res.status(404).render('errors/404');
