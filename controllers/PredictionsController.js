@@ -36,7 +36,7 @@ const predictions = {
     // req.body.mid, req.body.uid, req.body.pred
     models.Match.findById(req.body.mid, { attributes: ['date'] }).then(match => {
 
-      let deadline = moment(match.date).startOf('day').subtract(2, 'h');
+      let deadline = moment(match.date).subtract(1, 'h');
       if (moment().isAfter(deadline) || match.result) {
         res.sendStatus(403);
       } else if (!req.body.pred.match(/^\b\d{1,2}-\d{1,2}\b$/)) {
@@ -84,7 +84,7 @@ const predictions = {
         let group_expired = false,
             upds = 0;
         Promise.each(preds, pred => {
-          const deadline = moment(pred.match.date).subtract(2, 'h'),
+          const deadline = moment(pred.match.date).subtract(1, 'h'),
                 expired = moment().isAfter(deadline);
 
           // jokers cannot be changed if the existing joker match is on an expired match
