@@ -1,13 +1,14 @@
 <section class="row" role="main">
 
-  <section class="sideteam col-md-4 col-lg-3">
+  <section class="sideteam col-md-4">
 
     <h3>{{ team.name }}</h3>
-    <div class="team-flag">
+{{!--     <div class="team-flag">
       <div class="flag-icon-background flag-icon-{{ team.sname }}"></div>
-    </div>
+    </div> --}}
+    <img class="logo" src="/img/logos/{{ team.sname }}_logo.png" alt="{{ team.name }} logo" />
     <p>Coach: {{ team.coach }}</p>
-    <p>FIFA <a href="https://www.fifa.com/fifa-world-ranking/ranking-table/men/" target="_blank">ranking</a>: {{ team.ranking }}</p>
+    <p>FIFA ranking: <a title="FIFA.com (external)" href="https://www.fifa.com/fifa-world-ranking/ranking-table/men/" target="_blank">{{ team.ranking }}</a></p>
   
   </section>
 
@@ -15,13 +16,14 @@
 
     <section id="fixtures">
       <table class="table">
+        <caption>Matches</caption>
         <thead>
           <tr>
             <th>Stage</th>
-            <th>Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
+            <th>Date <small>(<abbr title="British Summer Time" class="initialism">BST</abbr>)</small></th>
             <th>Venue</th>
             <th>Opponent</th>
-            <th>Result</th>
+            <th class="score">Result</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -32,7 +34,7 @@
             <td class="date" data-ld="{{ ldate }}"><span>{{ sdate }}</span></td>
             <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
             <td><span class="flag-icon flag-icon-{{ opponent.flag }}"></span> <a href="/teams/{{ opponent.id }}">{{ opponent.name }}</a></td>
-            <td>{{ result }}</td>
+            <td class="score">{{ result }}</td>
             <td><a href="/matches/{{ id }}"><i title="view game" class="fas fa-eye"></i></a></td>
           </tr>
           {{/each }}
@@ -44,16 +46,17 @@
     <section id="grouptable">
 
       <table class="table">
+        <caption>Group {{ team.group }} Table</caption>
         <thead>
           <tr>
             <th>Team</th>
-            <th>Played</th>
-            <th>Win</th>
-            <th>Draw</th>
-            <th>Lose</th>
-            <th>GF</th>
-            <th>GA</th>
-            <th>Points</th>
+            <th>Pl</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th class="hidesmall">GF</th>
+            <th class="hidesmall">GA</th>
+            <th>Pts</th>
             <th>GD</th>
           </tr>
         </thead>
@@ -65,8 +68,8 @@
             <td>{{ w }}</td>
             <td>{{ d }}</td>
             <td>{{ l }}</td>
-            <td>{{ gf }}</td>
-            <td>{{ ga }}</td>
+            <td class="hidesmall">{{ gf }}</td>
+            <td class="hidesmall">{{ ga }}</td>
             <td>{{ pts }}</td>
             <td>{{ gd }}</td>
           </tr>

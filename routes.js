@@ -8,6 +8,7 @@ var models    = require('./models'),
     marked    = require('marked'),
     fs        = require('fs'),
     utils     = require('./utils'),
+    Promise   = require('bluebird'),
     chalk     = require('chalk'),
     passport  = require('passport');
 
@@ -24,34 +25,36 @@ const routes = app => {
   });
 
   app.get('/home', utils.isAuthenticated, (req, res) => {
-    models.Pred.findAll({
-      where: { user_id: req.user.id },
-      include: {
-        model: models.Match,
-        attributes: ['id', 'date', 'result', 'group'],
-        include: [{
-          model: models.Team,
-          as: 'TeamA',
-          attributes: ['id', 'name', 'sname']
-        }, {
-          model: models.Team,
-          as: 'TeamB',
-          attributes: ['id', 'name', 'sname']
-        }]
-      }
-    }).then(preds => {
-      preds.map(p => {
-        let then = moment(p.match.date).startOf('day').add(19, 'h');
-        p.expired = (moment().isAfter(then) || (p.match.id < 37 ));
-      })
+    const m = models.User.missing(req.user.id),
+          p = models.Pred.findAll({
+            where: { user_id: req.user.id },
+            include: {
+              model: models.Match,
+              attributes: ['id', 'date', 'result', 'group'],
+              include: [{
+                model: models.Team,
+                as: 'TeamA',
+                attributes: ['id', 'name', 'sname']
+              }, {
+                model: models.Team,
+                as: 'TeamB',
+                attributes: ['id', 'name', 'sname']
+              }]
+            }
+          });
+
+    Promise.join(p, m, (preds, missing) => {
       res.render('home', {
         title: 'Goalmine | ' + req.user.username,
         data: req.user,
         preds: preds,
+        missing: missing,
         script: '/js/userleagues.js',
-        home: true
-      }); 
-    });
+        home: true,
+        debug: JSON.stringify([missing], null, 2)
+      })
+    })
+
   });
 
   app.get('/leaderboard', (req, res) => {

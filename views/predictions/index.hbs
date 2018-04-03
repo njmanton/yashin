@@ -25,14 +25,16 @@
               <td><a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
               <td class="pred {{#if joker }}joker{{/if }}">
                 {{#if expired }}
-                  <span>{{ pred }}</span>
+                  <span class="score">{{ pred }}</span>
                   <input type="radio" disabled="disabled" {{#if joker }}checked{{/if }} />
+                  <span class="ajax hide"><i class="fas fa-check-circle"></i></span>                  
                 {{ else }}
-                  <span class="ajax hide"><i class="fas fa-check-circle"></i></span><input placeholder="X-X" pattern="\d{1,2}-\d{1,2}" maxlength="5" tabindex="{{ mid }}" type="text" value="{{ pred }}" data-mid="{{ mid }}" />
+                  <input placeholder="X-X" pattern="\d{1,2}-\d{1,2}" class="score" maxlength="5" tabindex="{{ mid }}" type="text" value="{{ pred }}" data-mid="{{ mid }}" />
                   <input type="radio" data-mid="{{ mid }}" data-stage="{{ stage }}" name="joker[{{ @../key }}]" {{#if group_expired }}disabled="disabled"{{/if }} />
+                  <span class="ajax hide"><i class="fas fa-check-circle"></i></span>
                 {{/if }}
               </td>
-              <td>{{ result }}</td>
+              <td class="score">{{ result }}</td>
               <td><a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a></td>
             </tr>
             {{/each }}

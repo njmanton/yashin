@@ -14,8 +14,8 @@
       {{#each preds }}
       <tr>
         <td><a href="/teams/{{ match.TeamA.id }}">{{ match.TeamA.name }}</a></td>
-        <td>{{ prediction }}</td>
-        <td>{{ match.result }}</td>
+        <td class="score">{{ prediction }}</td>
+        <td class="score">{{ match.result }}</td>
         <td><a href="/teams/{{ match.TeamB.id }}">{{ match.TeamB.name }}</a></td>
       </tr>
       {{/each }}

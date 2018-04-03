@@ -15,5 +15,30 @@
   <ol id="homeUserLeagues">
     
   </ol>
+  <h3>My Predictions</h3>
+  <a href="/predictions">Edit</a>
+  {{#each missing }}
+  <div class="alert alert-danger">Stage {{ stage }} has {{ missing }} missing prediction(s).</div>
+  {{/each }}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Prediction</th>
+        <th>Result</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each preds }}
+      <tr>
+        <td>{{ match.TeamA.name }}</td>
+        <td class="score {{#if joker }}joker{{/if }} pts-{{ points }}">{{ prediction }}</td>
+        <td class="score">{{ match.result }}</td>
+        <td>{{ match.TeamB.name }}</td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
   
 </section>

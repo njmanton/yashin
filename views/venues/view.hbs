@@ -31,7 +31,7 @@
           {{ else }}
             <td><span class="flag-icon flag-icon-{{ teama.flag }}"></span> <a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
           {{/unless }}
-          <td>{{ result }}</td>
+          <td class="score">{{ result }}</td>
           {{#unless teamb.id }}
             <td>{{ teamb.name }}</td>
           {{ else }}

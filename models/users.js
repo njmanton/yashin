@@ -242,16 +242,16 @@ const user = (sequelize, DataTypes) => {
       missing: uid => {
 
         const models = require('.');
-        
+
         var qry = `SELECT
           M.stage AS stage,
           COUNT(M.id) AS missing
           FROM matches M
           LEFT JOIN predictions P
-          ON (P.match_id = M.id AND P.user_id = ${uid})
+          ON (P.match_id = M.id AND P.user_id = ?)
           WHERE (M.teama_id IS NOT NULL AND M.teamb_id IS NOT NULL AND P.user_id IS NULL)
           GROUP BY M.stage`;
-        return models.sequelize.query(qry, { type: sequelize.QueryTypes.SELECT });
+        return models.sequelize.query(qry, { replacements: [uid], type: sequelize.QueryTypes.SELECT });
       }
     }
   }, {

@@ -67,13 +67,13 @@ const controller = {
 
     Promise.join(m, p, g, (match, preds, goals) => {
       res.render(folder + '/view', {
-        title: `Match ${ match.id }`,
+        title: `Goalmine 2018 | ${ match.TeamA.name } vs ${ match.TeamB.name }`,
         dt: moment(match.date).format('DD MMM, HH:mm'),
         match: match,
         preds: preds,
         goals: goals,
         script: '/js/goalmap.js',
-        //debug: JSON.stringify([match, preds, goals], null, 2)
+        debug: JSON.stringify({match: match, preds: preds, goals: goals}, null, 2)
       })
     })
 

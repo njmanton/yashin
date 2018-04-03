@@ -5,6 +5,10 @@
   display: table-cell;
 }
 
+td.hidesmall, th.hidesmall {
+  display: none;
+}
+
 @media (min-width: 992px) {
   td.date::before {
     content: attr(data-ld);
@@ -12,4 +16,13 @@
   td.date span {
     display: none;
   }
+
+  td.hidesmall, th.hidesmall {
+    display: table-cell;
+  }
+
+  table.match td, table.match th {
+    font-size: 2em;
+  }
+
 }
