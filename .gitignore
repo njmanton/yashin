@@ -3,3 +3,4 @@ nodemon.json
 *.sublime*
 TODO.md
 logs/*.log
+*.*workspace
