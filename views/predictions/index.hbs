@@ -23,7 +23,7 @@
             {{#each this }}
             <tr {{#if expired }}class="expired"{{/if }}>
               <td><a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
-              <td class="pred {{#if joker }}joker{{/if }}">
+              <td class="pred">
                 {{#if expired }}
                   <span class="score">{{ pred }}</span>
                   <input type="radio" disabled="disabled" {{#if joker }}checked{{/if }} />
