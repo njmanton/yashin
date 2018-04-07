@@ -4,3 +4,4 @@ nodemon.json
 TODO.md
 logs/*.log
 *.*workspace
+.vscode/
