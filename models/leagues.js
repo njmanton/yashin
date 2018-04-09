@@ -96,15 +96,22 @@ const league = (sequelize, DataTypes) => {
           league = _.orderBy(league, ['order'], ['desc']);
           let row = 0,
               rank = 1,
-              prev = 0;
+              prev = 0,
+              dups = [];
           for (var x = 0; x < league.length; x++) {
             if (league[x].order == prev) {
               row++;
+              dups.push(league[x].order);
             } else {
               rank = ++row;
             }
             prev = league[x].order;
             league[x].rank = rank;
+          }
+          for (let x = 0; x < league.length; x++) {
+            if (~dups.indexOf(league[x].order)) {
+              league[x].rank += '=';
+            }
           }
           return league;
 
