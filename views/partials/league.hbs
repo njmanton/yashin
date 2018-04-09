@@ -1,0 +1,31 @@
+{{!template for user leagues }}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Place</th>
+      <th>Player</th>
+      <th><abbr title="Correct Score">CS</abbr></th>
+      <th><abbr title="Correct Difference">CD</abbr></th>
+      <th><abbr title="Correct Result">CR</abbr></th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if table }}
+    {{#each table }}
+    <tr class="{{#if sel }}selected{{/if }} {{#unless paid }}unpaid{{/unless }}">
+      <td>{{ rank }}</td>
+      <td><a href="/users/{{ uid }}">{{ name }}</a></td>
+      <td>{{ cs }}</td>
+      <td>{{ cd }}</td>
+      <td>{{ cr }}</td>
+      <td>{{ points }}</td>
+    </tr>
+    {{/each }}
+    {{ else }}
+    <tr>
+      <td colspan="6" style="text-align: center; ">No confirmed members of this league</td>
+    </tr>
+    {{/if }}
+  </tbody>
+</table>

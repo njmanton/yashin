@@ -16,10 +16,12 @@ const models    = require('../models'),
 const controller = {
 
   get_index: function(req, res) {
-    // main leaderboard
-    res.render(folder + '/index', {
-      title: 'Leaderboard'
-    });
+    models.User.table().then(table => {
+      res.render('leaderboard', {
+        title: 'leaderboard',
+        table: table
+      })
+    })
   },
 
   get_id: function(req, res, id) {

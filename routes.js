@@ -57,8 +57,14 @@ const routes = app => {
 
   });
 
+  // main leaderboard
   app.get('/leaderboard', (req, res) => {
-    res.render('players/index');
+    models.User.table().then(table => {
+      res.render('leaderboard', {
+        title: 'leaderboard',
+        table: table
+      })
+    })
   });
 
   // login
