@@ -131,14 +131,19 @@ const user = (sequelize, DataTypes) => {
               prev = 0,
               dups = [];
           for (var x = 0; x < league.length; x++) {
-            if (league[x].order == prev) {
-              row++;
-              dups.push(league[x].order);
+            if (league[x].paid) {
+              if (league[x].order == prev) {
+                row++;
+                dups.push(league[x].order);
+              } else {
+                rank = ++row;
+              }
+              prev = league[x].order;
+              league[x].rank = rank;              
             } else {
-              rank = ++row;
+              league[x].rank = '-';
             }
-            prev = league[x].order;
-            league[x].rank = rank;
+
           }
           for (let x = 0; x < league.length; x++) {
             if (~dups.indexOf(league[x].order)) {
