@@ -4,9 +4,8 @@
 const models  = require('../models'),
       folder = 'matches',
       moment  = require('moment'),
-      _       = require('lodash'),
       Promise = require('bluebird'),
-      utils     = require('../utils'),
+      utils   = require('../utils'),
       ga      = require('group-array'),
       cfg     = require('../config');
 
@@ -73,7 +72,7 @@ const controller = {
         preds: preds,
         goals: goals,
         script: '/js/goalmap.js',
-        debug: JSON.stringify({match: match, preds: preds, goals: goals}, null, 2)
+        //debug: JSON.stringify({match: match, preds: preds, goals: goals}, null, 2)
       })
     })
 
@@ -125,10 +124,7 @@ const controller = {
         res.send(null);
       }
     })
-
-
   }
-
 }
 
 module.exports = controller;
