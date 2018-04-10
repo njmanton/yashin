@@ -5,9 +5,7 @@ const models  = require('../models'),
       folder  = 'teams',
       moment  = require('moment'),
       utils   = require('../utils'),
-      Promise = require('bluebird'),
-      _       = require('lodash'),
-      cfg     = require('../config');
+      Promise = require('bluebird');
 
 const controller = {
 

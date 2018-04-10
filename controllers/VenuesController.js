@@ -3,10 +3,7 @@
 
 const models  = require('../models'),
       folder  = 'venues',
-      moment  = require('moment'),
-      Promise = require('bluebird'),
-      _       = require('lodash'),
-      cfg     = require('../config');
+      Promise = require('bluebird');
 
 const controller = {
 

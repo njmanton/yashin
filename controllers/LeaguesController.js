@@ -8,7 +8,7 @@ const models  = require('../models'),
       Promise = require('bluebird'),
       logger  = require('winston'),
       utils   = require('../utils'),
-      _       = require('lodash'),
+      _       = require('lodash/findIndex'),
       cfg     = require('../config');
 
 const controller = {
@@ -66,8 +66,8 @@ const controller = {
         const user = {
           id: uid,
           owner: (req.user && ((req.user.id == league.organiser) || req.user.admin)),
-          unconfirmed: ~_.findIndex(pending, { user_id: uid }),
-          member: (~_.findIndex(table, { uid: uid }))
+          unconfirmed: ~_(pending, { user_id: uid }),
+          member: (~_(table, { uid: uid }))
         }
 
         table.map(p => { p.sel = (p.uid == uid); });

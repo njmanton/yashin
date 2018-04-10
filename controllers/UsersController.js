@@ -9,9 +9,7 @@ const models    = require('../models'),
       Promise   = require('bluebird'),
       logger    = require('winston'),
       mail      = require('../mail/'),
-      moment    = require('moment'),
-      _         = require('lodash'),
-      cfg       = require('../config');
+      moment    = require('moment');
 
 const controller = {
 
