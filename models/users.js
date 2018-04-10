@@ -5,7 +5,7 @@ let moment  = require('moment'),
       mail  = require('../mail'),
         ga  = require('group-array'),
      utils  = require('../utils'), 
-         _  = require('lodash');
+         _  = require('lodash/orderBy');
 
 const user = (sequelize, DataTypes) => {
   return sequelize.define('users', {
@@ -125,8 +125,7 @@ const user = (sequelize, DataTypes) => {
           for (var prop in table) {
             league.push(table[prop]);
           }
-
-          league = _.orderBy(league, ['order'], ['desc']);
+          league = _(league, ['order'], ['desc']);
           let row = 0,
               rank = 1,
               prev = 0,

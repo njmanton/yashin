@@ -2,7 +2,7 @@
 'use strict';
 
 var utils  = require('../utils'),
-        _  = require('lodash');
+        _  = require('lodash/orderBy');
 
 const league = (sequelize, DataTypes) => {
   return sequelize.define('leagues', {
@@ -93,7 +93,7 @@ const league = (sequelize, DataTypes) => {
           for (var prop in table) {
             league.push(table[prop]);
           }
-          league = _.orderBy(league, ['order'], ['desc']);
+          league = _(league, ['order'], ['desc']);
           let row = 0,
               rank = 1,
               prev = 0,

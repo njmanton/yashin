@@ -1,7 +1,7 @@
 // jshint node: true, esversion: 6
 'use strict';
 
-let _ = require('lodash');
+let _ = require('lodash/orderBy');
 
 const team = (sequelize, DataTypes) => {
   return sequelize.define('teams', {
@@ -120,7 +120,7 @@ const team = (sequelize, DataTypes) => {
             table.push(group[prop]);
           }
           table.map(t => t.gd = t.gf - t.ga);
-          return _.orderBy(table, ['pts', 'gd', 'gf'], ['desc', 'desc', 'desc']);
+          return _(table, ['pts', 'gd', 'gf'], ['desc', 'desc', 'desc']);
 
         });        
       }
