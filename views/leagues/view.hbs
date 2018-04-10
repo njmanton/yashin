@@ -1,38 +1,9 @@
-<section>
+<section class="content">
   <h2 data-lid="{{ league.id }}">{{ league.name }}</h2>
   {{#if usr.owner }}You are the organiser{{ else }}<h5>Created by {{ league.user.username }}</h5>{{/if }}
   <p>{{ league.description }}</p>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Place</th>
-        <th>Player</th>
-        <th>CS</th>
-        <th>CD</th>
-        <th>CR</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#if table }}
-      {{#each table }}
-      <tr class="{{#if sel }}selected{{/if }}">
-        <td>{{ rank }}</td>
-        <td><a href="/users/{{ uid }}">{{ name }}</a></td>
-        <td>{{ cs }}</td>
-        <td>{{ cd }}</td>
-        <td>{{ cr }}</td>
-        <td>{{ points }}</td>
-      </tr>
-      {{/each }}
-      {{ else }}
-      <tr>
-        <td colspan="6" style="text-align: center; ">No confirmed members of this league</td>
-      </tr>
-      {{/if }}
-    </tbody>
-  </table>
+  {{>league }}
 
   {{#if user }}
     {{#unless usr.member }}
