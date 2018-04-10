@@ -2,11 +2,7 @@
 'use strict';
 
 const models  = require('../models'),
-      moment  = require('moment'),
-      utils   = require('../utils'),
-      folder  = 'goals',
-      _       = require('lodash'),
-      cfg     = require('../config');
+      folder  = 'goals';
 
 const controller = {
 
@@ -24,11 +20,10 @@ const controller = {
       res.render(folder + '/index', {
         data: goals,
         title: 'All Goals',
-        debug: JSON.stringify(goals, null, 2)
+        //debug: JSON.stringify(goals, null, 2)
       })
     })
   }
-
 }
 
 module.exports = controller;
