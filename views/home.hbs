@@ -1,44 +1,50 @@
-<section>
-  <h3 data-uid="{{ user.id }}">quick links</h3>
-  <ul>
-    <li><a href="/predictions">edit predictions</a></li>
-    <li><a href="/leagues/add">add a new user league</a></li>
-    <li><a href="/users/invite">invite a friend</a></li>
-  </ul>
-  {{#if user.admin }}
-  <h3>admin options</h3>
-  <ul>
-    <li><a href="/admin/payment">manage payments</a></li>
-  </ul>
-  {{/if }}
-  <h3>your user leagues</h3>
-  <ol id="homeUserLeagues">
-    
-  </ol>
-  <h3>My Predictions</h3>
-  <a href="/predictions">Edit</a>
-  {{#each missing }}
-  <div class="alert alert-danger">Stage {{ stage }} has {{ missing }} missing prediction(s).</div>
-  {{/each }}
-  <table class="table">
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th>Prediction</th>
-        <th>Result</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each preds }}
-      <tr>
-        <td>{{ match.TeamA.name }}</td>
-        <td class="score {{#if joker }}joker{{/if }} pts-{{ points }}">{{ prediction }}</td>
-        <td class="score">{{ match.result }}</td>
-        <td>{{ match.TeamB.name }}</td>
-      </tr>
-      {{/each }}
-    </tbody>
-  </table>
+<section class="content row">
+  <div class="col-md-4">
+    <h3 data-uid="{{ user.id }}">quick links</h3>
+    <ul>
+      <li><a href="/predictions">edit predictions</a></li>
+      <li><a href="/leagues/add">add a new user league</a></li>
+      <li><a href="/users/invite">invite a friend</a></li>
+    </ul>
+    {{#if user.admin }}
+    <h3>admin options</h3>
+    <ul>
+      <li><a href="/admin/payment">manage payments</a></li>
+    </ul>
+    {{/if }}
+    <h3>your user leagues</h3>
+    <ol id="homeUserLeagues">
+      
+    </ol>    
+  </div>
+
+  <div class="col-md-8">
+    <h3>My Predictions</h3>
+    <a href="/predictions">Edit</a>
+    {{#each missing }}
+    <div class="alert alert-danger">Stage {{ stage }} has {{ missing }} missing prediction(s).</div>
+    {{/each }}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Prediction</th>
+          <th>Result</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each preds }}
+        <tr>
+          <td>{{ match.TeamA.name }}</td>
+          <td class="score {{#if joker }}joker{{/if }} pts-{{ points }}">{{ prediction }}</td>
+          <td class="score">{{ match.result }}</td>
+          <td>{{ match.TeamB.name }}</td>
+        </tr>
+        {{/each }}
+      </tbody>
+    </table>
+  </div>
+
   
 </section>
