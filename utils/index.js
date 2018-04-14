@@ -99,7 +99,9 @@ var utils = {
 
   ldateFormat: () => { return 'ddd DD MMM, ha'; },
 
-  sdateFormat: () => { return 'DD/MM, ha'; }
+  sdateFormat: () => { return 'DD/MM, ha'; },
+
+  ddateFormat: () => { return 'dddd DD MMM'; }
 
 };
 

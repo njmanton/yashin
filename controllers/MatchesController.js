@@ -9,33 +9,39 @@ const models  = require('../models'),
       ga      = require('group-array'),
       cfg     = require('../config');
 
+const getMatches = order => {
+
+  return models.Match.findAll({
+    order: order ? 'date ASC, stageorder DESC' : 'stageorder DESC, date ASC',
+    where: [{ teama_id: { ne: null } }, { teamb_id: { ne: null } }],
+    attributes: [
+      'id', 
+      'result',
+      'date', 
+      'group',
+      'stage'
+    ],
+    include: [{
+      model: models.Team,
+      as: 'TeamA',
+      attributes: ['id', 'name', 'sname']
+    }, {
+      model: models.Team,
+      as: 'TeamB',
+      attributes: ['id', 'name', 'sname']
+    }, {
+      model: models.Venue,
+      attributes: ['id', 'stadium', 'city']
+    }]
+  })
+
+};
+
 const controller = {
 
   get_index: function(req, res) {
 
-    models.Match.findAll({
-      order: 'stageorder DESC, date ASC',
-      where: [{ teama_id: { ne: null } }, { teamb_id: { ne: null } }],
-      attributes: [
-        'id', 
-        'result',
-        'date', 
-        'group',
-        'stage'
-      ],
-      include: [{
-        model: models.Team,
-        as: 'TeamA',
-        attributes: ['id', 'name', 'sname']
-      }, {
-        model: models.Team,
-        as: 'TeamB',
-        attributes: ['id', 'name', 'sname']
-      }, {
-        model: models.Venue,
-        attributes: ['id', 'stadium', 'city']
-      }]
-    }).then(data => {
+    getMatches(false).then(data => {
       data.map(m => { 
         m.ldate = moment(m.date).format(utils.ldateFormat());
         m.sdate = moment(m.date).format(utils.sdateFormat());
@@ -43,7 +49,25 @@ const controller = {
       res.render(folder + '/index', {
         title: 'Goalmine | Matches',
         matches: ga(data, 'stage'),
+        dateorder: false,
         //debug: JSON.stringify(ga(data, 'stage'), null, 2)
+      });
+    });
+
+  },
+
+  get_date: function(req, res) {
+
+    getMatches(true).then(data => {
+      data.map(m => { 
+        m.ddate = moment(m.date).format(utils.ddateFormat());
+        m.time = moment(m.date).format('ha');
+      });
+      res.render(folder + '/index', {
+        title: 'Goalmine | Matches',
+        matches: ga(data, 'ddate'),
+        dateorder: true,
+        //debug: JSON.stringify(ga(data, 'ddate'), null, 2)
       });
     });
 

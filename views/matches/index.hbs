@@ -5,7 +5,12 @@
     <caption>{{ groupPrefix @key }}</caption>
     <thead>
       <tr>
+        {{#if ../dateorder }}
+        <th>Group</th>
+        <th>Time <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
+        {{ else }}
         <th>Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
+        {{/if }}
         <th class="hidesmall">Venue</th>
         <th>&nbsp;</th>
         <th>Result</th>
@@ -16,10 +21,15 @@
     <tbody>
       {{#each this }}
       <tr>
+        {{#if ../../dateorder }}
+        <td>{{ group }}</td>
+        <td>{{ time }}</td>
+        {{ else }}
         <td class="date" data-ld="{{ ldate }}"><span>{{ sdate }}</span></td>
+        {{/if }}
         <td class="hidesmall"><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
         <td><span class="flag-icon flag-icon-{{ TeamA.sname }}"></span><a href="/teams/{{ TeamA.id }}">{{ TeamA.name }}</a></td>
-        <td class="score">{{ result }}</td>
+        <td class="score">{{#if result }}{{ result }}{{ else }}<span style="color: #aaa;">v</span>{{/if }}</td>
         <td><a href="/teams/{{ TeamB.id }}">{{ TeamB.name }}</a> <span class="flag-icon flag-icon-{{ TeamB.sname }}"></span></td>
         <td><a href="/matches/{{ id }}"><i class="fas fa-eye"></i></a></td>
       </tr>
