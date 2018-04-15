@@ -23,6 +23,10 @@ const team = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    code: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     ranking: {
       type: DataTypes.INTEGER(11),
       allowNull: true
