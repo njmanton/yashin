@@ -1,21 +1,18 @@
-<nav class="footer">
+<footer class="footer">
   <hr />
-  <footer>
-    <ul>
-      <li><a href="/">home</a></li>
-      {{#if user }}
-      <li><a href="/home">my predictions</a></li>
-      {{/if }}
-      <li><a href="/leagues">user leagues</a></li>
-      <li><a href="/teams">teams</a></li>
-      <li><a href="/matches">matches</a></li>
-      <li><a href="/venues">venues</a></li>
-      <li><a href="/goals">goals</a></li>
-    </ul>
-
-    <small>World Cup Goalmine v{{ pkg.version }} ({{ pkg.name }}). {{#if dev }}<i>(dev)</i>{{/if }}</small>
-  </footer>
-</nav>
+  <nav class="foot row">
+    <div class="col-md-2 d-none d-md-block"></div>
+    <div class="col-md-4 col-sm-6"><a href="/">{{>shirt }}HOME</a></div>
+    <div class="col-md-4 col-sm-6"><a href="/leaderboard">{{>shirt }}LEADERBOARD</a></div>
+    <div class="col-md-2 d-none d-md-block"></div>
+    <div class="col-md-4 col-sm-6"><a href="/leagues">{{>shirt }}LEAGUES</a></div>
+    <div class="col-md-4 col-sm-6"><a href="/teams">{{>shirt }}TEAMS</a></div>
+    <div class="col-md-4 col-sm-6"><a href="/matches">{{>shirt }}MATCHES</a></div>
+    <div class="col-md-4 col-sm-6"><a href="/venues">{{>shirt }}VENUES</a></div>
+    <div class="col-md-4 col-sm-6"><a href="/goals">{{>shirt }}GOALS</a></div>
+    <div class="col-md-4 col-sm-6"><a href="/home">{{>shirt }}PREDICTIONS</a></div>
+  </nav>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
