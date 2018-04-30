@@ -90,7 +90,7 @@ const user = (sequelize, DataTypes) => {
                   rank: 0,
                   name: name,
                   paid: preds[x].user.paid,
-                  id: preds[x].user.id,
+                  uid: preds[x].user.id,
                   points: 0,
                   preds: 0,
                   cs: 0,
@@ -116,7 +116,7 @@ const user = (sequelize, DataTypes) => {
               table[name].order = table[name].points + 
                                   (table[name].cs / 100) +
                                   (table[name].cd / 10000) +
-                                  (table[name].cr / 1000000);              
+                                  (table[name].cr / 1000000);         
             }
           }
 
@@ -169,11 +169,11 @@ const user = (sequelize, DataTypes) => {
           }, {
             model: models.Team,
             as: 'TeamA',
-            attributes: ['id', 'name', 'sname']
+            attributes: ['id', 'name', 'sname', 'code']
           }, {
             model: models.Team,
             as: 'TeamB',
-            attributes: ['id', 'name', 'sname']
+            attributes: ['id', 'name', 'sname', 'code']
           }, {
             model: models.Venue,
             attributes: ['id', 'stadium', 'city']
@@ -190,12 +190,14 @@ const user = (sequelize, DataTypes) => {
               teama: {
                 id: m.TeamA.id,
                 name: m.TeamA.name,
-                sname: m.TeamA.sname
+                sname: m.TeamA.sname,
+                code: m.TeamA.code
               },
               teamb: {
                 id: m.TeamB.id,
                 name: m.TeamB.name,
-                sname: m.TeamB.sname
+                sname: m.TeamB.sname,
+                code: m.TeamB.code
               },
               venue: {
                 id: m.venue.id,
