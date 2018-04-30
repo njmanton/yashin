@@ -89,7 +89,7 @@ const user = (sequelize, DataTypes) => {
                 table[name] = {
                   rank: 0,
                   name: name,
-                  paid: preds[x].user.paid,
+                  unpaid: !preds[x].user.paid,
                   uid: preds[x].user.id,
                   points: 0,
                   preds: 0,
@@ -131,7 +131,7 @@ const user = (sequelize, DataTypes) => {
               prev = 0,
               dups = [];
           for (var x = 0; x < league.length; x++) {
-            if (league[x].paid) {
+            if (!league[x].unpaid) {
               if (league[x].order == prev) {
                 row++;
                 dups.push(league[x].order);

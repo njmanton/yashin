@@ -13,7 +13,7 @@
   <tbody>
     {{#if table }}
     {{#each table }}
-    <tr class="{{#if sel }}selected{{/if }} {{#unless paid }}unpaid{{/unless }}">
+    <tr class="{{#if sel }}selected{{/if }} {{#if unpaid }}unpaid{{/if }}">
       <td>{{ rank }}</td>
       <td><a href="/users/{{ uid }}">{{ name }}</a></td>
       <td>{{ cs }}</td>
