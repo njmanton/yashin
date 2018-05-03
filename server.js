@@ -27,6 +27,8 @@ const hbs = bars.create({
   }
 });
 
+moment.locale('en-GB');
+
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
