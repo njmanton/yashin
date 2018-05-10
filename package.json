@@ -29,7 +29,7 @@
     "flag-icon-css": "^3.0.0",
     "group-array": "^0.3.3",
     "lodash": "^4.17.5",
-    "mailgun-js": "^0.16.0",
+    "mailgun-js": "^0.18.0",
     "marked": "^0.3.18",
     "moment": "^2.22.1",
     "mysql": "^2.15.0",
