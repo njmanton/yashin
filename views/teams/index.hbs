@@ -1,27 +1,30 @@
-<section class="content">
-  
-  <h4>Teams</h4>
+<section class="content row justify-content-center">
+  <div class="col-md-8">
+    <h2>Teams</h2>
 
-  <table id="teams" class="list table">
-    <thead>
-      <tr>
-        <th>Team</th>
-        <th>Group</th>
-        <th>Coach</th>
-        <th>Ranking</th>
-        <th class="hidesmall">Confederation</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each data }}
-      <tr>
-        <td><span class="flag-icon flag-icon-{{ sname }}"></span> <a href="/teams/{{ id }}">{{ name }}</a></td>
-        <td>{{ group }}</td>
-        <td>{{ coach }}</td>
-        <td>{{ ranking }}</td>
-        <td class="hidesmall">{{ confederation }}</td>
-      </tr>
-      {{/each }}
-    </tbody>
-  </table>
+    <table id="teams" class="list table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th style="width: 4em;">Group</th>
+          <th>Coach</th>
+          {{!-- <th>Ranking <a href="https://www.fifa.com/fifa-world-ranking/ranking-table/men/"><i class="fas fa-external-link-alt"></i></a></th> --}}
+          <th style="width: 7em;" class="narrow">Ranking <sup><a href="/" title="FIFA world ranking">[1]</a></sup></th>
+          <th class="hidesmall">Confederation</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data }}
+        <tr>
+          <td><span class="flag-icon flag-icon-{{ sname }}"></span> <a href="/teams/{{ id }}">{{ name }}</a></td>
+          <td style="width: 4em;">{{ group }}</td>
+          <td>{{ coach }}</td>
+          <td style="width: 7em;" class="narrow">{{ ranking }}</td>
+          <td class="hidesmall">{{ confederation }}</td>
+        </tr>
+        {{/each }}
+      </tbody>
+    </table>    
+  </div>
+
 </section>
