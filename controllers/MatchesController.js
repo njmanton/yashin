@@ -95,8 +95,11 @@ const controller = {
         match: match,
         preds: preds,
         goals: goals,
-        script: '/js/goalmap.js',
-        //debug: JSON.stringify({match: match, preds: preds, goals: goals}, null, 2)
+        scripts: [
+          'https://code.highcharts.com/highcharts.js', 
+          'https://code.highcharts.com/modules/heatmap.js',
+          '/js/goalmap.js'
+        ]
       })
     })
 
