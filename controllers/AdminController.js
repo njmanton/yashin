@@ -6,8 +6,7 @@ const models  = require('../models'),
       mail    = require('../mail/'),
       logger  = require('winston'),
       Promise = require('bluebird'),
-      utils   = require('../utils/'),
-      cfg     = require('../config');
+      utils   = require('../utils/');
 
 const controller = {
 
@@ -20,7 +19,7 @@ const controller = {
         result: req.body.result
       }, {
         where: { id: req.body.mid }
-      }).then(upd => {
+      }).then(() => {
         logger.info(`match ${ req.body.mid } result updated to ${ req.body.result }`);
         const preds = models.Pred.findAll({
           where: { match_id: req.body.mid }
@@ -29,13 +28,13 @@ const controller = {
           const score = utils.calc(pred.prediction, req.body.result, pred.joker);
           pred.update({
             points: score
-          })
+          });
         }).then(e => {
           req.flash('success', `Result set to ${ req.body.result }, updating ${ e.length } predictions`);
           res.redirect('/matches/' + req.body.mid);            
-        })
+        });
 
-      })
+      });
 
     } else {
 
@@ -64,23 +63,23 @@ const controller = {
 
     models.User.findById(req.body.payee).then(user => {
       if (user) {
-        user.update({ paid: 1 }).then(rows => {
-          logger.info(`payment confirmed for ${ user.username } (${ user.id })`)
-          const subject = 'Goalmine 2018 payment confirmed',
-                template = 'payment.hbs',
-                context = {
-                  user: user.username
-                };
+        user.update({ paid: 1 }).then(() => {
+          logger.info(`payment confirmed for ${ user.username } (${ user.id })`);
+          // const subject = 'Goalmine 2018 payment confirmed',
+          //       template = 'payment.hbs',
+          //       context = {
+          //         user: user.username
+          //       };
 
           // mail.send(user.email, null, subject, template, context, res => {
           //   res.send(res);
           // })
           res.status(200).send('email sent');
-        })
+        });
       } else {
         res.status(400).send('user not found');
       }
-    })
+    });
 
   }],
 
@@ -116,13 +115,13 @@ const controller = {
                       league: league.name,
                       id: league.id
                     };
-              mail.send(league.user.email, null, subject, template, context, mailres => {
+              mail.send(league.user.email, null, subject, template, context, () => {
                 res.send('accepted');                
-              })
+              });
             } else {
               res.send('error');
             }
-          })
+          });
         } else if (req.body.decision == 'R') {
           // reject, so destroy the unconfirmed league
           league.destroy().then(league => {
@@ -135,11 +134,11 @@ const controller = {
                     id: league.id
                   };
 
-            mail.send(league.user.email, null, subject, template, context, mailres => {
+            mail.send(league.user.email, null, subject, template, context, () => {
               res.send('rejected');
-            })
+            });
             
-          })
+          });
         } else {
           res.send('error');
         }
@@ -147,7 +146,7 @@ const controller = {
         res.status(404).render('errors/404');
       }
 
-    })
+    });
   }],
 
   get_goals_id: [utils.isAdmin, function(req, res, id) {
@@ -179,16 +178,15 @@ const controller = {
         res.render(folder + '/goals', {
           data: match,
           title: 'Manage Goals',
-          debug: JSON.stringify(match, null, 2)
-        })
+          //debug: JSON.stringify(match, null, 2)
+        });
       } else {
         res.status(404).render('errors/404');
       }
-    })
+    });
   }],
 
   post_goals_add: [utils.isAdmin, function(req, res) {
-    console.log(req.body);
     if (!req.body.scorer || !req.body.team || req.body.time < 1 || req.body.time > 120) {
       req.flash('error', 'something wrong with that data');
       res.redirect(req.headers.referer);
@@ -202,14 +200,14 @@ const controller = {
         type: req.body.type || null
       }).then(goal => {
         if (goal) {
-          logger.info(`new goal added: ${ req.body.scorer } in match ${ req.body.team }`)
+          logger.info(`new goal added: ${ req.body.scorer } in match ${ req.body.team }`);
           req.flash('success', 'Goal added');
         } else {
-          logger.error(`Error adding goal to database`);
-          req.flash('error', `Couldn't save data`);
+          logger.error('Error adding goal to database');
+          req.flash('error', 'Couldn\'t save data');
         }
         res.redirect(req.headers.referer);
-      })      
+      });
     }
   }],
 
@@ -218,9 +216,9 @@ const controller = {
       where: { id: id }
     }).then(r => {
       res.send(r > 0);
-    })
+    });
   }]
 
-}
+};
 
 module.exports = controller;

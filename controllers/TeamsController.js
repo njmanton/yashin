@@ -17,8 +17,8 @@ const controller = {
         title: 'All Teams',
         data: teams,
         //debug: JSON.stringify(teams, null, 2)
-      })
-    })
+      });
+    });
   },
 
   get_id: function(req, res, id) {
@@ -98,15 +98,14 @@ const controller = {
       } else {
         res.status(404).render('errors/404');
       }
-    })
-
+    });
   },
 
   get_id_table: function(req, res, id) {
     models.Team.table(id).then(table => {
       res.send(table);
-    })
+    });
   }
-}
+};
 
 module.exports = controller;

@@ -44,8 +44,7 @@ const goal = (sequelize, DataTypes) => {
 
         // first get the team ids so we can put goals into correct bucket
         return models.Match.findById(mid, { attributes: ['teama_id', 'teamb_id'] }).then(match => {
-          const home = match.teama_id,
-                away = match.teamb_id;
+          const home = match.teama_id;
           // get all the goals for that match
           return models.Goal.findAll({
             where: { match_id: mid },
@@ -56,10 +55,9 @@ const goal = (sequelize, DataTypes) => {
               let arr = { home: [], away: [] };
               for (var x = 0; x < goals.length; x++) {
                 let goal = goals[x],
-                    scorer = `${ goal.scorer } ${ goal.time }`,
-                    team = (home == goal.team_id) ? 'home': 'away';
+                    scorer = `${ goal.scorer } ${ goal.time }`;
                 
-                scorer += ((goal.tao) ? `+${ goal.tao }` : '') + "'";
+                scorer += ((goal.tao) ? `+${ goal.tao }` : '') + '\'';
                 // each goal is a string
                 if (home == goal.team_id) {
                   arr.home.push(scorer);
@@ -68,8 +66,8 @@ const goal = (sequelize, DataTypes) => {
                 }
               }
             return arr;
-          })
-        })
+          });
+        });
 
       }
     }

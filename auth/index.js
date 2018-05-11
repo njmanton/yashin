@@ -5,7 +5,6 @@ var models              = require('../models'),
     bCrypt              = require('bcrypt-nodejs'),
     passport            = require('passport'),
     logger              = require('winston'),
-    config              = require('../config'),
     moment              = require('moment'),
     LocalStrategy       = require('passport-local').Strategy;
     //FacebookStrategy    = require('passport-facebook').Strategy,
@@ -35,7 +34,6 @@ module.exports = app => {
             return done(null, false, { message: 'incorrect password' });
           }
         } catch(e) {
-          console.log(e);
           return done(null, false, { message: 'problem entering password' });
         }
         let now = moment().format('YYYY-MM-DD HH:mm:ss');

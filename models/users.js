@@ -82,7 +82,7 @@ const user = (sequelize, DataTypes) => {
           }]
         }).then(preds => {
           var table = {};
-          for (var x = 0; x < preds.length; x++) {
+          for (let x = 0; x < preds.length; x++) {
             if (preds[x].user) {
               var name = preds[x].user.username;
               if (!(name in table)) {
@@ -130,7 +130,7 @@ const user = (sequelize, DataTypes) => {
               rank = 1,
               prev = 0,
               dups = [];
-          for (var x = 0; x < league.length; x++) {
+          for (let x = 0; x < league.length; x++) {
             if (!league[x].unpaid) {
               if (league[x].order == prev) {
                 row++;

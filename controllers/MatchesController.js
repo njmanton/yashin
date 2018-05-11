@@ -6,8 +6,7 @@ const models  = require('../models'),
       moment  = require('moment'),
       Promise = require('bluebird'),
       utils   = require('../utils'),
-      ga      = require('group-array'),
-      cfg     = require('../config');
+      ga      = require('group-array');
 
 const getMatches = order => {
 
@@ -33,7 +32,7 @@ const getMatches = order => {
       model: models.Venue,
       attributes: ['id', 'stadium', 'city']
     }]
-  })
+  });
 
 };
 
@@ -100,8 +99,8 @@ const controller = {
           'https://code.highcharts.com/modules/heatmap.js',
           '/js/goalmap.js'
         ]
-      })
-    })
+      });
+    });
 
   },
 
@@ -138,7 +137,7 @@ const controller = {
             sumprod[0] += pred.cnt * goals[0];
             sumprod[1] += pred.cnt * goals[1];
             total += pred.cnt;
-            hc.push([goals[0], goals[1], pred.cnt])
+            hc.push([goals[0], goals[1], pred.cnt]);
           }
         }
         res.send ({
@@ -150,8 +149,8 @@ const controller = {
       } else {
         res.send(null);
       }
-    })
+    });
   }
-}
+};
 
 module.exports = controller;

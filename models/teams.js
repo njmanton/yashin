@@ -48,7 +48,7 @@ const team = (sequelize, DataTypes) => {
       
       table: id => {
 
-        const models = require('.')
+        const models = require('.');
         return models.Match.findAll({
           where: { group: [sequelize.literal('SELECT `group` FROM teams WHERE id = ' + id)] },
           attributes: ['id', 'result'],

@@ -30,14 +30,14 @@ const controller = {
       goals.map(goal => {
         goal.oppo = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.name'] : goal['match.TeamA.name'];
         goal.oppoflag = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.sname'] : goal['match.TeamA.sname'];
-      })
+      });
       res.render(folder + '/index', {
         data: goals,
         title: 'All Goals',
         //debug: JSON.stringify(goals, null, 2)
-      })
-    })
+      });
+    });
   }
-}
+};
 
 module.exports = controller;

@@ -56,9 +56,8 @@ const predictions = {
               prediction: req.body.pred
             }).then(() => { res.status(200).send('created'); });
           }
-          logger.info(`user ${ req.user.username } set prediction ${ req.body.pred } on match ${ req.body.mid }`)
+          logger.info(`user ${ req.user.username } set prediction ${ req.body.pred } on match ${ req.body.mid }`);
         }).catch(e => {
-          console.log(e);
           logger.error(e);
           res.status(400).send('unable to save');
         });
@@ -97,17 +96,15 @@ const predictions = {
               joker: (req.body.mid == pred.match_id)
             });
           }
-        }).then(pe => {
+        }).then(() => {
           logger.info(`user ${ req.user.username } set joker on match ${ req.body.mid } for stage ${ req.body.stage }`);
           res.send({ updates: upds });       
-        })
-      })
+        });
+      });
     } else {
       res.send(false);
     }
-
   }]
-
-}
+};
 
 module.exports = predictions;

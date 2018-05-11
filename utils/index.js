@@ -7,7 +7,7 @@ const debug = {
   auth:   0, // override authorise-only restriction
   admin:  0, // override admin-only restriction
   anon:   0  // override anon-only restriction
-}
+};
 
 const points = {
   win: 5,
@@ -101,7 +101,7 @@ var utils = {
 
   sdateFormat: () => { return 'DD/MM, ha'; },
 
-  ddateFormat: () => { return 'dddd DD MMM'; }
+  ddateFormat: () => { return 'dddd DD MMMM'; }
 
 };
 

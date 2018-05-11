@@ -79,7 +79,7 @@ const venue = (sequelize, DataTypes) => {
             arr.push(row);            
           }
           return arr;
-        })
+        });
       }
     }
   }, {

@@ -14,13 +14,13 @@ const controller = {
         attributes: ['id']
       }
     }).then(venues => {
-      venues.map(v => { v.capacity = v.capacity.toLocaleString(); })
+      venues.map(v => { v.capacity = v.capacity.toLocaleString(); });
       res.render(folder + '/index', {
         title: 'Venues',
         data: venues,
         //debug: JSON.stringify(venues, null, 2)
-      })    
-    })
+      });
+    });
   },
 
   get_id: function(req, res, id) {
@@ -34,15 +34,12 @@ const controller = {
           title: venue.stadium,
           matches: matches,
           venue: venue,
-          //debug: JSON.stringify([venue, matches], null, 2)
-        })
-      })
+        });
+      });
     } else {
       res.status(404).render('errors/404');
     }
-
   }
-
-}
+};
 
 module.exports = controller;

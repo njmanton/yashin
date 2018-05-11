@@ -19,7 +19,7 @@ const mail = {
     context.app = {
       version: pkg.version,
       name: pkg.name
-    }
+    };
 
     const data = {
       from: '<no-reply@worldcup.goalmine.eu>',
@@ -34,12 +34,9 @@ const mail = {
       done(response);
     }, err => {
       logger.error(`${ template_file } not sent for user ${ recipient }`);
-      console.log(err);
       done(err);
     });
-
   },
-
 };
 
 module.exports = mail;

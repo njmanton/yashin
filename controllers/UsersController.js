@@ -4,7 +4,6 @@
 const models    = require('../models'),
       bCrypt    = require('bcrypt-nodejs'),
       folder    = 'players',
-      passport  = require('passport'),
       utils     = require('../utils'),
       Promise   = require('bluebird'),
       logger    = require('winston'),
@@ -18,8 +17,8 @@ const controller = {
       res.render('leaderboard', {
         title: 'leaderboard',
         table: table
-      })
-    })
+      });
+    });
   },
 
   get_id: function(req, res, id) {
@@ -58,7 +57,7 @@ const controller = {
             if (deadline.isAfter(now) && !pred.match.result) {
               pred.prediction = '?-?';
             }
-          })
+          });
           res.render(folder + '/view', {
             title: user.username,
             player: user,
@@ -68,9 +67,7 @@ const controller = {
         } else {
           res.status(404).render('errors/404');
         }
-
-      })
-
+      });
     }
   },
 
@@ -85,17 +82,16 @@ const controller = {
         title: 'Invite a friend',
         list: invitees
       });
-    })
+    });
 
   }],
 
   post_invite: [utils.isAuthenticated, function(req, res) {
     // validate form fields
     // post format { email: <invitee email>, message: <message to send>, copy: <add inviter to cc>}
-    models.User.invite(req.body, req.user).then(response => {
+    models.User.invite(req.body, req.user).then(() => {
       req.flash('info', 'invitation sent to ' + req.body.email);
       res.redirect('/home');
-      console.log(response);
     });
   }],
 
@@ -148,7 +144,6 @@ const controller = {
           res.redirect('/users/confirm/' + req.body.code);
         }
       }).catch(err => {
-        console.log('confirm_error', err);
         logger.error(err);
       });  
     } else {
@@ -196,9 +191,9 @@ const controller = {
                   date: now
                 };
 
-          mail.send(req.body.email, null, subject, template, context, mail_result => {
+          mail.send(req.body.email, null, subject, template, context, () => {
             logger.info(`Password reset issued for ${ req.body.username }`);
-          })
+          });
         }).catch(err => {
           logger.error(err);
         });
@@ -226,16 +221,15 @@ const controller = {
       attributes: ['username', 'email', 'resetpwd']
     }).then(user => {
       if (!user) {
-        req.flash('error', `Sorry, I didn't recognise that code. Please try again`);
+        req.flash('error', 'Sorry, I didn\'t recognise that code. Please try again');
         res.redirect('/');
       } else {
         res.render(folder + '/reset', {
           title: 'Reset Password',
           user: user,
-          //debug: JSON.stringify(user, null, 2)
         });
       }
-    })
+    });
   },
 
   // handle a password reset request
@@ -253,17 +247,17 @@ const controller = {
         }).then(upd => {
           if (upd) {
             req.flash('success', 'Your password has been updated. You can now log in');
-            logger.info(`reset password for ${ user.username }`)
+            logger.info(`reset password for ${ user.username }`);
           } else {
             req.flash('error', 'Sorry, unable to update that account');
           }
           res.redirect('/');
-        })        
+        });
       } else {
         req.flash('error', 'Sorry, those details were not valid');
         res.redirect('/');
       }
-    })
+    });
     
   },
 
@@ -284,6 +278,6 @@ const controller = {
       }
     });
   }],
-}
+};
 
 module.exports = controller;

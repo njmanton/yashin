@@ -1,8 +1,7 @@
 // jshint node: true, esversion: 6
 'use strict';
 
-var utils  = require('../utils'),
-        _  = require('lodash/orderBy');
+const _  = require('lodash/orderBy');
 
 const league = (sequelize, DataTypes) => {
   return sequelize.define('leagues', {
@@ -55,7 +54,7 @@ const league = (sequelize, DataTypes) => {
           WHERE LU.league_id = ${ league } AND LU.confirmed = 1`;
         return models.sequelize.query(qry, { type: sequelize.QueryTypes.SELECT }).then(results => {
           var table = {};
-          for (var x = 0; x < results.length; x++) {
+          for (let x = 0; x < results.length; x++) {
             var name = results[x].username;
             if (!(name in table)) {
               table[name] = {
@@ -98,7 +97,7 @@ const league = (sequelize, DataTypes) => {
               rank = 1,
               prev = 0,
               dups = [];
-          for (var x = 0; x < league.length; x++) {
+          for (let x = 0; x < league.length; x++) {
             if (league[x].order == prev) {
               row++;
               dups.push(league[x].order);
@@ -116,9 +115,6 @@ const league = (sequelize, DataTypes) => {
           return league;
 
         });
-      },
-      newLeague: body => {
-        // process POST request for new league
       }
     }
   }, {
