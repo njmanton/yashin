@@ -1,4 +1,4 @@
-// jshint node: true, esversion: 6
+/* eslint no-console: 0 */
 'use strict';
 
 var express         = require('express'),
@@ -6,11 +6,11 @@ var express         = require('express'),
     pkg             = require('./package.json'),
     bp              = require('body-parser'),
     expressSession  = require('express-session'),
-    os              = require('os'),
     excon           = require('express-controller'),
     flash           = require('connect-flash'),
     router          = express.Router(),
     models          = require('./models'),
+    utils           = require('./utils'),
     logger          = require('./logs'),
     moment          = require('moment'),
     bars            = require('express-handlebars');
@@ -27,7 +27,18 @@ const hbs = bars.create({
   }
 });
 
+// set some defaults for moment locale
 moment.locale('en-GB');
+moment.updateLocale('en-GB', {
+  longDateFormat: {
+    L: utils.ddateFormat() // this is the (relative) date format used by moment.calendar()
+  },
+  // templates for relative time labels
+  calendar: {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]'
+  }
+});
 
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
@@ -78,10 +89,10 @@ models.sequelize.sync().then(function() {
   console.log(`----------| ${ pkg.name } started |----------`);
   console.log('database  : connected');
   const server = app.listen(app.get('port'), () => {
-      console.log(`system up : ${ moment().format('DD MMM HH:mm:ss') } `)
+      console.log(`system up : ${ moment().format('DD MMM HH:mm:ss') } `);
       console.log(`port      : ${ app.get('port') }`);
       logger.info(`${ pkg.name } started`);
-      console.log(`---------------------------------------`);
+      console.log('---------------------------------------');
   });
+  module.exports = server;
 });
-
