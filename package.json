@@ -3,6 +3,9 @@
   "version": "9.0.0",
   "description": "Goalmine world cup 2018 edition",
   "main": "server.js",
+  "engines": {
+    "node": "v8.9.4"
+  },
   "scripts": {
     "test": "mocha"
   },
