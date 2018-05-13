@@ -36,10 +36,8 @@ const league = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       table: league => {
-
         const models = require('.');
-
-        var qry = `SELECT
+        const qry = `SELECT
           P.id,
           P.joker,
           P.prediction,
@@ -82,12 +80,11 @@ const league = (sequelize, DataTypes) => {
               case 2:
                 table[name].cr++;
             }
-            table[name].order = table[name].points + 
+            table[name].order = table[name].points +
                                 (table[name].cs / 100) +
                                 (table[name].cd / 10000) +
-                                (table[name].cr / 1000000);            
+                                (table[name].cr / 1000000);
           }
-
           var league = [];
           for (var prop in table) {
             league.push(table[prop]);
@@ -114,6 +111,22 @@ const league = (sequelize, DataTypes) => {
           }
           return league;
 
+        });
+      },
+      // this returns a list of all user leagues for which user needs to take action
+      actions: uid => {
+        const models = require('.');
+        return models.League.findAll({
+          where: { organiser: uid },
+          attributes: ['id', 'name', [sequelize.fn('count', sequelize.col('name')), 'ac']],
+          group: ['id', 'name'],
+          include: {
+            model: models.League_User,
+            where: { confirmed: 0 },
+            attributes: []
+          }
+        }).then(leagues => {
+          return leagues;
         });
       }
     }
