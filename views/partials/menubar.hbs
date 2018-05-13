@@ -1,13 +1,22 @@
-<header class="header {{#if dev }}dev_platform{{/if }}">
-  <span>
+{{! template for menu bar }}
+<div class="row header {{#if dev }}dev_platform{{/if }}">
+  <div class="col menu-items">
     {{#if user}}
-    {{ user.username }} 
+    {{ user.username }}
+    {{#unless user.paid }}
+    <span class="badge badge-danger">Not paid</span>
+    {{/unless }}
     {{#if user.admin }}
     <span class="badge badge-warning">admin</span>
     {{/if }}
+    | 
     <a href="/logout">logout</a>
     {{ else }}
     <a href="/login">login</a>
     {{/if }}
-  </span>
-</header>
+  </div>
+  <div class="logo">
+    <img src="/img/hammer-sickle.png" alt="G" />
+    <span>OALMIЙE</span> 2018
+  </div>
+</div>
