@@ -1,4 +1,3 @@
-// jshint node: true, esversion: 6
 'use strict';
 
 const models    = require('../models'),
@@ -30,40 +29,16 @@ const controller = {
               where: { validated: 1 },
               attributes: ['id', 'username', 'email', 'facebook_id', 'google_id']
             }),
-            p = models.Pred.findAll({
-              where: { user_id: id },
-              attributes: ['joker', 'prediction', 'points'],
-              include: {
-                model: models.Match,
-                attributes: ['id', 'date', 'result', 'group'],
-                include: [{
-                  model: models.Team,
-                  as: 'TeamA',
-                  attributes: ['id', 'name', 'sname']
-                }, {
-                  model: models.Team,
-                  as: 'TeamB',
-                  attributes: ['id', 'name', 'sname']
-                }]
-              }
-            });
+            p = models.User.predictions(id);
 
       Promise.join(u, p, (user, preds) => {
         if (user && user.id) {
-          preds.map(pred => {
-            const now = moment(),
-                  deadline = moment(pred.match.date).subtract(2, 'h');
-                  
-            if (deadline.isAfter(now) && !pred.match.result) {
-              pred.prediction = '?-?';
-            }
-          });
-          res.render(folder + '/view', {
+          res.render(`${ folder }/view`, {
             title: user.username,
             player: user,
             preds: preds,
-            //debug: JSON.stringify(preds, null, 2)
-          });          
+            debug: JSON.stringify(preds, null, 2)
+          });
         } else {
           res.status(404).render('errors/404');
         }
@@ -78,7 +53,7 @@ const controller = {
       where: { referredby: inviter },
       attributes: ['email', 'validated', 'username', 'id']
     }).then(invitees => {
-      res.render(folder + '/invite', {
+      res.render(`${ folder }/invite`, {
         title: 'Invite a friend',
         list: invitees
       });
@@ -90,7 +65,7 @@ const controller = {
     // validate form fields
     // post format { email: <invitee email>, message: <message to send>, copy: <add inviter to cc>}
     models.User.invite(req.body, req.user).then(() => {
-      req.flash('info', 'invitation sent to ' + req.body.email);
+      req.flash('info', `invitation sent to ${req.body.email}`);
       res.redirect('/home');
     });
   }],
@@ -109,10 +84,10 @@ const controller = {
         req.flash('error', `Sorry, the activation code (${ id }) was not recognised. Please check and try again`);
         res.redirect('/');
       } else {
-        res.render(folder + '/confirm', {
+        res.render(`${ folder }/confirm`, {
           title: 'Confirm Account',
           data: user
-        });         
+        });
       }
     });
   }],
@@ -141,16 +116,16 @@ const controller = {
           res.redirect('/login');
         } else {
           req.flash('error', 'Sorry, there was a problem confirming that user account. Please try again.');
-          res.redirect('/users/confirm/' + req.body.code);
+          res.redirect(`/users/confirm/${ req.body.code }`);
         }
       }).catch(err => {
         logger.error(err);
-      });  
+      });
     } else {
       req.flash('error', 'Sorry, there was a problem validating those details. Please try again');
       res.redirect(req.body.referer);
     }
-    
+
   },
 
   get_available_username: [utils.isAjax, function(req, res, username) {
@@ -167,7 +142,7 @@ const controller = {
     if (req.user) {
       res.redirect('/home');
     } else {
-      res.render(folder + '/forgot');    
+      res.render(`${ folder }/forgot`);
     }
   },
 
@@ -201,18 +176,35 @@ const controller = {
       req.flash('info', 'Thank you. If those details were found, you will shortly receive an email explaining how to reset your password');
       res.redirect('/');
     });
-    
+
   },
 
   get_missing: [utils.isAjax, function(req, res) {
     if (req.user) {
       models.User.missing(req.user.id).then(missing => {
         res.send(missing);
-      });      
+      });
     } else {
       res.send(403).render('errors/403');
     }
 
+  }],
+
+  // gets a list of required actions for the logged-in user
+  //get_actions: [utils.isAjax, utils.isAuthenticated, function(req, res) {
+  get_actions_id: [utils.isAjax, function(req, res, id) {
+    const uid = id;
+    models.League_User.findAll({
+      where: { confirmed: 0 },
+      attributes: [],
+      include: {
+        model: models.League,
+        where: { organiser: uid },
+        attributes: ['id', 'name']
+      }
+    }).then(leagues => {
+      res.send(leagues);
+    });
   }],
 
   get_reset_id: function(req, res, id) {
@@ -224,7 +216,7 @@ const controller = {
         req.flash('error', 'Sorry, I didn\'t recognise that code. Please try again');
         res.redirect('/');
       } else {
-        res.render(folder + '/reset', {
+        res.render(`${ folder }/reset`, {
           title: 'Reset Password',
           user: user,
         });
@@ -258,7 +250,7 @@ const controller = {
         res.redirect('/');
       }
     });
-    
+
   },
 
   get_id_leagues: [utils.isAjax, function(req, res, id) {
