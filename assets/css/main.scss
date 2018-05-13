@@ -1,25 +1,37 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css);
 @import url(/assets/flags/css/flag-icon.min.css);
 
-// colours
+// prediction colours
 $cd: #ff0; // correct goal difference
 $cs: #0f0; // correct score
 $cr: #66f; // correct result
 $wj: #f66; // wrong result on joker
-$table_quals: #6c6; // qualifying teams in group table
+
+// block elements
+$headers: rgb(163,21,21);
+$background: #141301;
+$content: #fcfcfc;
+$sidebar-head: orange;
+
+// tables
+$table-headers-bg: $background;
+$table-headers-fg: #eee;
+$table-quals: #6c6; // qualifying teams in group table
+
+$logo-gold: #f4d632;
 
 // partials
 @import 'sass/_tables';
 @import 'sass/_forms';
 
 body {
-  background-color: #fcfcfc;
+  background-color: $background;
 }
 
-// debug screen for showing JSON passed to view
+// debug screen for showing JSON results
 .debug {
-  background-color: #222;
-  color: #fff;
+  background-color: $background;
+  color: white;
   font-family: monospace;
   pre {
     color: inherit;
@@ -27,9 +39,83 @@ body {
 }
 
 header {
-  background-color: #222;
-  color: #fff;
-  margin-bottom: 1em;
+  background-color: $headers;
+  color: white;
+  padding: 0.2em;
+  .badge {
+    margin: 0 0.5em;
+  }
+}
+
+section.content {
+  background-color: $content;
+  padding-bottom: 2em;
+}
+
+footer {
+  background-color: inherit;
+}
+
+footer nav {
+  //min-width: 40%;
+  width: 500px;
+}
+
+h2 {
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+}
+
+.foot {
+  margin: 0 auto;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: $logo-gold;
+    text-decoration: none;
+    .shirt-outline {
+      fill: $logo-gold;
+    }
+  }
+  img, svg {
+    height: 2.5em;
+    width: 2.5em;
+    display: block;
+    margin: 0 auto;    
+  }
+  div {
+    color: white;
+    text-align: center;
+    margin-bottom: 0.5em;
+  }
+}
+
+.logo {
+  font-size: 2em;
+  color: $logo-gold;
+  float: right;
+  margin-right: 1em;
+  span {
+    margin-left: -0.3em;
+  }
+  img {
+    height: 1.7em;
+  }
+}
+
+.sidebar {
+  margin: 1em;
+  background-color: inherit;
+  border: 1px solid black;
+  h3 {
+    width: 100%;
+    background-color: $sidebar-head;
+    color: white;
+    text-align: center;
+    padding: 0.3em;
+    font-size: 1.3rem;
+  }
 }
 
 // set size of flag, ensure a 4:3 image ratio
@@ -51,8 +137,8 @@ header {
   text-align: center;
 }
 
-.logo {
-  max-width: 60%;
+.team-logo {
+  max-width: 35%;
   margin: 1em auto;
   display: block;
 }

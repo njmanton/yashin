@@ -1,5 +1,5 @@
 .table {
-  width: 80%;
+  width: 100%;
   margin: 0 auto 1em auto;
   td, th {
     padding: 0.5em;
@@ -39,38 +39,93 @@
   padding: 11px;
 }
 
+// global set table captions to the top
 caption {
   caption-side: top;
   text-align: center;
   font-weight: bold;
 }
 
+// style rows for unpaid players in league tables
+.unpaid td {
+  background-color: #ddd;
+  font-style: italic;
+}
+
 table.preds {
   width: 90%;
   margin: 1em auto;
+  th {
+    background-color: $table-headers-bg;
+    color: $table-headers-fg;
+    border-bottom: none;
+  }
 }
 
-#grouptable {
+// column styles for fixed-layout tables
+td.away {
+  text-align: left;
+}
+td.home {
+  text-align: right;
+}
+td.score, th.score {
+  max-width: 3em;
+}
+td.narrow, th.narrow {
+  max-width: 5em;
+}
+
+// styling for group tables (/teams/view)
+table.group {
   // select first two rows in a group (current qualifiers)
   tr:nth-child(-n+2) td {
-    background-color: $table_quals;
+    background-color: $table-quals;
+    border-bottom: 1px solid darken($table-quals, 10%);
+  }
+  th {
+    border-bottom: none;
   }
   // style the selected team
   tr.self td {
     font-weight: bold;
   }
+  th {
+    background-color: $table-headers-bg;
+    color: $table-headers-fg;
+  }
+  th, td {
+    text-align: center;
+  }
+  th:first-child, td:first-child {
+    text-align: left;
+  }
+  th:last-child, td:last-child {
+    text-align: right;
+  }
 
 }
 
-#teams {
-  tr:nth-child(4n) td {
-    border-bottom: 2px solid black;
+table.list {
+  table-layout: fixed;
+  th {
+    background-color: $table-headers-bg;
+    color: $table-headers-fg;
+    border-bottom: none;
+  }
+  th:last-child, td:last-child {
+    text-align: right;
   }
 }
 
+// border between different groups (every 4) in teams/index
+#teams tr:nth-child(4n) td {
+    border-bottom: 2px dashed lighten($table-headers-bg, 30%);
+}
+
 table.match {
-  width: 80%;
-  max-width: 90%;
+  table-layout: fixed;
+  width: 100%;
   margin: 0 auto;
   th, td {
     font-size: 1.2em;
@@ -86,7 +141,6 @@ table.match {
   }
   td a {
     color: #eee;
-    max-width: 10em;
     display: block;
     width: 100%;
     height: 100%;
