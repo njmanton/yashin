@@ -4,7 +4,7 @@
 let moment  = require('moment'),
       mail  = require('../mail'),
         ga  = require('group-array'),
-     utils  = require('../utils'), 
+     utils  = require('../utils'),
          _  = require('lodash/orderBy');
 
 const user = (sequelize, DataTypes) => {
@@ -113,10 +113,10 @@ const user = (sequelize, DataTypes) => {
                 case 2:
                   table[name].cr++;
               }
-              table[name].order = table[name].points + 
+              table[name].order = table[name].points +
                                   (table[name].cs / 100) +
                                   (table[name].cd / 10000) +
-                                  (table[name].cr / 1000000);         
+                                  (table[name].cr / 1000000);
             }
           }
 
@@ -139,7 +139,7 @@ const user = (sequelize, DataTypes) => {
                 rank = ++row;
               }
               prev = league[x].order;
-              league[x].rank = rank;              
+              league[x].rank = rank;
             } else {
               league[x].rank = '-';
             }
@@ -234,7 +234,7 @@ const user = (sequelize, DataTypes) => {
           password: code,
           referredby: referrer.id
         }).then(invite => {
-          
+
           var template  = 'invite.hbs',
               subject   = 'Invitation',
               context   = {
@@ -250,7 +250,7 @@ const user = (sequelize, DataTypes) => {
           });
 
         });
-      }, 
+      },
 
       // get missing predictions for given player
       missing: uid => {

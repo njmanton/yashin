@@ -15,7 +15,7 @@ const controller = {
       }
     }).then(venues => {
       venues.map(v => { v.capacity = v.capacity.toLocaleString(); });
-      res.render(folder + '/index', {
+      res.render(`${ folder }/index`, {
         title: 'Venues',
         data: venues,
         //debug: JSON.stringify(venues, null, 2)
@@ -30,7 +30,7 @@ const controller = {
 
       Promise.join(v, m, (venue, matches) => {
         venue.capacity = venue.capacity.toLocaleString();
-        res.render(folder + '/view', {
+        res.render(`${ folder }/view`, {
           title: venue.stadium,
           matches: matches,
           venue: venue,

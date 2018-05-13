@@ -61,8 +61,8 @@ const venue = (sequelize, DataTypes) => {
             let row = {
               id: match.id,
               result: match.result || '-',
-              date: moment(match.date).format(utils.ldateFormat()),
-              sdate: moment(match.date).format(utils.sdateFormat()),
+              date: moment(match.date).format(utils.ldateFormat),
+              sdate: moment(match.date).format(utils.sdateFormat),
               stage: match.stage,
               group: match.group,
               teama: {
@@ -76,7 +76,7 @@ const venue = (sequelize, DataTypes) => {
                 flag: (match.TeamB) ? match.TeamB.sname : ''
               }
             };
-            arr.push(row);            
+            arr.push(row);
           }
           return arr;
         });

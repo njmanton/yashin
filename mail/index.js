@@ -12,7 +12,7 @@ const mail = {
   send: (recipient, cc, subject, template_file, context, done) => {
 
     // convert template and context into message
-    const template = fs.readFileSync(__dirname + '/templates/' + template_file, 'utf8'),
+    const template = fs.readFileSync(`${ __dirname }/templates/${ template_file }`, 'utf8'),
           message = hbs.compile(template);
 
     // add app details to the context

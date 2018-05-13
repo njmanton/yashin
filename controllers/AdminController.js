@@ -14,7 +14,7 @@ const controller = {
   post_result: [utils.isAdmin, function(req, res) {
     // req.body should be mid, result
     if (utils.validScore(req.body.result)) {
-      
+
       models.Match.update({
         result: req.body.result
       }, {
@@ -31,7 +31,7 @@ const controller = {
           });
         }).then(e => {
           req.flash('success', `Result set to ${ req.body.result }, updating ${ e.length } predictions`);
-          res.redirect('/matches/' + req.body.mid);            
+          res.redirect(`/matches/${ req.body.mid }`);
         });
 
       });
@@ -50,10 +50,9 @@ const controller = {
       attributes: ['id', 'username', 'paid'],
       where: { validated: 1 }
     }).then(users => {
-      res.render(folder + '/payment', {
+      res.render(`${ folder }/payment`, {
         title: 'Manage Payments',
         users: users,
-        //debug: JSON.stringify(users, null, 2)
       });
     });
   }],
@@ -116,7 +115,7 @@ const controller = {
                       id: league.id
                     };
               mail.send(league.user.email, null, subject, template, context, () => {
-                res.send('accepted');                
+                res.send('accepted');
               });
             } else {
               res.send('error');
@@ -137,7 +136,7 @@ const controller = {
             mail.send(league.user.email, null, subject, template, context, () => {
               res.send('rejected');
             });
-            
+
           });
         } else {
           res.send('error');
@@ -153,9 +152,9 @@ const controller = {
     models.Match.findById(id, {
       where: { result: { ne: null } },
       attributes: [
-        'id', 
+        'id',
         'result',
-        'date', 
+        'date',
       ],
       include: [{
         model: models.Team,
@@ -175,7 +174,7 @@ const controller = {
       }]
     }).then(match => {
       if (match) {
-        res.render(folder + '/goals', {
+        res.render(`${ folder }/goals`, {
           data: match,
           title: 'Manage Goals',
           //debug: JSON.stringify(match, null, 2)

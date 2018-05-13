@@ -45,12 +45,12 @@ const team = (sequelize, DataTypes) => {
     }
   }, {
     classMethods: {
-      
+
       table: id => {
 
         const models = require('.');
         return models.Match.findAll({
-          where: { group: [sequelize.literal('SELECT `group` FROM teams WHERE id = ' + id)] },
+          where: { group: [sequelize.literal(`SELECT \`group\` FROM teams WHERE id = ${ id }`)] },
           attributes: ['id', 'result'],
           include: [{
             model: models.Team,
@@ -116,7 +116,7 @@ const team = (sequelize, DataTypes) => {
                 group[away].d++;
                 group[home].pts++;
                 group[away].pts++;
-              }            
+              }
             }
           }
           let table = [];
@@ -126,7 +126,7 @@ const team = (sequelize, DataTypes) => {
           table.map(t => t.gd = t.gf - t.ga);
           return _(table, ['pts', 'gd', 'gf'], ['desc', 'desc', 'desc']);
 
-        });        
+        });
       }
 
     }

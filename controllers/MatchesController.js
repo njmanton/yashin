@@ -14,9 +14,9 @@ const getMatches = order => {
     order: order ? 'date ASC, stageorder DESC' : 'stageorder DESC, date ASC',
     where: [{ teama_id: { ne: null } }, { teamb_id: { ne: null } }],
     attributes: [
-      'id', 
+      'id',
       'result',
-      'date', 
+      'date',
       'group',
       'stage'
     ],
@@ -39,17 +39,15 @@ const getMatches = order => {
 const controller = {
 
   get_index: function(req, res) {
-
     getMatches(false).then(data => {
-      data.map(m => { 
-        m.ldate = moment(m.date).format(utils.ldateFormat());
-        m.sdate = moment(m.date).format(utils.sdateFormat());
+      data.map(m => {
+        m.ldate = moment(m.date).format(utils.ldateFormat);
+        m.sdate = moment(m.date).format(utils.sdateFormat);
       });
-      res.render(folder + '/index', {
+      res.render(`${ folder }/index`, {
         title: 'Goalmine | Matches',
         matches: ga(data, 'stage'),
         dateorder: false,
-        //debug: JSON.stringify(ga(data, 'stage'), null, 2)
       });
     });
 
@@ -58,15 +56,14 @@ const controller = {
   get_date: function(req, res) {
 
     getMatches(true).then(data => {
-      data.map(m => { 
-        m.ddate = moment(m.date).format(utils.ddateFormat());
+      data.map(m => {
+        m.ddate = moment(m.date).format(utils.ddateFormat);
         m.time = moment(m.date).format('ha');
       });
-      res.render(folder + '/index', {
+      res.render(`${ folder }/index`, {
         title: 'Goalmine | Matches',
         matches: ga(data, 'ddate'),
         dateorder: true,
-        //debug: JSON.stringify(ga(data, 'ddate'), null, 2)
       });
     });
 
@@ -88,14 +85,14 @@ const controller = {
     const g = models.Goal.find(id);
 
     Promise.join(m, p, g, (match, preds, goals) => {
-      res.render(folder + '/view', {
+      res.render(`${ folder }/view`, {
         title: `Goalmine 2018 | ${ match.TeamA.name } vs ${ match.TeamB.name }`,
-        dt: moment(match.date).format('DD MMM, HH:mm'),
+        dt: moment(match.date).format(utils.ldateFormat),
         match: match,
         preds: preds,
         goals: goals,
         scripts: [
-          'https://code.highcharts.com/highcharts.js', 
+          'https://code.highcharts.com/highcharts.js',
           'https://code.highcharts.com/modules/heatmap.js',
           '/js/goalmap.js'
         ]
@@ -127,7 +124,7 @@ const controller = {
         if (result && result.result) {
           rs = result.result.split('-').map(x => x * 1 );
         }
-        
+
         // iterate over the predictions, add the sum product of each H/A goal (number of goals * number of predictions)
         // and increment the rolling sum. push the goals into the array for the hc heatmap
         while (i--) {
@@ -142,7 +139,7 @@ const controller = {
         }
         res.send ({
           counts: hc,
-          result: rs, 
+          result: rs,
           mean: sumprod.map(x => parseFloat((x / total).toFixed(2))) // create the weighted average
         });
 

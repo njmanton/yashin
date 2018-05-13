@@ -37,7 +37,7 @@ const goal = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(4),
       allowNull: true
     }
-  }, { 
+  }, {
     classMethods: {
       find: mid => {
         const models = require('.');
@@ -56,8 +56,9 @@ const goal = (sequelize, DataTypes) => {
               for (var x = 0; x < goals.length; x++) {
                 let goal = goals[x],
                     scorer = `${ goal.scorer } ${ goal.time }`;
-                
-                scorer += ((goal.tao) ? `+${ goal.tao }` : '') + '\'';
+
+                scorer += (goal.tao) ? `+${ goal.tao }` : '';
+                scorer += '\'';
                 // each goal is a string
                 if (home == goal.team_id) {
                   arr.home.push(scorer);

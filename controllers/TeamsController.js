@@ -13,7 +13,7 @@ const controller = {
     models.Team.findAll({
       attributes: ['id', 'name', 'sname', 'group', 'coach', 'notes', 'ranking', 'confederation']
     }).then(teams => {
-      res.render(folder + '/index', {
+      res.render(`${ folder }/index`, {
         title: 'All Teams',
         data: teams,
         //debug: JSON.stringify(teams, null, 2)
@@ -29,8 +29,8 @@ const controller = {
             where: { $or: [{ teama_id: id }, { teamb_id: id }] },
             order: 'stageorder DESC, date ASC',
             attributes: [
-              'id', 
-              'result', 
+              'id',
+              'result',
               'date',
               'group',
               'stage'
@@ -46,7 +46,7 @@ const controller = {
             }, {
               model: models.Venue,
               attributes: ['id', 'stadium', 'city']
-            }]    
+            }]
           });
 
     Promise.join(p1, p2, p3, (team, table, matches) => {
@@ -75,8 +75,8 @@ const controller = {
 
           games.push({
             id: m.id,
-            ldate: moment(m.date).format(utils.ldateFormat()),
-            sdate: moment(m.date).format(utils.sdateFormat()),
+            ldate: moment(m.date).format(utils.ldateFormat),
+            sdate: moment(m.date).format(utils.sdateFormat),
             group: m.group,
             stage: m.stage,
             opponent: oppo,
@@ -85,10 +85,10 @@ const controller = {
               id: m.venue.id,
               stadium: m.venue.stadium,
               city: m.venue.city
-            }     
+            }
           });
         }
-        res.render(folder + '/view', {
+        res.render(`${ folder }/view`, {
           title: `Goalmine | ${ team.name }`,
           team: team,
           table: table,

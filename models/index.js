@@ -30,7 +30,7 @@ db.User.hasMany(db.League, { foreignKey: 'organiser' });
 db.League.belongsTo(db.User, { foreignKey: 'organiser' });
 
 // team[a] 1:n match
-// team[b] 1:n match 
+// team[b] 1:n match
 db.Team.hasMany(db.Match);
 db.Match.belongsTo(db.Team, { as: 'TeamA', foreignKey: 'teama_id' });
 db.Match.belongsTo(db.Team, { as: 'TeamB', foreignKey: 'teamb_id' });

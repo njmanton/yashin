@@ -23,7 +23,7 @@ const predictions = {
           preds[group][x].group_expired = preds[group][x].expired || group_expired;
         }
       }
-      res.render(folder + '/index', {
+      res.render(`${ folder }/index`, {
         title: 'My Predictions',
         table: preds,
         //debug: JSON.stringify(preds, null, 2)
@@ -98,7 +98,7 @@ const predictions = {
           }
         }).then(() => {
           logger.info(`user ${ req.user.username } set joker on match ${ req.body.mid } for stage ${ req.body.stage }`);
-          res.send({ updates: upds });       
+          res.send({ updates: upds });
         });
       });
     } else {
