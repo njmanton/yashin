@@ -1,3 +1,5 @@
+/* eslint-env browser, jquery */
+/* eslint prefer-template: 0 */
 'use strict';
 
 $(function() {
@@ -57,7 +59,7 @@ $(function() {
               mouseOut: function() {
                 $('td').removeClass('hc-hilite');
               }
-            }            
+            }
           }
 
         }
@@ -79,7 +81,7 @@ $(function() {
         tooltip: { formatter: function() { return 'Result: '; } }
       }]
 
-    }
+    };
 
   var mid = $('h2').data('mid');
   $.get(`/matches/${ mid }/goalmap`).done(function(data) {
@@ -89,6 +91,6 @@ $(function() {
       cht.series[2].data = [data.result];
       $('#container').highcharts(cht);
     }
-  })
-  
-})
+  });
+
+});

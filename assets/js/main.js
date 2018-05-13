@@ -1,3 +1,6 @@
+/* eslint-env browser, jquery */
+/* eslint prefer-template: 0 */
+
 'use strict';
 
 // auto clear message boxes after 4s
@@ -25,7 +28,7 @@ $(function() {
       }
     }).fail(function(e) {
 
-    })
+    });
   });
 
   $('#leaveLeague').on('click', function() {
@@ -45,7 +48,6 @@ $(function() {
   });
 
   $('#leagueJoin').on('click', function() {
-    
     const lid = $(this).data('lid');
     $.ajax({
       method: 'put',
@@ -54,12 +56,12 @@ $(function() {
       window.location.reload();
     }).fail(function(e) {
 
-    })
+    });
 
   });
 
   $('#leagueRequestJoin').on('click', function() {
-    
+
     const lid = $(this).data('lid');
     $.ajax({
       method: 'put',
@@ -68,7 +70,7 @@ $(function() {
       window.location.reload();
     }).fail(function(e) {
 
-    })
+    });
 
   });
 
@@ -92,7 +94,7 @@ $(function() {
         }, 2000);
       }).fail(function(err) {
         console.log('err', err);
-      })      
+      });
     } else {
       pred.val('');
     }
@@ -110,7 +112,7 @@ $(function() {
       console.log(res);
     }).fail(function(e) {
 
-    })
+    });
 
   });
 
@@ -127,7 +129,7 @@ $(function() {
       }
     }).fail(function(err) {
       console.log(err);
-    })
+    });
 
   });
 
@@ -143,7 +145,7 @@ $(function() {
       row.fadeOut(1000);
     }).fail(function(err) {
       console.log(err);
-    })
+    });
 
   });
 
@@ -164,12 +166,12 @@ $(function() {
       } else {
         btn.parent().append('<span class="badge badge-danger">email not sent!</span>');
       }
-      
+
     }).fail(function(err) {
       console.log(err);
       btn.append('<span class="badge badge-danger">failed to process</span>');
-    })
-    
+    });
+
   });
 
   $('#addGoal #time').on('blur', function() {
@@ -235,7 +237,7 @@ $(function() {
               .html('taken')
               .show();
           }
-          checkForm();
+          checkConfirm();
       });
     } else {
       uid_err.hide();
@@ -254,21 +256,21 @@ $(function() {
               .removeClass('error')
               .addClass('success')
               .html('&#10003;')
-              .show()
+              .show();
           } else {
             email_err
               .addClass('error')
               .removeClass('success')
               .html('taken')
-              .show()
+              .show();
           }
-        })
+        });
     } else {
       email_err.show().addClass('error').html('<span class="fas fa-exclamation"></span>');
     }
-    checkForm();
+    checkConfirm();
 
-  })
+  });
 
   $('#postPreview').on('click', function() {
     $.post({
@@ -277,10 +279,10 @@ $(function() {
     }).done(function(res) {
       $('#postPreviewPane').html(res);
     }).fail(function(e) {
-      $('#postPreviewPane').text(`Could not render text`);
-    })
-  })
-  
+      $('#postPreviewPane').text('Could not render text');
+    });
+  });
+
 });
 
 

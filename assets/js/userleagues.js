@@ -1,3 +1,6 @@
+/* eslint-env browser, jquery */
+/* eslint prefer-template: 0 */
+
 'use strict';
 
 $(document).ready(function() {
@@ -9,13 +12,13 @@ $(document).ready(function() {
     if (leagues.length) {
       $.each(leagues, function(k, v) {
         list.append(`<li><a href="leagues/${ v.league.id }">${ v.league.name }</a></li>`);
-      }) ;      
+      });
     } else {
-      list.replaceWith('<p>You are not a member of any user leagues yet</p>')
+      list.replaceWith('<p>You are not a member of any user leagues yet</p>');
     }
   }).fail(function(e) {
     console.error(e);
-  })
+  });
 
 });
 
