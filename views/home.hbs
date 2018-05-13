@@ -1,49 +1,74 @@
 <section class="content row">
   <div class="col-md-4">
-    <h3 data-uid="{{ user.id }}">quick links</h3>
-    <ul>
-      <li><a href="/predictions">edit predictions</a></li>
-      <li><a href="/leagues/add">add a new user league</a></li>
-      <li><a href="/users/invite">invite a friend</a></li>
-    </ul>
+
+    {{!-- quick links sidebar --}}
+    <section class="sidebar">
+      <h3 data-uid="{{ user.id }}">quick links</h3>
+      <ul>
+        <li><a href="/predictions">edit predictions</a></li>
+        <li><a href="/leagues/add">add a new user league</a></li>
+        <li><a href="/users/invite">invite a friend</a></li>
+      </ul>      
+    </section>
+
+    {{!-- list of leagues, including main league --}}
+    <section class="sidebar">
+      <h3>my leagues</h3>
+      <ul id="homeUserLeagues">
+        {{#if user.paid }}
+        <li><a href="/leaderboard">Main league</a></li>
+        {{/if }}
+      </ul>    
+    </section>
+
+    {{!-- admin options --}}
     {{#if user.admin }}
-    <h3>admin options</h3>
-    <ul>
-      <li><a href="/admin/payment">manage payments</a></li>
-    </ul>
+    <section class="sidebar admin">
+      <h3>admin options <i class="fa fa-lock"></i></h3>
+      <ul>
+        <li><a href="/admin/payment">manage payments</a></li>
+      </ul>
+    </section>
     {{/if }}
-    <h3>your user leagues</h3>
-    <ol id="homeUserLeagues">
-      
-    </ol>    
+
+    {{!-- outstanding actions --}}
+    {{#if actions }}
+    <section class="sidebar">
+      <h3>outstanding actions</h3>
+      <ul>
+        {{#each actions }}
+        <li>League <a href="/leagues/{{ id }}">{{ name }}</a> has invites pending</li>
+        {{/each }}
+      </ul>
+    </section>
+    {{/if }}
+
   </div>
 
   <div class="col-md-8">
-    <h3>My Predictions</h3>
-    <a href="/predictions">Edit</a>
-    {{#each missing }}
-    <div class="alert alert-danger">Stage {{ stage }} has {{ missing }} missing prediction(s).</div>
-    {{/each }}
-    <table class="table preds">
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          <th>Prediction</th>
-          <th>Result</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each preds }}
-        <tr>
-          <td>{{ match.TeamA.name }}</td>
-          <td class="score {{#if joker }}joker{{/if }} pts-{{ points }}">{{ prediction }}</td>
-          <td class="score">{{ match.result }}</td>
-          <td>{{ match.TeamB.name }}</td>
-        </tr>
-        {{/each }}
-      </tbody>
-    </table>
+    <h2>My Predictions Summary <small><a title="Edit" href="/predictions"><i class="fa fa-pencil-alt"></i></a></small></h2>
+    <div class="row">
+      {{#each missing }}
+      <div class="alert alert-danger">Stage {{ stage }} has {{ missing }} missing prediction(s).</div>
+      {{/each }}
+
+      {{#each preds }}
+      <div class="col-xl-4 col-sm-6">
+        <table class="table smallpreds">
+          <caption>{{ groupPrefix @key }}</caption>
+          <tbody>
+            {{#each this }}
+            <tr>
+              <td style="text-align: right;"><span title="{{ teama.name }}">{{ teama.code }}</span> <span class="flag-icon flag-icon-{{ teama.sname }}"></span></td>
+              <td class="score pts-{{ pts }} {{#if joker}}joker{{/if }}">{{#if pred }}{{ pred }}{{ else }}v{{/if }}</td>
+              <td><span class="flag-icon flag-icon-{{ teamb.sname }}"></span> <span title="{{ teamb.name }}">{{ teamb.code }}</span></td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>      
+      </div>
+      {{/each }}
+    </div>
   </div>
 
   
