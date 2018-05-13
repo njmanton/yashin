@@ -92,7 +92,7 @@ module.exports = app => {
   //           }
   //         }).catch(e => {
   //           return done(e);
-  //         });          
+  //         });
   //       }
 
   //     });
@@ -139,7 +139,7 @@ module.exports = app => {
   //           }
   //         }).catch(e => {
   //           return done(e);
-  //         });          
+  //         });
   //       }
 
   //     });
