@@ -19,9 +19,9 @@ const points = {
 var utils = {
 
   getTempName: len => {
-    var code = '', 
+    var code = '',
       letters = '2346789ABCDEFGHJKLMNPQRTUVWXYZ'; // ignore easily-confused chars, e.g. 1 (one) and 'l' (lower case letter)
-  
+
     // generate a random code
     for (var i = 0; i < len; i++) {
       var idx = Math.floor(Math.random() * (letters.length - 1));
@@ -68,7 +68,7 @@ var utils = {
   },
 
   calc: (pred, result, joker) => {
-  
+
     if (!pred || !result) return 0;
 
     let pg, rg, score = 0;
@@ -97,11 +97,10 @@ var utils = {
     return !!score && !!score.match(/^\b\d{1,2}[-|_|=]\d{1,2}\b$/);
   },
 
-  ldateFormat: () => { return 'ddd DD MMM, ha'; },
-
-  sdateFormat: () => { return 'DD/MM, ha'; },
-
-  ddateFormat: () => { return 'dddd DD MMMM'; }
+  // date format strings
+  ldateFormat: 'ha, ddd DD MMM',
+  sdateFormat: 'ha, DD/MM',
+  ddateFormat: 'dddd DD MMMM'
 
 };
 
