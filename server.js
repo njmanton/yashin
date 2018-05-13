@@ -22,7 +22,10 @@ const hbs = bars.create({
   helpers: {
     groupPrefix: data => {
       var pre = (~['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].indexOf(data)) ? 'Group ' : '';
-      return pre + data;      
+      return pre + data;
+    },
+    pluralise: (num, singular, plural = `${singular}s`) => {
+      return (num !== 1) ? plural : singular;
     }
   }
 });
@@ -31,7 +34,7 @@ const hbs = bars.create({
 moment.locale('en-GB');
 moment.updateLocale('en-GB', {
   longDateFormat: {
-    L: utils.ddateFormat() // this is the (relative) date format used by moment.calendar()
+    L: utils.ddateFormat // this is the (relative) date format used by moment.calendar()
   },
   // templates for relative time labels
   calendar: {
@@ -45,7 +48,7 @@ app.set('view engine', '.hbs');
 
 // set static route
 app.use(express.static('assets'));
-app.use('/assets/flags', express.static(__dirname + '/node_modules/flag-icon-css/'));
+app.use('/assets/flags', express.static(`${ __dirname }/node_modules/flag-icon-css/`));
 
 // body-parsing for post requests
 app.use(bp.urlencoded({ 'extended': false }));
@@ -75,7 +78,7 @@ require('./auth')(app);
 // add routing
 app.use(router);
 require('./routes')(app);
-excon.setDirectory(__dirname + '/controllers').bind(router);
+excon.setDirectory(`${ __dirname }/controllers`).bind(router);
 
 // final middleware to handle anything not matched by a route
 app.use(function(req, res) {
