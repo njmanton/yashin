@@ -51,8 +51,7 @@ const match = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       details: mid => {
-        const models = require('.'),
-              moment = require('moment');
+        const models = require('.');
 
         return models.Match.findById(mid, {
           attributes: ['id', 'result', 'date', 'group', 'stage', 'stageorder', 'winmethod'],
@@ -77,16 +76,44 @@ const match = (sequelize, DataTypes) => {
             match.TeamA = {
               id: 0,
               name: placeholders[0]
-            }
+            };
           }
           if (match.TeamB == null) {
             match.TeamB = {
               id: 0,
               name: placeholders[1]
-            }
+            };
           }
           return match;
-        })
+        });
+      },
+
+      current: () => {
+        // find the matches for the closest two days to now
+        // using raw sql to handle the date manipulation and ugly join as normal subquery with limit clause not supported in mysql
+        const models = require('.'),
+              ga     = require('group-array'),
+              moment = require('moment');
+
+        const sql = `SELECT M.id, M.date, M.result, A.name as home, A.sname as aflag, B.name AS away, B.sname AS bflag, M.group, M.stage FROM matches AS M 
+        LEFT JOIN teams AS A ON M.teama_id = A.id
+        LEFT JOIN teams AS B ON M.teamb_id = B.id
+        INNER JOIN
+        (SELECT DISTINCT date(date) AS d FROM matches AS M WHERE M.date >= '${ moment().format('YYYY-MM-DD') }'
+        ORDER BY date(date) ASC LIMIT 2) AS dts
+        ON dts.d = date(M.date)`;
+        return models.sequelize.query(sql, { type: sequelize.QueryTypes.SELECT }).then(matches => {
+          // convert dates into 'tomorrow', 'next Tuesday' etc. then group by date
+          matches.map(match => {
+            const placeholders = match.group.split('v');
+            match.time = moment(match.date).format('ha');
+            match.date = moment(match.date).calendar();
+            if (match.home == null) match.home = placeholders[0];
+            if (match.away == null) match.away = placeholders[1];
+          });
+          return ga(matches, 'date');
+        });
+
       }
     }
   }, {
