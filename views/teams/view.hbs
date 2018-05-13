@@ -1,86 +1,76 @@
 <section class="content row" role="main">
-
   <section class="sideteam col-md-4">
-
     <h3>{{ team.name }}</h3>
-{{!--     <div class="team-flag">
-      <div class="flag-icon-background flag-icon-{{ team.sname }}"></div>
-    </div> --}}
-    <img class="logo" src="/img/logos/{{ team.sname }}_logo.png" alt="{{ team.name }} logo" />
+    <img class="team-logo" src="/img/logos/{{ team.sname }}_logo.png" alt="{{ team.name }} logo" />
     <p>Coach: {{ team.coach }}</p>
     <p>FIFA ranking: <a title="FIFA.com (external)" href="https://www.fifa.com/fifa-world-ranking/ranking-table/men/" target="_blank">{{ team.ranking }}</a></p>
-  
   </section>
+  <section class="col row justify-content-center">
+    <div class="col-md-10">
+      <section id="fixtures">
+        <table class="table list">
+          <caption>Matches</caption>
+          <thead>
+            <tr>
+              <th style="width: 6em;">Stage</th>
+              <th>Date <small>(<abbr title="British Summer Time" class="initialism">BST</abbr>)</small></th>
+              <th>Venue</th>
+              <th>Opponent</th>
+              <th class="score">Result</th>
+              <th style="width: 2em;">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each matches }}
+            <tr>
+              <td style="width: 6em;">{{ groupPrefix stage}}</td>
+              <td class="date" data-ld="{{ ldate }}"><span>{{ sdate }}</span></td>
+              <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
+              <td><span class="flag-icon flag-icon-{{ opponent.flag }}"></span> <a href="/teams/{{ opponent.id }}">{{ opponent.name }}</a></td>
+              <td class="score">{{ result }}</td>
+              <td style="width: 2em;"><a href="/matches/{{ id }}"><i title="view game" class="fas fa-eye"></i></a></td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+        
+      </section>
 
-  <section class="col">
+      <section>
 
-    <section id="fixtures">
-      <table class="table list">
-        <caption>Matches</caption>
-        <thead>
-          <tr>
-            <th>Stage</th>
-            <th>Date <small>(<abbr title="British Summer Time" class="initialism">BST</abbr>)</small></th>
-            <th>Venue</th>
-            <th>Opponent</th>
-            <th class="score">Result</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each matches }}
-          <tr>
-            <td>{{ groupPrefix stage}}</td>
-            <td class="date" data-ld="{{ ldate }}"><span>{{ sdate }}</span></td>
-            <td><a href="/venues/{{ venue.id }}">{{ venue.stadium }}</a></td>
-            <td><span class="flag-icon flag-icon-{{ opponent.flag }}"></span> <a href="/teams/{{ opponent.id }}">{{ opponent.name }}</a></td>
-            <td class="score">{{ result }}</td>
-            <td><a href="/matches/{{ id }}"><i title="view game" class="fas fa-eye"></i></a></td>
-          </tr>
-          {{/each }}
-        </tbody>
-      </table>
-      
-    </section>
-
-    <section id="grouptable">
-
-      <table class="table group">
-        <caption>Group {{ team.group }} Table</caption>
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th><abbr title="Games played">P</abbr></th>
-            <th><abbr title="Wins">W</abbr></th>
-            <th><abbr title="Draws">D</abbr></th>
-            <th><abbr title="Losses">L</abbr></th>
-            <th class="hidesmall"><abbr title="Goals for">GF</abbr></th>
-            <th class="hidesmall"><abbr title="Goals against">GA</abbr></th>
-            <th><abbr title="Points">Pts</abbr></th>
-            <th><abbr title="Goal difference">GD</abbr></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each table }}
-          <tr class="{{#if sel }}self{{/if }}">
-            <td><span class="flag-icon flag-icon-{{ flag }}"></span> {{ name }}</td>
-            <td>{{ pl }}</td>
-            <td>{{ w }}</td>
-            <td>{{ d }}</td>
-            <td>{{ l }}</td>
-            <td class="hidesmall">{{ gf }}</td>
-            <td class="hidesmall">{{ ga }}</td>
-            <td>{{ pts }}</td>
-            <td>{{ gd }}</td>
-          </tr>
-          {{/each }}
-        </tbody>
-      </table>
-      
-    </section>
-
+        <table class="table group">
+          <caption>Group {{ team.group }} Table</caption>
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th><abbr title="Games played">P</abbr></th>
+              <th><abbr title="Wins">W</abbr></th>
+              <th><abbr title="Draws">D</abbr></th>
+              <th><abbr title="Losses">L</abbr></th>
+              <th class="hidesmall"><abbr title="Goals for">GF</abbr></th>
+              <th class="hidesmall"><abbr title="Goals against">GA</abbr></th>
+              <th><abbr title="Points">Pts</abbr></th>
+              <th><abbr title="Goal difference">GD</abbr> </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each table }}
+            <tr class="{{#if sel }}self{{/if }}">
+              <td><span class="flag-icon flag-icon-{{ flag }}"></span> {{ name }}</td>
+              <td>{{ pl }}</td>
+              <td>{{ w }}</td>
+              <td>{{ d }}</td>
+              <td>{{ l }}</td>
+              <td class="hidesmall">{{ gf }}</td>
+              <td class="hidesmall">{{ ga }}</td>
+              <td>{{ pts }}</td>
+              <td>{{ gd }} </td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+        
+      </section>      
+    </div>
   </section>
-
-
-
 </section>

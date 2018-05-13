@@ -1,21 +1,23 @@
-<section class="content">
-  <h3>Venues</h3>
-  <table class="table list">
-    <thead>
-      <tr>
-        <th>Stadium</th>
-        <th>City</th>
-        <th>Capacity</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each data }}
-      <tr>
-        <td><a href="/venues/{{ id }}">{{ stadium }}</a> <small class="text-muted">({{ matches.length }} matches)</small></td>
-        <td>{{ city }}</td>
-        <td>{{ capacity }}</td>
-      </tr>
-      {{/each }}
-    </tbody>
-  </table>
+<section class="content row justify-content-center">
+  <div class="col-md-8">
+    <h2>Venues</h2>
+    <table class="table list">
+      <thead>
+        <tr>
+          <th>Stadium</th>
+          <th>City</th>
+          <th>Capacity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data }}
+        <tr>
+          <td><a href="/venues/{{ id }}">{{ stadium }}</a> <small class="text-muted">({{ matches.length }} matches)</small></td>
+          <td>{{ city }}</td>
+          <td>{{ capacity }}</td>
+        </tr>
+        {{/each }}
+      </tbody>
+    </table>    
+  </div>
 </section>

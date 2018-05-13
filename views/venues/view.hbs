@@ -1,4 +1,4 @@
-<section class="row">
+<section class="row content">
 
   <section class="sideteam col-md-4 col-lg-3">
     
@@ -8,43 +8,44 @@
     
   </section>
 
-  <section class="col">
+  <section class="col row justify-content-center">
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
-          <th>Stage</th>
-          <th>&nbsp;</th>
-          <th>Result</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each matches }}
-        <tr>
-          <td class="date" data-ld="{{ date }}"><span>{{ sdate }}</span></td>
-          <td>{{ groupPrefix stage }}</td>
-          {{#unless teama.id }}
-            <td>{{ teama.name }}</td>
-          {{ else }}
-            <td><span class="flag-icon flag-icon-{{ teama.flag }}"></span> <a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
-          {{/unless }}
-          <td class="score">{{ result }}</td>
-          {{#unless teamb.id }}
-            <td>{{ teamb.name }}</td>
-          {{ else }}
-            <td><a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a> <span class="flag-icon flag-icon-{{ teamb.flag }}"></span></td>
-          {{/unless }}        
-          <td><a href="/matches/{{ id }}"><i class="fas fa-eye"></i></a></td>
-        </tr>
-        {{/each }}
-      </tbody>
-    </table>
+    <div class="col-md-10 col-sm-12">
+      <table class="table list">
+        <caption>Games</caption>
+        <thead>
+          <tr>
+            <th class="narrow">Date <small>(<acronym title="British Summer Time">BST</acronym>)</small></th>
+            <th>Stage</th>
+            <th>&nbsp;</th>
+            <th class="score">Result</th>
+            <th>&nbsp;</th>
+            <th style="width: 2em;">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each matches }}
+          <tr>
+            <td class="date narrow" data-ld="{{ date }}"><span>{{ sdate }}</span></td>
+            <td>{{ groupPrefix stage }}</td>
+            {{#unless teama.id }}
+              <td class="home">{{ teama.name }}</td>
+            {{ else }}
+              <td class="home"><a href="/teams/{{ teama.id }}">{{ teama.name }}</a> <span class="flag-icon flag-icon-{{ teama.flag }}"></span></td>
+            {{/unless }}
+            <td class="score">{{ result }}</td>
+            {{#unless teamb.id }}
+              <td class="away">{{ teamb.name }}</td>
+            {{ else }}
+              <td class="away"><span class="flag-icon flag-icon-{{ teamb.flag }}"></span> <a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a></td>
+            {{/unless }}        
+            <td class="narrow"><a href="/matches/{{ id }}"><i class="fas fa-eye"></i></a></td>
+          </tr>
+          {{/each }}
+        </tbody>
+      </table>      
+    </div>
 
   </section>
-
-
 
 </section>

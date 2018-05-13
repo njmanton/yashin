@@ -1,78 +1,98 @@
-<section class="content row">
+<section class="content row justify-content-center">
 
-  <section class="col-12">
-    <h2 data-mid="{{ match.id }}">Match {{ match.id }}</h2>
+  <div class="col-md-8">
 
-    {{#if user.admin }}
-    <button data-mid="{{ match.id }}" class="editscore btn btn-info">Edit Score</button>
-    <div style="display: none;" id="res{{ match.id }}">
-      <form method="post" action="/admin/result">
-        <input id="res" placeholder="XX-XX" type="text" name="result" value="{{ match.result }}" />
-        <input type="hidden" name="mid" value="{{ match.id }}" />
-        <input id="submit" type="submit" class="btn btn-success btn-sm" value="Submit" />
-      </form>
-    </div>
-    {{/if }}
+    <section class="col-sm-12">
+      <h2 data-mid="{{ match.id }}">Match {{ match.id }}</h2>
 
-    <table class="match">
-      <caption>{{ groupPrefix match.group }} {{ dt }}, <a href="/venues/{{ match.venue.id }}">{{ match.venue.stadium }}</a></caption>
-      <tbody>
-        <tr>
-          <td class="team-flag"><div class="flag-icon-background flag-icon-{{ match.TeamA.sname }}"></div></td>
-          <td>
-            <a href="/teams/{{ match.TeamA.id }}">{{ match.TeamA.name }}</a>
-          </td>
-          <td class="matchresult score">{{#if match.result }}{{ match.result }}{{ else }}-{{/if }}</td>
-          <td><a href="/teams/{{ match.TeamB.id }}">{{ match.TeamB.name }}</a></td>
-          <td class="team-flag"><div class="flag-icon-background flag-icon-{{ match.TeamB.sname }}"></div></td>
-        </tr>
-        <tr>
-          <td>
-            <ul>
-            {{#each goals.home }}
-            <li>{{ this }}</li>
-            {{/each }}            
-            </ul>
-          </td>
-          <td>&nbsp;</td>
-          <td>
-            <ul>
-            {{#each goals.away }}
-            <li>{{ this }}</li>
-            {{/each }}               
-            </ul>     
-          </td>
-        </tr>
-      </tbody>
-    </table>    
-  </section>
+      {{#if user.admin }}
+      <button data-mid="{{ match.id }}" class="editscore btn btn-info">Edit Score</button>
+      <div style="display: none;" id="res{{ match.id }}">
+        <form method="post" action="/admin/result">
+          <input id="res" placeholder="XX-XX" type="text" name="result" value="{{ match.result }}" />
+          <input type="hidden" name="mid" value="{{ match.id }}" />
+          <input id="submit" type="submit" class="btn btn-success btn-sm" value="Submit" />
+        </form>
+      </div>
+      {{/if }}
 
-  <section class="col col-sm-12 col-md-6">
-    {{#if preds }}
-    <section>
-      <table class="table list">
-        <caption>Predictions</caption>
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th class="score">Pred</th>
-          </tr>
-        </thead>
+      <table class="match">
+        <caption>{{ groupPrefix match.group }} {{ dt }}, <a href="/venues/{{ match.venue.id }}">{{ match.venue.stadium }}</a></caption>
         <tbody>
-          {{#each preds }}
           <tr>
-            <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
-            <td class="score {{#if joker }}joker{{/if }} pts-{{ points }}">{{ prediction }}</td>
+            <td class="team-flag"><div class="flag-icon-background flag-icon-{{ match.TeamA.sname }}"></div></td>
+            <td>
+              <a href="/teams/{{ match.TeamA.id }}">{{ match.TeamA.name }}</a>
+            </td>
+            <td class="matchresult score">{{#if match.result }}{{ match.result }}{{ else }}-{{/if }}</td>
+            <td><a href="/teams/{{ match.TeamB.id }}">{{ match.TeamB.name }}</a></td>
+            <td class="team-flag"><div class="flag-icon-background flag-icon-{{ match.TeamB.sname }}"></div></td>
           </tr>
-          {{/each }}
+          <tr class="scorers">
+            <td></td>
+            <td style="text-align: right;">
+              <ul>
+              {{#each goals.home }}
+              <li>{{ this }}</li>
+              {{/each }}            
+              </ul>
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              <ul>
+              {{#each goals.away }}
+              <li>{{ this }}</li>
+              {{/each }}               
+              </ul>     
+            </td>
+          </tr>
         </tbody>
-      </table>
+      </table>    
     </section>
-    {{/if }}    
-  </section>
 
-  <section class="col col-sm-12 col-md-6">
-    <div id="container" style="max-width: 50%;"></div>
-  </section>
+  </div>
+
+  <div class="row col-md-8">
+
+    <section class="col-md-6">
+      {{#if preds }}
+      <section>
+        <table class="table list">
+          <caption>Predictions</caption>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th class="score">Pred</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each preds }}
+            <tr>
+              <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
+              <td class="score {{#if joker }}joker{{/if }} pts-{{ points }}">{{ prediction }}</td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+      </section>
+      {{/if }}
+    </section>
+
+    <section class="col-md-6">
+      <div id="container" style="max-width: 500px;"></div>
+    </section>
+
+   </div>
+
 
 </section>
+
+<style>
+  .scorers td ul li {
+    list-style-type: none;
+    font-size: 1.2rem;
+    color: black;
+    vertical-align: top;
+    padding-right: 0.3rem;
+  }
+</style>

@@ -1,5 +1,29 @@
 <section class="row content">
   
+  <div class="col-sm-10 col-md-3">
+    <aside id="invites" class="sidebar">
+      {{#if list }}
+      <h3>Your invitees <span class="fas fa-ticket-alt"></span></h3>
+      <p>This is a list of the invites you've sent. Confirmed players show as links to accounts.</p>
+      {{#each list }}
+        {{#if validated }}
+        <div>
+          <span class="fas fa-check" title="Confirmed"></span> <span><a href="/users/{{ id }}">{{ username }}</a></span>
+        </div>
+        {{ else }}
+        <div>
+          <span class="fas fa-clock" title="Unconfirmed"></span> <span>{{ email }}</span>
+        </div>
+        {{/if }}
+      {{/each }}
+      
+      {{ else }}
+      <p>You've not sent any invites yet</p>
+      {{/if }}
+    </aside>     
+  </div>
+
+  
   <div class="col-sm-10 col-md-6 col-md-offset-2">
     <h2>Invite someone</h2>
     
@@ -19,25 +43,6 @@
     </form>
   </div>
   
-  <aside id="invites" class="col-sm-10 col-md-3">
-    {{#if list }}
-    <h4>Your invitees <span class="fas fa-ticket-alt"></span></h4>
-    <p>This is a list of the invites you've sent. Confirmed players show as links to accounts.</p>
-    {{#each list }}
-      {{#if validated }}
-      <div>
-        <span class="fas fa-check" title="Confirmed"></span> <span><a href="/users/{{ id }}">{{ username }}</a></span>
-      </div>
-      {{ else }}
-      <div>
-        <span class="fas fa-clock" title="Unconfirmed"></span> <span>{{ email }}</span>
-      </div>
-      {{/if }}
-    {{/each }}
-    
-    {{ else }}
-    <p>You've not sent any invites yet</p>
-    {{/if }}
-  </aside>
+
 
 </section>

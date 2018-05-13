@@ -1,55 +1,59 @@
-<section class="content">
-  <h2 data-lid="{{ league.id }}">{{ league.name }}</h2>
-  {{#if usr.owner }}You are the organiser{{ else }}<h5>Created by {{ league.user.username }}</h5>{{/if }}
-  <p>{{ league.description }}</p>
+<section class="content row justify-content-center">
+  <div class="col-md-8">
+    <h2 data-lid="{{ league.id }}">{{ league.name }}</h2>
+    {{#if usr.owner }}You are the organiser{{ else }}<h5>Created by {{ league.user.username }}</h5>{{/if }}
+    <p>{{ league.description }}</p>
 
-  {{>league }}
+    {{>league }}
 
-  {{#if user }}
-    {{#unless usr.member }}
-      {{#unless usr.unconfirmed }}
-        {{#if league.public }}
-        <button data-lid="{{ league.id }}" id="leagueJoin" class="btn btn-success">Join this league</button>
+    {{#if user }}
+      {{#unless usr.member }}
+        {{#unless usr.unconfirmed }}
+          {{#if league.public }}
+          <button data-lid="{{ league.id }}" id="leagueJoin" class="btn btn-success">Join this league</button>
+          {{ else }}
+          <button data-lid="{{ league.id }}" id="leagueRequestJoin" class="btn btn-info">Request to join this league</button>
+          {{/if }}
         {{ else }}
-        <button data-lid="{{ league.id }}" id="leagueRequestJoin" class="btn btn-info">Request to join this league</button>
-        {{/if }}
-      {{ else }}
-        <p>Your request to join this league is still pending</p>
+          <p>Your request to join this league is still pending</p>
+        {{/unless }}
       {{/unless }}
-    {{/unless }}
-  {{/if }}
-
-  {{#if usr.member }}
-  {{#unless usr.owner }}
-    <button id="leaveLeague" class="btn btn-danger">Leave this league</button>
-  {{/unless }}
-  {{/if }}
-
-  {{#if usr.owner }}
-    {{#if usr.pending }}
-    <section id="pending_league_member">
-      <table class="table list">
-        <caption>Pending applications for this league (league organisers / admins only)</caption>
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Decision</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each pending }}
-          <tr>
-            <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
-            <td>
-              <button type="button" data-uid="{{ user.id }}" data-decision="A" class="btn btn-success"><i class="fas fa-thumbs-up"></i></button>
-              <button type="button" data-uid="{{ user.id }}" data-decision="R" class="btn btn-danger"><i class="fas fa-thumbs-down"></i></button>
-            </td>
-          </tr>
-          {{/each }}
-        </tbody>
-      </table>
-    </section>
+    {{ else }}
+    <p>You must <a href="/login">login</a> to join or create a new league</p>
     {{/if }}
-  {{/if }}
 
+    {{#if usr.member }}
+    {{#unless usr.owner }}
+      <button id="leaveLeague" class="btn btn-danger">Leave this league</button>
+    {{/unless }}
+    {{/if }}
+
+    {{#if usr.owner }}
+      {{#if pending }}
+      <section id="pending_league_member">
+        <table class="table list">
+          <caption>Pending applications for this league (league organisers / admins only)</caption>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Decision</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each pending }}
+            <tr>
+              <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
+              <td>
+                <button type="button" data-uid="{{ user.id }}" data-decision="A" class="btn btn-success"><i class="fas fa-thumbs-up"></i></button>
+                <button type="button" data-uid="{{ user.id }}" data-decision="R" class="btn btn-danger"><i class="fas fa-thumbs-down"></i></button>
+              </td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+      </section>
+      {{/if }}
+    {{/if }}
+  </div>
+  
 </section>

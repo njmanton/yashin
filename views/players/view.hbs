@@ -1,24 +1,31 @@
 <section class="content">
-  <h2>{{ player.username }}</h2>
+  <h2>Predictions for {{ player.username }}</h2>
 
-  <table class="table preds">
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th>Prediction</th>
-        <th>Result</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each preds }}
-      <tr>
-        <td><a href="/teams/{{ match.TeamA.id }}">{{ match.TeamA.name }}</a></td>
-        <td class="score">{{ prediction }}</td>
-        <td class="score">{{ match.result }}</td>
-        <td><a href="/teams/{{ match.TeamB.id }}">{{ match.TeamB.name }}</a></td>
-      </tr>
-      {{/each }}
-    </tbody>
-  </table>
+  <div class="row">
+    {{#each preds }}
+    <div class="col-xl-4 col-sm-6">
+      <table class="table smallpreds">
+        <caption>{{ groupPrefix @key }}</caption>
+        <tbody>
+          {{#each this }}
+          <tr>
+            <td style="text-align: right;"><span title="{{ teama.name }}">{{ teama.code }}</span> <span class="flag-icon flag-icon-{{ teama.sname }}"></span></td>
+            {{#if expired }}
+            <td class="score pts-{{ pts }} {{#if joker}}joker{{/if }}">{{#if pred }}{{ pred }}{{ else }}-{{/if }}</td>
+            {{ else }}
+              {{#if pred }}
+              <td class="score">?-?</td>
+              {{ else }}
+              <td class="score">-</td>
+              {{/if }}
+            {{/if }}
+            <td><span class="flag-icon flag-icon-{{ teamb.sname }}"></span> <span title="{{ teamb.name }}">{{ teamb.code }}</span></td>
+          </tr>
+          {{/each }}
+        </tbody>
+      </table>
+    </div>
+    {{/each }}
+  </div>
+
 </section>
