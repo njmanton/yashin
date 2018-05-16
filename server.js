@@ -12,6 +12,7 @@ var express         = require('express'),
     models          = require('./models'),
     utils           = require('./utils'),
     logger          = require('./logs'),
+    path            = require('path'),
     moment          = require('moment'),
     bars            = require('express-handlebars');
 
@@ -48,7 +49,7 @@ app.set('view engine', '.hbs');
 
 // set static route
 app.use(express.static('assets'));
-app.use('/assets/flags', express.static(`${ __dirname }/node_modules/flag-icon-css/`));
+app.use('/assets/flags', express.static(path.join(__dirname, 'node_modules/flag-icon-css/')));
 
 // body-parsing for post requests
 app.use(bp.urlencoded({ 'extended': false }));
@@ -78,7 +79,7 @@ require('./auth')(app);
 // add routing
 app.use(router);
 require('./routes')(app);
-excon.setDirectory(`${ __dirname }/controllers`).bind(router);
+excon.setDirectory(path.join(__dirname, 'controllers')).bind(router);
 
 // final middleware to handle anything not matched by a route
 app.use(function(req, res) {

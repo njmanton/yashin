@@ -5,6 +5,7 @@ const fs      = require('fs'),
       hbs     = require('handlebars'),
       pkg     = require('../package.json'),
       logger  = require('winston'),
+      path    = require('path'),
       mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: 'goalmine.eu' });
 
 const mail = {
@@ -12,7 +13,7 @@ const mail = {
   send: (recipient, cc, subject, template_file, context, done) => {
 
     // convert template and context into message
-    const template = fs.readFileSync(`${ __dirname }/templates/${ template_file }`, 'utf8'),
+    const template = fs.readFileSync(path.join(__dirname, 'templates', template_file), 'utf8'),
           message = hbs.compile(template);
 
     // add app details to the context

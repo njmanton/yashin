@@ -11,6 +11,8 @@
     "semi": ["error", "always"],
     "no-trailing-spaces": ["error"],
     "prefer-template": ["error"],
-    "eol-last": ["error", "always"]
+    "eol-last": ["error", "always"],
+    "no-unreachable": ["error"],
+    "no-path-concat": ["error"]
   }
 }
