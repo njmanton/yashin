@@ -5,6 +5,8 @@ const models  = require('../models'),
       folder  = 'leagues',
       mail    = require('../mail/'),
       Promise = require('bluebird'),
+      marked  = require('marked'),
+      emoji   = require('node-emoji'),
       logger  = require('winston'),
       utils   = require('../utils'),
       _       = require('lodash/findIndex');
@@ -13,7 +15,7 @@ const controller = {
 
   get_index: function(req, res) {
     // get all confirmed leagues
-    const confirmed = models.League.findAll({
+    const c = models.League.findAll({
       where: { confirmed: 1 },
       attributes: ['id', 'name', 'description', 'public'],
       include: [{
@@ -21,9 +23,9 @@ const controller = {
         attributes: ['id', 'username']
       }]
     });
-    let pending = null;
+    let p = null;
     if (req.user && req.user.admin) {
-      pending = models.League.findAll({
+      p = models.League.findAll({
         where: { confirmed: 0 },
         attributes: ['id', 'name', 'description', 'public'],
         include: [{
@@ -32,11 +34,12 @@ const controller = {
         }]
       });
     }
-    Promise.join(confirmed, pending, (c, p) => {
+    Promise.join(c, p, (confirmed, pending) => {
+      if (pending) pending.map(p => p.description = emoji.emojify(marked(p.description)));
       res.render(`${ folder }/index`, {
         title: 'User Leagues',
-        confirmed: c,
-        pending: p,
+        confirmed: confirmed,
+        pending: pending,
       });
     });
   },
@@ -58,25 +61,32 @@ const controller = {
       }
     });
     Promise.join(l, t, p, (league, table, pending) => {
-      if (league) {
+      if (league && league.confirmed) {
         const uid = (req.user) ? req.user.id : 0;
         const user = {
           id: uid,
           owner: req.user && (req.user.id == league.organiser),
           unconfirmed: ~_(pending, { user_id: uid }),
-          member: (~_(table, { uid: uid }))
+          member: ~_(table, { uid: uid })
         };
 
         table.map(p => { p.sel = (p.uid == uid); });
         res.render(`${ folder }/view`, {
           title: `Goalmine | ${ league.name }`,
+          desc: emoji.emojify(marked(league.description)),
           league: league,
           table: table,
           pending: pending,
           usr: user
         });
       } else {
-        res.status(404).render('errors/404');
+        if (league) {
+          // there are no links to unconfirmed leagues, so only get here manually
+          req.flash('error', 'Sorry, this league is still pending confirmation');
+          res.redirect('/leagues');
+        } else {
+          res.status(404).render('errors/404');
+        }
       }
 
     });
