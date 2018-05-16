@@ -10,6 +10,7 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "no-trailing-spaces": ["error"],
-    "prefer-template": ["error"]
+    "prefer-template": ["error"],
+    "eol-last": ["error", "always"]
   }
 }
