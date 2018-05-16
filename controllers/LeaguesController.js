@@ -81,7 +81,7 @@ const controller = {
         });
       } else {
         if (league) {
-          // there are no links to unconfirmed leagues, so only get here manually
+          // there are no links to unconfirmed leagues, so can only get here manually
           req.flash('error', 'Sorry, this league is still pending confirmation');
           res.redirect('/leagues');
         } else {
