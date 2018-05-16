@@ -1,4 +1,3 @@
-// jshint node: true, esversion: 6
 'use strict';
 
 const models  = require('../models'),
@@ -62,21 +61,27 @@ const controller = {
 
     models.User.findById(req.body.payee).then(user => {
       if (user) {
-        user.update({ paid: 1 }).then(() => {
-          logger.info(`payment confirmed for ${ user.username } (${ user.id })`);
-          // const subject = 'Goalmine 2018 payment confirmed',
-          //       template = 'payment.hbs',
-          //       context = {
-          //         user: user.username
-          //       };
-
-          // mail.send(user.email, null, subject, template, context, res => {
-          //   res.send(res);
-          // })
-          res.status(200).send('email sent');
+        user.update({ paid: 1 }).then(upd => {
+          if (upd) {
+            logger.info(`payment confirmed for ${ user.username } (${ user.id })`);
+            const subject = 'Goalmine 2018 Payment',
+                  template = 'payment.hbs',
+                  context = {
+                    user: user.username
+                  };
+            mail.send(user.email, null, subject, template, context, mailresp => {
+              if (mailresp) {
+                res.status(200).send('email sent');
+              } else {
+                res.status(200).send('email not sent');
+              }
+            });
+          } else {
+            res.status(200).send('user not updated');
+          }
         });
       } else {
-        res.status(400).send('user not found');
+        res.status(404).send('user not found');
       }
     });
 
