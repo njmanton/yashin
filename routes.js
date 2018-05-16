@@ -19,15 +19,13 @@ const routes = app => {
   app.get('/', (req, res) => {
     // calculate days until start of tournament (month is 0-based...)
     const days = moment([2018, 5, 14]).diff(moment(), 'days') + 1;
-    let   left = null;
-    if (days > 0) {
-      left = (days === 1) ? 'There is only <b>one</b> day to go' : `There are ${ days } days to go`;
-    }
+
     models.Match.current().then(matches => {
       res.render('main', {
         title: 'Welcome',
         data: matches,
-        days: left,
+        days: days,
+        scripts: ['/js/vendor/textition.js']
       });
     });
   });
@@ -43,7 +41,6 @@ const routes = app => {
         actions: actions,
         scripts: ['/js/userleagues.js'],
         home: true,
-        debug: JSON.stringify(actions, null, 2)
       });
     });
   });
@@ -73,32 +70,32 @@ const routes = app => {
     })
   );
 
-  // app.get('/auth/facebook',
-  //   passport.authenticate('facebook', {
-  //     //scope: ['email', 'photo']
-  //   })
-  // );
+  app.get('/auth/facebook',
+    passport.authenticate('facebook', {
+      //scope: ['email', 'photo']
+    })
+  );
 
-  // app.get('/auth/facebook/callback',
-  //   passport.authenticate('facebook', {
-  //     successRedirect: '/home',
-  //     failureRedirect: '/'
-  //   })
-  // );
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+      successRedirect: '/home',
+      failureRedirect: '/'
+    })
+  );
 
-  // app.get('/auth/google',
-  //   passport.authenticate('google', {
-  //     scope: ['profile']
-  //   })
-  // );
+  app.get('/auth/google',
+    passport.authenticate('google', {
+      scope: ['profile']
+    })
+  );
 
-  // app.get('/auth/google/callback',
-  //   passport.authenticate('google', {
-  //     successRedirect: '/home',
-  //     failureRedirect: '/',
-  //     failureFlash: true
-  //   })
-  // );
+  app.get('/auth/google/callback',
+    passport.authenticate('google', {
+      successRedirect: '/home',
+      failureRedirect: '/',
+      failureFlash: true
+    })
+  );
 
   app.get('/logout', (req, res) => {
     req.logout();
