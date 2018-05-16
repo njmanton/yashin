@@ -1,14 +1,17 @@
 // jshint node: true, esversion: 6
 'use strict';
 
-var models    = require('./models'),
-    moment    = require('moment'),
-    emoji     = require('node-emoji'),
-    marked    = require('marked'),
-    fs        = require('fs'),
-    utils     = require('./utils'),
-    Promise   = require('bluebird'),
-    passport  = require('passport');
+const models    = require('./models'),
+      moment    = require('moment'),
+      emoji     = require('node-emoji'),
+      marked    = require('marked'),
+      fs        = require('fs'),
+      utils     = require('./utils'),
+      Promise   = require('bluebird'),
+      passport  = require('passport');
+
+// first day of tournament (month is 0-based...)
+const start = [2018, 5, 14];
 
 // routes.js
 // all non-model based routes
@@ -17,8 +20,8 @@ const routes = app => {
 
   // home page
   app.get('/', (req, res) => {
-    // calculate days until start of tournament (month is 0-based...)
-    const days = moment([2018, 5, 14]).diff(moment(), 'days') + 1;
+    // calculate days until start of tournament
+    const days = moment(start).diff(moment(), 'days') + 1;
 
     models.Match.current().then(matches => {
       res.render('main', {
