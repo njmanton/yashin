@@ -1,0 +1,12 @@
+{{!-- template for league organiser when application is made --}}
+<p>Hi {{ organiser }},</p>
+
+<p>You have a request to join your Goalmine league '{{ league }}' from <strong>{{ user }}</strong></p>
+
+<p>You can approve or reject this application by going to the <a href="https://worldcup.goalmine.eu/leagues/{{ id }}">league page</a> and selecting the appropriate option.</p>
+
+<footer>
+  <hr />
+  World Cup Goalmine v{{ app.version }} ({{ app.name }})<br />
+  <p><small style="color: #333;">mail sent by <a href="https://mailgun.org">mailgun</a>.</small></p>
+</footer>
