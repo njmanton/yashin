@@ -153,7 +153,7 @@ const controller = {
       where: [{ username: req.body.username }, { email: req.body.email }]
     }).then(user => {
       if (user) {
-        const reset = utils.getTempName(8),
+        const reset = utils.getTempName(16),
               now = moment().format('ddd DD MMM, HH:mm');
         user.resetpwd = reset;
         user.save().then(() => {
@@ -212,12 +212,13 @@ const controller = {
       attributes: ['username', 'email', 'resetpwd']
     }).then(user => {
       if (!user) {
-        req.flash('error', 'Sorry, I didn\'t recognise that code. Please try again');
+        req.flash('error', 'Sorry, that code wasn\'t recognised. Please check and try again');
         res.redirect('/');
       } else {
         res.render(`${ folder }/reset`, {
           title: 'Reset Password',
-          user: user,
+          usr: user,
+          scripts: ['/js/resetform.js']
         });
       }
     });
@@ -225,7 +226,7 @@ const controller = {
 
   // handle a password reset request
   post_reset: function(req, res) {
-    // req.body.email, req.body.resetpwd, req.body.pwd, req.body.rpt
+    // req.body = { email, code, pwd, rpt }
     models.User.findOne({
       where: { resetpwd: req.body.code, email: req.body.email }
     }).then(user => {
@@ -240,7 +241,8 @@ const controller = {
             req.flash('success', 'Your password has been updated. You can now log in');
             logger.info(`reset password for ${ user.username }`);
           } else {
-            req.flash('error', 'Sorry, unable to update that account');
+            logger.error(`Could not update password for ${ user.username }`);
+            req.flash('error', 'Sorry, unable to update that account. Please try again later.');
           }
           res.redirect('/');
         });
