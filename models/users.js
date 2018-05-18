@@ -67,9 +67,10 @@ const user = (sequelize, DataTypes) => {
     }
   }, {
     classMethods: {
+      // construct a user league table
       table: () => {
-        const models = require('.');
 
+        const models = require('.');
         return models.Pred.findAll({
           attributes: ['id', 'prediction', 'joker', 'points'],
           include: [{
@@ -154,6 +155,7 @@ const user = (sequelize, DataTypes) => {
         });
       },
 
+      // get all predictions for a user
       predictions: uid => {
 
         const models = require('.');
@@ -219,14 +221,13 @@ const user = (sequelize, DataTypes) => {
         });
       },
 
+      // create a temporary user on invite
       invite: (body, referrer) => {
-        // validate inputs: body.email, body.copy
-        // get a temporary code
 
         if (!referrer || !body) { return Promise.reject(new Error('incorrect parameters')); }
 
-        const code = utils.getTempName(8);
-        const models = require('.');
+        const models  = require('.');
+        const code    = utils.getTempName(12);
 
         return models.User.create({
           username: code,
@@ -234,7 +235,6 @@ const user = (sequelize, DataTypes) => {
           password: code,
           referredby: referrer.id
         }).then(invite => {
-
           var template  = 'invite.hbs',
               subject   = 'Invitation',
               context   = {
@@ -245,10 +245,9 @@ const user = (sequelize, DataTypes) => {
               };
 
           var cc = (body.copy) ? referrer.email : null;
-          return mail.send(invite.email, cc, subject, template, context, mail_result => {
-            return [invite, mail_result];
+          mail.send(invite.email, cc, subject, template, context, () => {
           });
-
+          return invite;
         });
       },
 
