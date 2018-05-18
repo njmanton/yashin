@@ -1,12 +1,14 @@
 // jshint node: true, esversion: 6
 'use strict';
 
+const prod = process.env.YASHIN_PROD;
+
 const debug = {
-  expiry: 0, // override deadline restriction
-  ajax:   1, // override ajax-only restriction
-  auth:   0, // override authorise-only restriction
-  admin:  0, // override admin-only restriction
-  anon:   0  // override anon-only restriction
+  expiry: 0 && !prod, // override deadline restriction
+  ajax:   1 && !prod, // override ajax-only restriction
+  auth:   0 && !prod, // override authorise-only restriction
+  admin:  0 && !prod, // override admin-only restriction
+  anon:   0 && !prod  // override anon-only restriction
 };
 
 const points = {

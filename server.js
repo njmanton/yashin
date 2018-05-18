@@ -68,7 +68,7 @@ app.use((req, res, next) => {
   res.locals.flash_success = req.flash('success');
   res.locals.flash_error = req.flash('error');
   res.locals.flash_info = req.flash('info');
-  res.locals.dev = process.env.YASHIN_DEV || false;
+  res.locals.prod = process.env.YASHIN_PROD;
   res.locals.pkg = pkg;
   next();
 });
