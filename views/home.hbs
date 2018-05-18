@@ -8,6 +8,12 @@
         <li><a href="/predictions">edit predictions</a></li>
         <li><a href="/leagues/add">add a new user league</a></li>
         <li><a href="/users/invite">invite a friend</a></li>
+        {{#unless user.facebook_id }}
+        <li><a href="/auth/facebook"><span class="fab fa-facebook-square"></span> link account to Facebook</a></li>
+        {{/unless }}
+        {{#unless user.google_id }}
+        <li><a href="/auth/google"><span class="fab fa-google"></span> link account to Google</a></li>
+        {{/unless }}
       </ul>      
     </section>
 
@@ -46,7 +52,7 @@
   </div>
 
   <div class="col-md-8">
-    <h2>My Predictions Summary <small><a title="Edit" href="/predictions"><i class="fa fa-pencil-alt"></i></a></small></h2>
+    <h2>Predictions summary <small><a title="Edit" href="/predictions"><i class="fa fa-pencil-alt"></i></a></small></h2>
     <div class="row">
       {{#each missing }}
       <div class="alert alert-danger">Stage {{ stage }} has {{ missing }} missing prediction(s).</div>
@@ -70,6 +76,5 @@
       {{/each }}
     </div>
   </div>
-
   
 </section>
