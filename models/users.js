@@ -223,7 +223,7 @@ const user = (sequelize, DataTypes) => {
         // validate inputs: body.email, body.copy
         // get a temporary code
 
-        if (!referrer || !body) { return false; }
+        if (!referrer || !body) { return Promise.reject(new Error('incorrect parameters')); }
 
         const code = utils.getTempName(8);
         const models = require('.');
