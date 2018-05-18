@@ -64,8 +64,12 @@ const controller = {
     // validate form fields
     // post format { email: <invitee email>, message: <message to send>, copy: <add inviter to cc>}
     models.User.invite(req.body, req.user).then(() => {
-      req.flash('info', `invitation sent to ${req.body.email}`);
+      req.flash('info', `invitation sent to ${ req.body.email }`);
       res.redirect('/home');
+    }).catch(e => {
+      logger.error(`error processing invitation: ${ e }`);
+      req.flash('error', 'Sorry, that request could not be processed');
+      res.redirect('/');
     });
   }],
 

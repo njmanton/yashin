@@ -1,48 +1,47 @@
-<section class="row content">
+<section class="row content justify-content-center">
   
-  <div class="col-sm-10 col-md-3">
+  <div class="col-sm-10 col-md-4">
     <aside id="invites" class="sidebar">
-      {{#if list }}
       <h3>Your invitees <span class="fas fa-ticket-alt"></span></h3>
       <p>This is a list of the invites you've sent. Confirmed players show as links to accounts.</p>
-      {{#each list }}
-        {{#if validated }}
-        <div>
-          <span class="fas fa-check" title="Confirmed"></span> <span><a href="/users/{{ id }}">{{ username }}</a></span>
-        </div>
+      {{#if list }}
+        {{#each list }}
+          {{#if validated }}
+          <div>
+            <span class="fas fa-check" title="Confirmed"></span> <span><a href="/users/{{ id }}">{{ username }}</a></span>
+          </div>
+          {{ else }}
+          <div>
+            <span class="fas fa-clock" title="Unconfirmed"></span> <span>{{ email }}</span>
+          </div>
+          {{/if }}
+        {{/each }}
+        
         {{ else }}
-        <div>
-          <span class="fas fa-clock" title="Unconfirmed"></span> <span>{{ email }}</span>
-        </div>
-        {{/if }}
-      {{/each }}
-      
-      {{ else }}
-      <p>You've not sent any invites yet</p>
+        <p class="text-muted" style="text-align: center;">You've not sent any invites yet</p>
       {{/if }}
     </aside>     
   </div>
 
-  
-  <div class="col-sm-10 col-md-6 col-md-offset-2">
-    <h2>Invite someone</h2>
-    
-    <p>To invite a friend to take part in the game, add their email address in the form below. You can also, optionally, edit the default message that will form the body of the email.</p>
-    
-    <p>Once you've clicked 'send', the recipient will receive an email inviting them to visit the site and verify their details to create an account.</p>
-    
-    <form action="/users/invite" id="sendInvite" method="post">
-      <fieldset class="form-group">
-        <input name="email" placeholder="their email" class="form-control" type="email" id="email" required /><br />
-        <textarea placeholder="custom message (optional)" class="form-control" name="message" id="message" rows="6"></textarea><br />
-        <input type="submit" class="btn btn-primary" value="Send" /><br />
-        <label for="copy">Click to receive a copy:
-          <input type="checkbox" name="copy" value="1" id="copy" />
-        </label>
-      </fieldset>
-    </form>
+  <div class="col-sm-10 col-md-8 row justify-content-center">
+    <div class="col-md-10">
+      <h2>Invite someone</h2>
+      
+      <p>To invite a friend to take part in the game, add their email address in the form below. You can also, optionally, edit the default message that will form the body of the email.</p>
+      
+      <p>Once you've clicked 'send', the recipient will receive an email inviting them to visit the site and verify their details to create an account.</p>
+      
+      <form action="/users/invite" id="sendInvite" method="post">
+        <fieldset class="form-group">
+          <input name="email" placeholder="their email" class="form-control" type="email" id="email" required />
+          <textarea placeholder="custom message (optional)" class="form-control" name="message" id="message" rows="6"></textarea>
+          <input type="submit" class="form-control btn btn-primary" value="Send invite" /><br />
+          <label for="copy">Click to receive a copy:
+            <input type="checkbox" name="copy" value="1" id="copy" />
+          </label>
+        </fieldset>
+      </form>      
+    </div>
   </div>
   
-
-
 </section>
