@@ -36,14 +36,15 @@ $(function() {
   $('#leaveLeague').on('click', function() {
 
     var lid = $('h2').data('lid');
-
-    $.ajax({
-      url: `/leagues/${ lid }/user`,
-      method: 'delete'
-    }).done(function(ret) {
-      console.log(ret);
-      if (ret) window.location.reload();
-    });
+    if (confirm('Are you sure you want to leave this league?')) {
+      $.ajax({
+        url: `/leagues/${ lid }/user`,
+        method: 'delete'
+      }).done(function(ret) {
+        console.log(ret);
+        if (ret) window.location.reload();
+      });
+    }
 
   });
 
