@@ -1,26 +1,35 @@
-<section class="row content">
+<section class="row content justify-content-center">
   
-  <div class="col-sm-10 col-md-8 col-md-offset-2">
+  <div class="col-md-8">
     <h2>Confirm your account</h2>
-    <p>Hi, thanks for clicking on the invite from <a href="/users/{{ data.Referrer.id }}">{{ data.Referrer.username }}</a>, to create an account for the 2018 World Cup Goalmine.</p>
+    <p>You've clicked on the invite from <a href="/users/{{ data.Referrer.id }}">{{ data.Referrer.username }}</a>, to create an account for the 2018 World Cup Goalmine.</p>
     <p>To finish creating your account, please fill in the fields below. Your email address will only be used to send game updates. It will never be passed on to anyone else, and is only visible to other users when you send them a game invite.</p>
     <form action="/users/confirm" id="confirmAccount" method="post">
       <fieldset class="form-group">
-        <label for="username">username <small class="text-muted">3-25 characters</small></label>
-        <input tabindex="1" class="form-control" autocomplete="off" placeholder="" type="text" name="username" required id="username" />
-        <span role="alert" class="intrainput" id="user-not-valid"></span><br />
-        <label for="email">email <small class="text-muted">(this is where the invite was sent. you may change this)</small></label>
-        <input tabindex="2" class="form-control" type="email" placeholder="email" name="email" id="email" required value="{{ data.email }}" />
-        <span role="alert" class="intrainput" id="email-not-valid"></span><br />
-        <label for="password">password <small class="text-muted">(minimum 8 characters. some <a tabindex="6" href="https://xkcd.com/936/" target="_blank">tips</a> for strong passwords)</small></label>
-        <input tabindex="3" class="form-control" placeholder="min 8 characters" type="password" name="password" required id="password" />
-        <span role="alert" class="intrainput" id="password-not-valid"></span><br />
-        <label for="repeat">repeat password</label>
-        <input tabindex="4" class="form-control" type="password" placeholder="repeat password" name="repeat" required id="repeat" />
-        <span role="alert" class="intrainput" id="password-not-repeated"></span><br />
+        <div class="form-group row">
+          <label for="username" class="col-sm-3"><strong>username</strong> <small class="text-muted">(3-25 characters)</small></label>
+          <div class="col-sm-9">
+            <input tabindex="1" class="form-control" autocomplete="off" placeholder="username (3-25 chars)" type="text" name="username" required id="username" /><span role="alert" class="intrainput" id="user-not-valid"></span>
+        </div>
+        </div>
+        <div class="form-group row">
+          <label for="email" class="col-sm-3"><strong>email</strong> <small class="text-muted">(this is the email used for the invite. You may change this)</small></label>
+          <div class="col-sm-9">
+            <input tabindex="2" class="form-control" type="email" placeholder="email" name="email" id="email" required value="{{ data.email }}" /><span role="alert" class="intrainput" id="email-not-valid"></span></div>
+        </div>
+        <div class="form-group row">
+          <label for="password" class="col-sm-3"><strong>password</strong> <small class="text-muted">(minimum 8 characters.)</small></label>
+          <div class="col-sm-9">
+            <input tabindex="3" class="form-control" placeholder="min 8 characters" type="password" name="password" required id="password" /><span role="alert" class="intrainput" id="password-not-valid"></span></div>
+        </div>
+        <div class="form-group row">
+          <label for="repeat" class="col-sm-3"><strong>repeat</strong></label>
+          <div class="col-sm-9">
+            <input tabindex="4" class="form-control" type="password" placeholder="repeat password" name="repeat" required id="repeat" /><span role="alert" class="intrainput" id="password-not-repeated"></span></div>
+        </div>
+        <input type="hidden" name="code" id="code" value="{{ data.username }}" />
+        <input tabindex="5" type="submit" id="confirm-submit" class="form-control btn-sm btn btn-primary" value="Confirm" />
       </fieldset>
-      <input type="hidden" name="code" id="code" value="{{ data.username }}" />
-      <input tabindex="5" type="submit" id="confirm-submit" class="btn btn-primary" value="Confirm" />
     </form>
   </div>
 

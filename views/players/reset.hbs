@@ -4,7 +4,7 @@
     <p>You can now reset your password using the form below. Please enter the password associated with your account, and choose a new password (minimum 8 characters).</p>
     <form action="/users/reset" id="resetPassword" method="post">
       <fieldset class="form-group">
-        <input class="form-control" type="email" disabled placeholder="email" id="email" value="{{ usr.email }}" />
+        <input class="form-control-plaintext" type="email" readonly placeholder="email" id="email" value="{{ usr.email }}" />
         <input class="form-control" placeholder="password (min 8 characters)" type="password" name="pwd" required id="password" /><span role="alert" class="intrainput" id="password-not-valid"></span>
         <input class="form-control" type="password" placeholder="repeat password" name="rpt" required id="repeat" /><span role="alert" class="intrainput" id="password-not-repeated"></span>
       </fieldset>

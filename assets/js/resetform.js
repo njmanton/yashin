@@ -5,9 +5,7 @@
 // called by GET /user/reset/:code
 $(function () {
 
-
   function check() {
-    console.log('check');
     var pwd = $('#password'),
         rpt = $('#repeat');
 

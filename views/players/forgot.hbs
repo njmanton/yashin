@@ -1,12 +1,15 @@
-<section class="row content">
+<section class="row content justify-content-center">
   
-  <div class="col-sm-10 col-md-8 col-md-offset-2">
-    <h2>Oops</h2>
-    <p>If you've forgotten your password, then please fill in your username and email address you used to register, and we'll send you a reset code by email.</p>
+  <div class="col-sm-10 col-md-5">
+    <h2>Forgotten Password</h2>
+    <p>If you've forgotten your password, then please fill both your username and email address you used to register, and we'll send you a reset code by email.</p>
     <form action="/users/forgot" method="post" id="forgotPassword">
-      <input type="text" required autocomplete="off" id="forgotuid" placeholder="username" name="username" /><span id="erroruid" class=""></span><br />
-      <input type="email" required autocomplete="off" id="forgotemail" placeholder="bob@example.com" name="email" /><br />
-      <input type="submit" class="btn btn-primary" id="forgotsubmit" value="Find Me" />
+      <fieldset class="login form-group">
+        <input type="text" class="form-control" required autocomplete="off" id="forgotuid" placeholder="username" name="username" />
+        <input type="email" class="form-control" required autocomplete="off" id="forgotemail" placeholder="e.g. bob@example.com" name="email" />
+        <input type="submit" class="form-control btn btn-sm btn-primary" id="forgotsubmit" value="Find Me" />
+      </fieldset>
+      <aside><small>If you don't receive an email, or you can't remember your username or the email you used, please send an <a href="mailto:admin@worldcup.goalmine.eu">email</a></small></aside>
     </form>    
   </div>
 

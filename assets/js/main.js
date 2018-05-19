@@ -1,6 +1,5 @@
 /* eslint-env browser, jquery */
-/* eslint prefer-template: 0 */
-
+/* eslint prefer-template: 0 no-console: 0 */
 'use strict';
 
 // auto clear message boxes after 4s
@@ -10,10 +9,12 @@ window.setTimeout(function() {
 
 $(function() {
 
+  // show/hide the edit score button
   $('button.editscore').on('click', function() {
     $(this).next().toggle();
   });
 
+  // handle a goal deletion
   $('button.goaldel').on('click', function() {
     var gid = $(this).data('gid'),
         row = $(this).closest('tr');
@@ -24,13 +25,14 @@ $(function() {
       if (r) {
         row.fadeOut(500, function() { row.remove(); });
       } else {
-        console.log('problem deleting goal');
+        console.error('problem deleting goal');
       }
     }).fail(function(e) {
-
+      console.error(e);
     });
   });
 
+  // handler for leaving a league
   $('#leaveLeague').on('click', function() {
 
     var lid = $('h2').data('lid');
@@ -40,26 +42,26 @@ $(function() {
       method: 'delete'
     }).done(function(ret) {
       console.log(ret);
-      if (ret) {
-        window.location.reload();
-      }
-    })
+      if (ret) window.location.reload();
+    });
 
   });
 
+  // handle a request to join a public league
   $('#leagueJoin').on('click', function() {
     const lid = $(this).data('lid');
     $.ajax({
       method: 'put',
       url: `/leagues/${ lid }/join`
     }).done(function(res) {
-      window.location.reload();
+      if (res) window.location.reload();
     }).fail(function(e) {
-
+      console.error(e);
     });
 
   });
 
+  // handle a request to join a private league
   $('#leagueRequestJoin').on('click', function() {
 
     const lid = $(this).data('lid');
@@ -67,16 +69,17 @@ $(function() {
       method: 'put',
       url: `/leagues/${ lid }/join`
     }).done(function(res) {
-      window.location.reload();
+      if (res) window.location.reload();
     }).fail(function(e) {
-
+      console.error(e);
     });
 
   });
 
+  // handler for making/editing prediction
   $('#preds :text').on('change', function() {
     var pred = $(this),
-        icon = pred.prev(),
+        icon = pred.next().next(),
         icons = $('span.ajax'),
         re = /^\b\d{1,2}[-|_|=]\d{1,2}\b$/;
 
@@ -93,13 +96,14 @@ $(function() {
           icon.addClass('hide');
         }, 2000);
       }).fail(function(err) {
-        console.log('err', err);
+        console.error('err', err);
       });
     } else {
       pred.val('');
     }
   });
 
+  // handler for clicking joker button
   $('#preds :radio').on('click', function() {
     var radio = $(this),
         mid = radio.data('mid'),
@@ -111,11 +115,12 @@ $(function() {
     }).done(function(res) {
       console.log(res);
     }).fail(function(e) {
-
+      console.error(e);
     });
 
   });
 
+  // handle marking player as paid
   $('#payments :checkbox').on('click', function() {
     console.log('event');
     var check = $(this);
@@ -125,14 +130,16 @@ $(function() {
     }).done(function(res) {
       if (res) {
         console.log(res);
+        check.prev().text('Updated');
         check.replaceWith('<i class="fas fa-check"></i>');
       }
     }).fail(function(err) {
-      console.log(err);
+      console.error(err);
     });
 
   });
 
+  // manage creating new league decisions
   $('#pending_league button').on('click', function() {
     var btn = $(this),
         row = btn.closest('tr'),
@@ -142,13 +149,14 @@ $(function() {
       lid: lid,
       decision: decision
     }).done(function(res) {
-      row.fadeOut(1000);
+      if (res) row.fadeOut(1000);
     }).fail(function(err) {
-      console.log(err);
+      console.error(err);
     });
 
   });
 
+  // manage joining private league decisions
   $('#pending_league_member button').on('click', function() {
     var btn = $(this),
         row = btn.closest('tr'),
@@ -168,12 +176,13 @@ $(function() {
       }
 
     }).fail(function(err) {
-      console.log(err);
+      console.error(err);
       btn.append('<span class="badge badge-danger">failed to process</span>');
     });
 
   });
 
+  // enable/disable tao field based on normal time
   $('#addGoal #time').on('blur', function() {
     var n = $(this).next();
     if ($(this).val() == 45 || $(this).val() == 90) {
@@ -183,18 +192,20 @@ $(function() {
     }
   });
 
+  // handlers for confirm account form
   $('#confirm-submit').attr('disabled', 'disabled');
 
   var user = $('#confirmAccount #username'),
       email = $('#confirmAccount #email'),
       pwd = $('#confirmAccount #password'),
       rpt = $('#confirmAccount #repeat'),
+      pwd_err = $('#confirmAccount #password-not-valid'),
       uid_err = $('#confirmAccount #user-not-valid'),
       email_err = $('#confirmAccount #email-not-valid'),
       rpt_err = $('#confirmAccount #password-not-repeated');
 
   var checkConfirm = function() {
-    var state = (uid_err.hasClass('success') && !email_err.hasClass('error') && rpt_err.hasClass('success') && user.val().length >= 3);
+    var state = (uid_err.hasClass('success') && pwd_err.hasClass('success') && !email_err.hasClass('error') && rpt_err.hasClass('success') && user.val().length >= 3);
     if (state) {
       $('#confirm-submit').removeAttr('disabled');
     } else {
@@ -202,8 +213,24 @@ $(function() {
     }
   };
 
+  pwd.on('blur', function() {
+    if (pwd.val().length < 8) {
+      pwd_err
+        .addClass('err')
+        .removeClass('success')
+        .html('⚠️')
+        .show();
+    } else {
+      pwd_err
+        .addClass('success')
+        .removeClass('err')
+        .html('&#10003;')
+        .show();
+    }
+  });
+
   rpt.on('blur', function() {
-    if (rpt.val() != pwd.val()) {
+    if (rpt.val() != pwd.val() || rpt.val().length == 0) {
       rpt_err
         .addClass('err')
         .removeClass('success')
@@ -272,6 +299,7 @@ $(function() {
 
   });
 
+  // ajax call to render preview of emojified/markdown text
   $('#postPreview').on('click', function() {
     $.post({
       url: '/preview/',
@@ -279,10 +307,9 @@ $(function() {
     }).done(function(res) {
       $('#postPreviewPane').html(res);
     }).fail(function(e) {
+      console.error(e);
       $('#postPreviewPane').text('Could not render text');
     });
   });
 
 });
-
-
