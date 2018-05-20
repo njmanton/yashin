@@ -51,19 +51,24 @@ const goal = (sequelize, DataTypes) => {
             attributes: ['match_id', 'team_id', 'scorer', 'time', 'tao', 'type'],
             order: ['scorer', 'time', 'tao']
           }).then(goals => {
-              //create array of 'home' and 'away' goals
+              // create array of 'home' and 'away' goals
               let arr = { home: [], away: [] };
               for (var x = 0; x < goals.length; x++) {
-                let goal = goals[x],
-                    scorer = `${ goal.scorer } ${ goal.time }`;
+                // let goal = goals[x],
+                //     scorer = `${ goal.scorer } ${ goal.time }`;
 
-                scorer += (goal.tao) ? `+${ goal.tao }` : '';
-                scorer += '\'';
-                // each goal is a string
-                if (home == goal.team_id) {
-                  arr.home.push(scorer);
+                // scorer += (goal.tao) ? `+${ goal.tao }` : '';
+                // scorer += '\'';
+                // // each goal is a string
+                // if (home == goal.team_id) {
+                //   arr.home.push(scorer);
+                // } else {
+                //   arr.away.push(scorer);
+                // }
+                if (home == goals[x].team_id) {
+                  arr.home.push(goals[x]);
                 } else {
-                  arr.away.push(scorer);
+                  arr.away.push(goals[x]);
                 }
               }
             return arr;

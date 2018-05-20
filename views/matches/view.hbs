@@ -1,7 +1,6 @@
 <section class="content row justify-content-center">
 
   <div class="col-md-8">
-
     <section class="col-sm-12">
       <h2 data-mid="{{ match.id }}">Match {{ match.id }}</h2>
 
@@ -33,7 +32,7 @@
             <td style="text-align: right;">
               <ul>
               {{#each goals.home }}
-              <li>{{ this }}</li>
+              <li>{{ scorer }} {{ time }}{{#if tao }}+{{ tao }}{{/if }}' {{#if type }}({{ type }}){{/if }}<i class="fa fa-futbol {{ type }}"></i> </li>
               {{/each }}            
               </ul>
             </td>
@@ -41,7 +40,7 @@
             <td>
               <ul>
               {{#each goals.away }}
-              <li>{{ this }}</li>
+              <li><i class="fa fa-futbol {{ type }}"></i> {{ scorer }} {{ time }}{{#if tao }}+{{ tao }}{{/if }}' {{#if type }}({{ type }}){{/if }}</li>
               {{/each }}               
               </ul>     
             </td>
@@ -49,11 +48,9 @@
         </tbody>
       </table>    
     </section>
-
   </div>
 
   <div class="row col-md-8">
-
     <section class="col-md-6">
       {{#if preds }}
       <section>
@@ -77,13 +74,9 @@
       </section>
       {{/if }}
     </section>
-
     <section class="col-md-6">
       <h5 class="text-muted">Goalmap</h5>
       <div id="container" style="max-width: 500px;"></div>
     </section>
-
    </div>
-
-
 </section>
