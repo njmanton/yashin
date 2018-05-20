@@ -2,18 +2,27 @@
   <div class="col-md-8">
     <h2>Add new user league</h2>
     <p>Complete the form to request a new user league. You must include a name and description. The request must be approved by an administrator before it will be visible. Once the league has been created, you will be set as the organiser.</p>
-    <p>If you set the league to be public, anyone can join the league.</p>
-    <p>The default setting is private which means you, as the administrator, will need to manage any requests to join the league. You will see a list of all requests on your home page.</p>
+    <p>If you set the league to be public, any player can join the league.</p>
+    <p>The default setting is private which means you, as the administrator, will need to manage any requests to join the league. You will see a list of all requests on both the league page and the options on your home page.</p>
     <form action="/leagues/add" id="leagueAdd" method="post">
       <fieldset class="form-group">
         <label for="name">Name:</label>
-        <input placeholder="(required) ex. my new league" class="form-control" type="text" id="name" name="name" />
+        <input placeholder="(required) e.g. my new league" class="form-control" type="text" id="name" name="name" />
         <label for="desc">Description:</label>
-        <textarea rows="8" placeholder="(required)" class="form-control" name="desc" id="desc"></textarea>
+        <textarea rows="8" placeholder="(required) emoji (:football:) and _markdown_ are both supported" class="form-control" name="desc" id="desc"></textarea>
         <label for="public">Public:</label>
         <input class="form-control-inline" type="checkbox" name="public" id="public" />
         <input type="submit" class="form-control btn btn-primary" value="submit" />      
       </fieldset>
     </form>
+    <aside>
+      <p>You can use markdown and include emoji in the league description.</p>
+      <ul>
+        <li><i>_italics_</i></li>
+        <li><strong>**bold**</strong></li>
+        <li><a href="https://google.com">[link](https://google.com)</a></li>
+        <li><a target="_blank" href="https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json">list</a> of emoji</li>
+      </ul>
+    </aside>
   </div>
 </section>

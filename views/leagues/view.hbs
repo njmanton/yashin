@@ -1,10 +1,12 @@
 <section class="content row justify-content-center">
   <div class="col-md-8">
     <h2 data-lid="{{ league.id }}">{{ league.name }}</h2>
-    {{#if usr.owner }}You are the organiser{{ else }}<h5>Created by {{ league.user.username }}</h5>{{/if }}
-    <p>{{ league.description }}</p>
+    <p>{{{ desc }}}</p>
 
     {{>league }}
+    <p>{{#if usr.owner }}You are{{ else }}{{ league.user.username }} is {{/if }} the organiser of this league. {{#unless league.public }}{{#if usr.owner }}Any pending applications for this league can be found in the table below{{/if }}{{/unless }}</p>
+
+    </p>
 
     {{#if user }}
       {{#unless usr.member }}

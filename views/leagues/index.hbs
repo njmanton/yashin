@@ -21,7 +21,8 @@
         {{/each }}
       </tbody>
     </table>
-    <p>Public leagues are open to everyone. Leagues marked with a <i class="fas fa-lock"></i> are private. You can request to join these leagues. You can also <a href="/leagues/add">create</a> a new league.</p>    
+    <p>User leagues are separate from the main leaderboard. Anyone can <a href="/leagues/add/">create</a> and manage their own league, and set their own entry requirements and prizes. You will always score the same points as the main league.</p>
+    <p>Public leagues are open to everyone. Leagues marked with a <i class="fas fa-lock"></i> are private. You can request to join these leagues.</p>    
   </div>
 
   {{#if pending }}
@@ -41,7 +42,7 @@
         {{#each pending }}
         <tr>
           <td>{{ name }}</td>
-          <td>{{ description }}</td>
+          <td>{{{ description }}}</td>
           <td>{{ user.username }}</td>
           <td>
             <button type="button" data-decision="A" data-lid="{{ id }}" class="btn btn-success"><i class="fas fa-thumbs-up"></i></button>

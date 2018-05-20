@@ -1,6 +1,6 @@
-<section class="content">
-  <h3>Payments <i class="fas fa-lock" title="Admin function"></i></h3>
-  <div>
+<section class="content row justify-content-center">
+  <div class="col-md-8">
+    <h2>Payments <i class="fas fa-lock" title="Admin function"></i></h2>
     <table id="payments" class="list table">
       <thead>
         <tr>
@@ -16,6 +16,7 @@
           {{#if paid }}
           <i class="fas fa-check"></i>
           {{ else }}
+          <span style="color: green; font-weight: bold;"></span>
           <input type="checkbox" data-uid="{{ id }}" />
           {{/if }}
           </td>
@@ -24,4 +25,5 @@
       </tbody>
     </table>
   </div>
+
 </section>
