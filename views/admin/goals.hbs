@@ -1,46 +1,48 @@
-<section class="content">
-  <h3>Goals</h3>
-  <table class="table list">
-    <thead>
-      <tr>
-        <th>Player</th>
-        <th>Team</th>
-        <th>Time</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each data.goals }}
-      <tr>
-        <td>{{ scorer }}</td>
-        <td>{{ team.name }}</td>
-        <td>{{ time }}{{#if tao }}+{{ tao }}{{/if }}' {{#if type }}({{ type }}){{/if }}</td>
-        <td><button data-gid="{{ id }}" class="goaldel btn btn-danger">&times;</button></td>
-      </tr>
-      {{/each }}
-    </tbody>
-  </table>
+<section class="content row justify-content-center">
+  <div class="col-md-8">
+    <h2>Goals for match {{ data.id }}</h2>
+    <table class="table list">
+      <thead>
+        <tr>
+          <th>Player</th>
+          <th>Team</th>
+          <th>Time</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data.goals }}
+        <tr>
+          <td>{{ scorer }}</td>
+          <td>{{ team.name }}</td>
+          <td>{{ time }}{{#if tao }}+{{ tao }}{{/if }}' {{#if type }}({{ type }}){{/if }}</td>
+          <td><button data-gid="{{ id }}" class="goaldel btn btn-danger">&times;</button></td>
+        </tr>
+        {{/each }}
+      </tbody>
+    </table>
 
-  <h5>Add goal</h5>
-  <form action="/admin/goals/add" id="addGoal" method="post" class="form-inline">
-    <fieldset>
-      <input type="text" class="form-control" name="scorer" required="required" placeholder="scorer" />
-      <select class="form-control" name="team" id="">
-        <option value=""></option>
-        <option value="{{ data.TeamA.id }}">{{ data.TeamA.name }}</option>
-        <option value="{{ data.TeamB.id }}">{{ data.TeamB.name }}</option>
-      </select>
-      <input type="text" min="1" max="120" class="form-control" id="time" name="time" required="" placeholder="time" />
-      <input type="text" class="form-control" name="tao" disabled="disabled" placeholder="tao" />
-      <select class="form-control" name="type" id="">
-        <option value=""></option>
-        <option value="P">Penalty</option>
-        <option value="O">Own goal</option>
-      </select>   
-      <input type="hidden" value="{{ data.id }}" name="match_id" />     
-    </fieldset>
+    <h4>Add goal</h4>
+    <form action="/admin/goals/add" id="addGoal" method="post" class="form-inline">
+      <fieldset>
+        <input type="text" class="form-control" name="scorer" required="required" placeholder="scorer" />
+        <select class="form-control" name="team" id="">
+          <option value=""></option>
+          <option value="{{ data.TeamA.id }}">{{ data.TeamA.name }}</option>
+          <option value="{{ data.TeamB.id }}">{{ data.TeamB.name }}</option>
+        </select>
+        <input type="text" min="1" max="120" class="form-control" id="time" name="time" required="" placeholder="time" />
+        <input type="text" class="form-control" name="tao" disabled="disabled" placeholder="tao" />
+        <select class="form-control" name="type" id="">
+          <option value=""></option>
+          <option value="P">Penalty</option>
+          <option value="O">Own goal</option>
+        </select>   
+        <input type="hidden" value="{{ data.id }}" name="mid" />     
+      </fieldset>
 
-    <input type="submit" id="submit" class="btn btn-primary btn-sm" value="Submit" />     
-  </form>
+      <input type="submit" id="submit" class="btn btn-primary btn-sm" value="Submit" />     
+    </form>
+  </div>
 
 </section>

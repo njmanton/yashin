@@ -4,6 +4,7 @@ const models  = require('../models'),
       folder  = 'admin',
       mail    = require('../mail/'),
       logger  = require('winston'),
+      moment  = require('moment'),
       Promise = require('bluebird'),
       utils   = require('../utils/');
 
@@ -32,11 +33,8 @@ const controller = {
           req.flash('success', `Result set to ${ req.body.result }, updating ${ e.length } predictions`);
           res.redirect(`/matches/${ req.body.mid }`);
         });
-
       });
-
     } else {
-
       req.flash('error', 'The entered score was not valid');
       res.redirect(`/matches/${ req.body.mid }`);
 
@@ -172,6 +170,7 @@ const controller = {
       }, {
         model: models.Goal,
         attributes: ['id', 'team_id', 'scorer', 'type', 'time', 'tao'],
+        order: [['order', 'ASC']],
         include: {
           model: models.Team,
           attributes: ['id', 'name']
@@ -182,7 +181,6 @@ const controller = {
         res.render(`${ folder }/goals`, {
           data: match,
           title: 'Manage Goals',
-          //debug: JSON.stringify(match, null, 2)
         });
       } else {
         res.status(404).render('errors/404');
@@ -195,23 +193,32 @@ const controller = {
       req.flash('error', 'something wrong with that data');
       res.redirect(req.headers.referer);
     } else {
-      models.Goal.create({
-        match_id: req.body.match_id,
-        team_id: req.body.team,
-        scorer: req.body.scorer,
-        time: req.body.time,
-        tao: req.body.tao,
-        type: req.body.type || null
-      }).then(goal => {
-        if (goal) {
-          logger.info(`new goal added: ${ req.body.scorer } in match ${ req.body.team }`);
-          req.flash('success', 'Goal added');
-        } else {
-          logger.error('Error adding goal to database');
-          req.flash('error', 'Couldn\'t save data');
-        }
-        res.redirect(req.headers.referer);
+      models.Match.findById(req.body.mid, {
+        attributes: ['id', 'date']
+      }).then(match => {
+        models.Goal.create({
+          match_id: match.id,
+          team_id: req.body.team,
+          scorer: req.body.scorer,
+          order: moment(match.date).add(req.body.time, 'm'),
+          time: req.body.time,
+          tao: req.body.tao,
+          type: req.body.type || null
+        }).then(goal => {
+          if (goal) {
+            logger.info(`new goal added: ${ req.body.scorer } in match ${ req.body.team }`);
+            req.flash('success', 'Goal added');
+          } else {
+            logger.error('Error adding goal to database');
+            req.flash('error', 'Couldn\'t save data');
+          }
+          res.redirect(req.headers.referer);
+        });
+      }).catch(e => {
+        logger.error(`Could not create goal for mid:${ req.body.mid } (${ e })`);
+        res.redirect('/admin');
       });
+
     }
   }],
 

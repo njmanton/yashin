@@ -9,6 +9,7 @@ const controller = {
   get_index: function(req, res) {
     models.Goal.findAll({
       attributes: ['id', 'scorer', 'time', 'tao', 'type'],
+      order: [['order', 'ASC']],
       raw: true,
       include: [{
         model: models.Team,

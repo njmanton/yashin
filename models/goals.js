@@ -24,6 +24,10 @@ const goal = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: '0'
     },
+    order: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
     type: {
       type: DataTypes.ENUM('P','O'),
       allowNull: true
@@ -49,7 +53,7 @@ const goal = (sequelize, DataTypes) => {
           return models.Goal.findAll({
             where: { match_id: mid },
             attributes: ['match_id', 'team_id', 'scorer', 'time', 'tao', 'type'],
-            order: ['scorer', 'time', 'tao']
+            order: ['order', 'scorer']
           }).then(goals => {
               // create array of 'home' and 'away' goals
               let arr = { home: [], away: [] };
