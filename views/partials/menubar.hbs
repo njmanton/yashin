@@ -2,7 +2,7 @@
 <div class="row header {{#if dev }}dev_platform{{/if }}">
   <div class="col menu-items">
     {{#if user}}
-    {{ user.username }}
+    <a href="/home">{{ user.username }}</a>
     {{#unless user.paid }}
     <span class="badge badge-danger">Not paid</span>
     {{/unless }}
