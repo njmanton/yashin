@@ -81,8 +81,10 @@ const routes = app => {
 
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-      successRedirect: '/home',
-      failureRedirect: '/'
+      successReturnToOrRedirect: '/home',
+      //successRedirect: '/home',
+      failureRedirect: '/',
+      failureFlash: true
     })
   );
 
@@ -94,7 +96,7 @@ const routes = app => {
 
   app.get('/auth/google/callback',
     passport.authenticate('google', {
-      successRedirect: '/home',
+      successReturnToOrRedirect: '/home',
       failureRedirect: '/',
       failureFlash: true
     })
