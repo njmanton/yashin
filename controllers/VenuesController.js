@@ -37,7 +37,7 @@ const controller = {
         });
       });
     } else {
-      res.status(404).render('errors/404');
+      res.status(404).render('errors/404', { title: 'Venue not found' });
     }
   }
 };

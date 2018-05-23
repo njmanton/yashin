@@ -16,7 +16,6 @@ const controller = {
       res.render(`${ folder }/index`, {
         title: 'All Teams',
         data: teams,
-        //debug: JSON.stringify(teams, null, 2)
       });
     });
   },
@@ -93,10 +92,9 @@ const controller = {
           team: team,
           table: table,
           matches: games,
-          //debug: JSON.stringify([team, table, games], null, 2)
         });
       } else {
-        res.status(404).render('errors/404');
+        res.status(404).render('errors/404', { title: 'Team not found' });
       }
     });
   },
