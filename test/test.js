@@ -86,8 +86,8 @@ describe('User', () => {
        });
   });
 
-    it('Should reject "testuser" as available username', done => {
-    api.get('/users/available/testuser')
+    it('Should reject "nick" as available username', done => {
+    api.get('/users/available/nick')
        .end((err, res) => {
          expect(res.status).to.equal(200);
          expect(res.body).to.be.false;
@@ -165,6 +165,30 @@ describe('Venue', () => {
       done();
     });
   });
+});
+
+describe('Match', () => {
+  it('Should serve a page for all matches', done => {
+    api.get('/matches/').end((err, res) => {
+      expect(res.status).to.equal(200);
+      done();
+    });
+  });
+
+  it('Should serve a page for a specific match', done => {
+    api.get('/matches/1').end((err, res) => {
+      expect(res.status).to.equal(200);
+      done();
+    });
+  });
+
+  it('Should serve a 404 for an invalid match', done => {
+    api.get('/matches/9999').end((err, res) => {
+      expect(res.status).to.equal(404);
+      done();
+    });
+  });
+
 });
 
 describe('Score Calcs', () => {
