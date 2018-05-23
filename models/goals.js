@@ -48,6 +48,7 @@ const goal = (sequelize, DataTypes) => {
 
         // first get the team ids so we can put goals into correct bucket
         return models.Match.findById(mid, { attributes: ['teama_id', 'teamb_id'] }).then(match => {
+          if (!match) return null;
           const home = match.teama_id;
           // get all the goals for that match
           return models.Goal.findAll({

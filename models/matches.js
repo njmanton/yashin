@@ -68,6 +68,7 @@ const match = (sequelize, DataTypes) => {
             attributes: ['id', 'stadium', 'city', 'capacity']
           }]
         }).then(match => {
+          if (match == null) return null;
           let placeholders = [];
           if (match.id > 48) {
             placeholders = match.group.split('v');
