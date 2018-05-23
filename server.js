@@ -20,6 +20,8 @@ var express         = require('express'),
 const hbs = bars.create({
   defaultLayout: 'default',
   extname: '.hbs',
+  partialsDir: path.join(__dirname, 'views/partials'),
+  layoutsDir: path.join(__dirname, 'views/layouts'),
   helpers: {
     groupPrefix: data => {
       var pre = (~['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].indexOf(data)) ? 'Group ' : '';
@@ -48,7 +50,7 @@ app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 // set static route
-app.use(express.static('assets'));
+app.use(express.static(path.join(__dirname, 'assets')));
 app.use('/assets/flags', express.static(path.join(__dirname, 'node_modules/flag-icon-css/')));
 
 // body-parsing for post requests
