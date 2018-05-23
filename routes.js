@@ -113,13 +113,20 @@ const routes = app => {
     res.send(emoji.emojify(marked(req.body.text)));
   });
 
+  app.get('/pages/goaltime', (req, res) => {
+    res.render('pages/goaltime', {
+      title: 'Goals by time scored',
+      scripts: ['https://code.highcharts.com/highcharts.js', 'https://code.highcharts.com/highcharts-more.js', '/js/goaltime.js']
+    });
+  });
+
   // any other static content
   app.get('/pages/:page', (req, res) => {
     let path = `views/pages/${ req.params.page }.hbs`;
     try {
       fs.accessSync(path, fs.F_OK);
       res.render(`pages/${ req.params.page }`, {
-        title: req.params.page
+        title: req.params.page,
       });
     } catch (e) {
       res.status(404).render('errors/404', { layout: 'error', title: 'Uh-oh' });
