@@ -2,6 +2,7 @@
 /* eslint prefer-template: 0 */
 'use strict';
 
+// called on GET /match/:id
 $(function() {
 
   var cht = {
@@ -84,7 +85,7 @@ $(function() {
     };
 
   var mid = $('h2').data('mid');
-  $.get(`/matches/${ mid }/goalmap`).done(function(data) {
+  $.get('/matches/' + mid + '/goalmap').done(function(data) {
     if (data) {
       cht.series[0].data = data.counts;
       cht.series[1].data = [data.mean];
