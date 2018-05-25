@@ -4,17 +4,6 @@
     <section class="col-sm-12">
       <h2 data-mid="{{ match.id }}">Match {{ match.id }}</h2>
 
-      {{#if user.admin }}
-      <button data-mid="{{ match.id }}" class="editscore btn btn-info">Edit Score</button>
-      <div style="display: none;" id="res{{ match.id }}">
-        <form method="post" action="/admin/result">
-          <input id="res" placeholder="XX-XX" type="text" name="result" value="{{ match.result }}" />
-          <input type="hidden" name="mid" value="{{ match.id }}" />
-          <input id="submit" type="submit" class="btn btn-success btn-sm" value="Submit" />
-        </form>
-      </div>
-      {{/if }}
-
       <table class="match">
         <caption>{{ groupPrefix match.group }} {{ dt }}, <a href="/venues/{{ match.venue.id }}">{{ match.venue.stadium }}</a></caption>
         <tbody>
@@ -79,4 +68,21 @@
       <div id="container" style="max-width: 500px;"></div>
     </section>
    </div>
+
+  <div class="col-md-8">
+    {{#if user.admin }}
+      <button data-mid="{{ match.id }}" class="editscore btn btn-info">Edit Score</button>
+      <div style="display: none;" id="res{{ match.id }}">
+        <form method="post" action="/admin/result">
+          <input id="res" placeholder="XX-XX" type="text" name="result" value="{{ match.result }}" />
+          <input type="hidden" name="mid" value="{{ match.id }}" />
+          <input id="submit" type="submit" class="btn btn-success btn-sm" value="Submit" />
+        </form>
+      </div>
+      {{#if match.result }}
+        <a href="/admin/goals/{{ match.id }}" class="btn btn-info">Add Goals</a>
+      {{/if }}
+    {{/if }}    
+  </div>
+
 </section>
