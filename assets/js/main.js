@@ -87,15 +87,16 @@ $(function() {
     icons.addClass('hide');
     if (pred.val().match(re) || pred.val() == '') {
       $.post('/predictions/update', {
-        //uid: 1,
         mid: pred.data('mid'),
         pred: pred.val()
       }).done(function(res) {
-        console.log(res);
-        icon.removeClass('hide');
-        window.setTimeout(function() {
-          icon.addClass('hide');
-        }, 2000);
+        console.log(res && res.updates);
+        if (res) {
+          icon.removeClass('hide');
+          window.setTimeout(function() {
+            icon.addClass('hide');
+          }, 2000);
+        }
       }).fail(function(err) {
         console.error('err', err);
       });
@@ -107,6 +108,7 @@ $(function() {
   // handler for clicking joker button
   $('#preds :radio').on('click', function() {
     var radio = $(this),
+        icon = radio.next(),
         mid = radio.data('mid'),
         stage = radio.data('stage');
 
@@ -114,9 +116,14 @@ $(function() {
       mid: mid,
       stage: stage
     }).done(function(res) {
-      console.log(res);
-    }).fail(function(e) {
-      console.error(e);
+      if (res && res.updates) {
+        icon.removeClass('hide');
+        window.setTimeout(function() {
+          icon.addClass('hide');
+        }, 1000);
+      }
+    }).fail(function(err) {
+      console.error('err', err);
     });
 
   });

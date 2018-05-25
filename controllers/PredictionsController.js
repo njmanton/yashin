@@ -25,8 +25,7 @@ const predictions = {
       }
       res.render(`${ folder }/index`, {
         title: 'My Predictions',
-        table: preds,
-        //debug: JSON.stringify(preds, null, 2)
+        table: preds
       });
     });
   }],
@@ -42,11 +41,9 @@ const predictions = {
       } else if (!req.body.pred.match(/^\b\d{1,2}-\d{1,2}\b$/)) {
         res.status(400).send('Incorrect format');
       } else {
-
         models.Pred.findOne({
           where: { user_id: req.user.id, match_id: req.body.mid }
         }).then(pred => {
-
           if (pred) {
             pred.update({ prediction: req.body.pred }).then(() => { res.send('updated'); });
           } else {
@@ -54,7 +51,7 @@ const predictions = {
               user_id: req.user.id,
               match_id: req.body.mid,
               prediction: req.body.pred
-            }).then(() => { res.status(200).send('created'); });
+            }).then(() => { res.status(200).send({ updates: 1 }); });
           }
           logger.info(`user ${ req.user.username } set prediction ${ req.body.pred } on match ${ req.body.mid }`);
         }).catch(e => {
