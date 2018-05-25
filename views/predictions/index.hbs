@@ -1,61 +1,38 @@
-<section id="preds" class="content">
-  <h3>My Predictions</h3>
-  <div id="carouselExampleControls" class="carousel slide" data-interval="false">
-    <ol class="carousel-indicators">
-      {{#each table }}
-      <li data-target="#carouselExampleControls" data-slide-to="{{ @index }}" {{#if @first }}class="active"{{/if }}>{{ @key }}</li>
-      {{/each }}
-    </ol>
-    <div class="carousel-inner">
-      {{#each table }}
-      <div class="carousel-item {{#if @first }}active{{/if }}">
-        {{ groupPrefix @key }}
-        <table class="preds table">
-          <thead>
-            <tr>
-              <th>&nbsp;</th>
-              <th>Pred</th>
-              <th>Result</th>
-              <th>&nbsp;</th>
-            </th>
-          </thead>
-          <tbody>
-            {{#each this }}
-            <tr {{#if expired }}class="expired"{{/if }}>
-              <td><a href="/teams/{{ teama.id }}">{{ teama.name }}</a></td>
-              <td class="pred">
-                {{#if expired }}
-                  <span class="score">{{ pred }}</span>
-                  <input type="radio" disabled="disabled" {{#if joker }}checked{{/if }} />
-                  <span class="ajax hide"><i class="fas fa-check-circle"></i></span>                  
-                {{ else }}
-                  <input placeholder="X-X" pattern="\d{1,2}-\d{1,2}" class="score" maxlength="5" tabindex="{{ mid }}" type="text" value="{{ pred }}" data-mid="{{ mid }}" />
-                  <input type="radio" data-mid="{{ mid }}" data-stage="{{ stage }}" name="joker[{{ @../key }}]" {{#if group_expired }}disabled="disabled"{{/if }} />
-                  <span class="ajax hide"><i class="fas fa-check-circle"></i></span>
-                {{/if }}
-              </td>
-              <td class="score">{{ result }}</td>
-              <td><a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a></td>
-            </tr>
-            {{/each }}
-          </tbody>
-        </table>
-      </div>
-      {{/each }}
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+<section id="preds" class="content row justify-content-center">
+  <div class="col-md-8">
+    <h2>Edit Predictions</h2>
+    {{#each table }}
+      <table class="preds table">
+        <caption>{{ groupPrefix @key }}</caption>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Pred</th>
+            <th class="score">Result</th>
+            <th>&nbsp;</th>
+          </th>
+        </thead>
+        <tbody>
+          {{#each this }}
+          <tr {{#if expired }}class="expired"{{/if }}>
+            <td style="text-align: right;"><a href="/teams/{{ teama.id }}">{{ teama.name }}</a> <span class="flag-icon flag-icon-{{ teama.sname }}"></span> </td>
+            <td class="pred">
+              {{#if expired }}
+                <span class="score">{{ pred }}</span>
+                <input type="radio" disabled="disabled" {{#if joker }}checked{{/if }} />
+                <span class="ajax hide">saved <i class="far fa-check-circle"></i></span>                  
+              {{ else }}
+                <input placeholder="X-X" pattern="\d{1,2}-\d{1,2}" class="score" maxlength="5" tabindex="{{ mid }}" type="text" value="{{ pred }}" data-mid="{{ mid }}" />
+                <input type="radio" data-mid="{{ mid }}" data-stage="{{ stage }}" name="joker[{{ @../key }}]" {{#if group_expired }}disabled="disabled"{{/if }} />
+                <span class="ajax hide">saved <i class="far fa-check-circle"></i></span>
+              {{/if }}
+            </td>
+            <td class="score">{{ result }}</td>
+            <td><span class="flag-icon flag-icon-{{ teamb.sname }}"></span> <a href="/teams/{{ teamb.id }}">{{ teamb.name }}</a></td>
+          </tr>
+          {{/each }}
+        </tbody>
+      </table>
+    {{/each }}
   </div>
-
 </section>
-<style>
-  tr.expired td {
-    background-color: #ccc;
-  }
-</style>
