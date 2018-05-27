@@ -43,7 +43,7 @@ module.exports = app => {
         user.update({ resetpwd: null, lastlogin: now }); // nullify reset code, if present
         req.flash('success', `logged in. welcome back ${ user.username }`);
         if (!user.paid) {
-          req.flash('error', 'You have not yet paid your entry fee');
+          req.flash('error', 'You have not yet paid your entry fee. You can <a target="_blank" href="https://paypal.me/nickm/2">pay <i class="fab fa-paypal"></i></a> now.');
         }
         return done(null, user);
       }).catch(err => {
