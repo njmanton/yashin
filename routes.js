@@ -25,7 +25,7 @@ const routes = app => {
 
     models.Match.current().then(matches => {
       res.render('main', {
-        title: 'Welcome',
+        title: 'Goalmine 2018 World Cup',
         data: matches,
         days: days,
         scripts: ['/js/vendor/textition.js']
