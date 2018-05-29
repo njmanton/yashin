@@ -2,7 +2,7 @@
 
 Goalmine v9 - World Cup Russia 2018
 
-Named in honour of [Lev Yashin](https://en.wikipedia.org/wiki/Lev_Yashin)
+In honour of [Lev Yashin](https://en.wikipedia.org/wiki/Lev_Yashin)
 
 ## History
 

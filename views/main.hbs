@@ -1,31 +1,54 @@
-<section class="content row justify-content-center">
-  <div class="col-md-8">
-    <h2>ГОЛШАХТА 2018</h2>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>  
-    <p>{{{ days }}}</p>
-
-    <h4>Upcoming games</h4>
-    {{#each data }}
-    <table class="table matches">
-      <caption>{{ @key }}</caption>
-      <tbody>
-        {{#each this }}
-        <tr>
-          <td>{{ time }}</td>
-          <td>{{ groupPrefix stage }}</td>
-          <td style="text-align: right;">{{ home }} <span class="flag-icon flag-icon-{{ aflag }}"></span></td>
-          <td class="score">{{#if result }}{{ result }}{{ else }}<span style="color: #aaa;">v</span>{{/if }}</td>
-          <td><span class="flag-icon flag-icon-{{ bflag }}"></span> {{ away }}</td>
-        </tr>
-        {{/each }}
-      </tbody>
-    </table>
-    {{/each }}
+<section class="mainpage content row justify-content-center">
+  <div class="col-md-10">
+    <h1>
+      <div style="">КУБКА МИРА ГОЛШAXTA</div>
+      <div style="display: none;">WORLD CUP GOALMIЙE</div>
+    </h1>
+    <p>Welcome to Russia 2018 World Cup Goalmine. This is the ninth edition of Goalmine, which has been running for each premier league season and World Cup and Euros championships since 2010. Predict the scores of the games of the 2018 World Cup, the closer you get, the more points you score. There {{ pluralise days 'is' 'are' }} {{ days }} {{ pluralise days 'day' 'days' }} left to go before the tournament begins.</p>
+  </div>
+  <div class="row col-md-10 justify-content-center">
+    <div class="col-md-8">
+      <h4 class="text-muted">Login</h4>
+      <form action="/login" id="homelogin" method="post">
+        <fieldset class="login form-group">
+          <input autocapitalize="off" aria-required="true" class="form-control" type="text" placeholder="username" pattern="^\S{3,25}$" name="username"/>
+          <input aria-required="true" type="password" class="form-control" placeholder="password" name="password"/>
+          <input type="submit" class="form-control btn btn-sm btn-primary" value="Log in" />
+        </fieldset>
+      </form>
+      <div class="social">
+        <a class="btn btn-social btn-facebook" href="/auth/facebook">
+         Login with <span class="fab fa-facebook-square"></span>
+        </a>
+        <a class="btn btn-social btn-google" href="/auth/google">
+          Login with <span class="fab fa-google"></span>
+        </a>
+        <a class="btn" href="users/forgot">
+          <span class="fas fa-question-circle"></span> Forgot password?
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-10">
+      <aside class="upcoming">
+        <h4>Next games</h4>
+        {{#each data }}
+        <table class="table matches">
+          <caption class="text-muted">{{ @key }}</caption>
+          <tbody>
+            {{#each this }}
+            <tr>
+              <td class="hidesmall">{{ time }}</td>
+              <td style="text-align: right;">{{ home }} <span class="flag-icon flag-icon-{{ aflag }}"></span></td>
+              <td class="score">{{#if result }}{{ result }}{{ else }}<a href="/matches/{{ id }}">v</a>{{/if }}</td>
+              <td><span class="flag-icon flag-icon-{{ bflag }}"></span> {{ away }}</td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+        {{/each }}          
+      </aside>
+    
+    </div>
   </div>
 </section>
+

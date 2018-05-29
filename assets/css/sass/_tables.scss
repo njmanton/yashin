@@ -60,6 +60,9 @@ table.preds {
     color: $table-headers-fg;
     border-bottom: none;
   }
+  tr.expired td {
+    background-color: #ddd;
+  }
 }
 
 // column styles for fixed-layout tables
@@ -148,6 +151,7 @@ table.match {
     padding: 0;
     &:hover {
       background-color: lighten(#666, 10%);
+      color: gold;
       text-decoration: none;
     }
   }
@@ -158,8 +162,28 @@ table.match {
   }
 }
 
+.scorers {
+  td {
+    vertical-align: top;
+  }
+  ul {
+    padding-left: 0;
+  }
+  li {
+    list-style-type: none;
+    font-size: 1.1rem;
+    color: black;
+    padding: 0 0.4rem;
+  }
+  svg.p {
+    color: green;
+  }
+  svg.o {
+    color: red;
+  }
+}
+
 span.ajax {
-  margin-left: -1.2em;
   min-width: 1.5em;
   display: inline-block;
   color: green;

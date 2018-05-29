@@ -5,13 +5,14 @@
       <h4>Logging in</h4>
       <p>You need to have an account to play Goalmine. You can only get an account through an invitation from an existing player.</p>
       <p>If you have been invited, you should have received an email with an activation code. Click on the link in that email which will take you to the confirmation page to verify your account. You will need to confirm your email and choose a unique username. Then you will be able to log in and start playing.</p>
+      <p>Once you have created an account, you can link your Google and/or Facebook profiles, to one-click log in through those services. This can be found on your home page. Goalmine needs no specific access to your details on these services. </p>
       
       <h4>Entry Fee</h4>
-      <p>The entry fee is &pound;2.00 per player. You will only appear in the main league once your payment has been confirmed. To make a payment, send the entry fee to <a href="https://paypal.me/nickm"><i class="fab fa-paypal"></i> https://paypal.me/nickm</a>. Please make sure that the transaction is personal, and that you mark it clearly with your Goalmine username, otherwise I can't link the fee to your account.</p>
+      <p>The entry fee is &pound;2.00 per player. You will only appear in the main league once your payment has been confirmed. To make a payment, send the entry fee via <a href="https://paypal.me/nickm/2"><i class="fab fa-paypal"></i> Paypal</a>. Please make sure that the transaction is personal, and that you mark it clearly with your Goalmine username, otherwise I can't link the fee to your account. Sending a bulk payment for multiple accounts is fine, as long as all the usernames are listed.</p>
       <p>You may enter more than once using the same email address, but you will require a unique username for each entry.</p>
       
       <h4>Navigating the site</h4>
-      <p>You can view most of the pages without being logged in. Lists of matches (e.g. <a href="/matches/7">Peru vs Denmark</a>), teams (<a href="/teams/23">Sweden</a>), goals and venues (<a href="/venues/6">Nizhny Novgorod</a>) can be found at the bottom of each page, along with the help pages. You can also see the current standings in the main league or any user leagues. In general, anywhere you see a match, player, team or venue on a page, you can click on it to see the relevant page.</p>
+      <p>You can view most of the pages without being logged in. Lists of matches (e.g. <a href="/matches/7">Peru vs Denmark</a>), teams (<a href="/teams/23">Sweden</a>), goals and venues (<a href="/venues/6">Nizhny Novgorod</a>) can be found at the bottom of each page, along with the help pages. You can also see the current standings in the main league or any user leagues. In general, anywhere you see a match, player, team or venue on a page, you can click on it to see the relevant page and more information.</p>
       <p>Once you've logged in, the top menu bar gives you additional options. You can view your own page, with access to further options, and make or edit your predictions. There are also options for quick access to teams and matches.</p>
       <p>From your own home page (top-left option) you can do the following tasks:
         <ul>
@@ -44,6 +45,16 @@
 
       <h4>So what scores do I pick?</h4>
       <p>Only you can answer that. The <a href="/teams/">teams</a> index page shows the FIFA world rankings for each team, which may give you some idea of the relative strength of two teams.</p>
+
+      {{#if user.admin }}
+      <h4>Admin options</h4>
+      <p>Admins have three additional actions:</p>
+      <ul>
+        <li>Add results and/or scorers for a game, once the game has completed. Admins will see two buttons at the bottom of the match page.</li>
+        <li>Accept or reject requests for new leagues. These will appear on your home page.</li>
+        <li>Confirm payments made. A list of players who haven't yet paid can also be found from the home page.</li>
+      </ul>
+      {{/if }}
     
     </div>
   </div>

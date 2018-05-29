@@ -11,7 +11,7 @@ $wj: #f66; // wrong result on joker
 $headers: rgb(163,21,21);
 $background: #141301;
 $content: #fcfcfc;
-$sidebar-head: orange;
+$sidebar-head: $background;
 
 // tables
 $table-headers-bg: $background;
@@ -47,9 +47,67 @@ header {
   }
 }
 
+.menu-items {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 1.5em;
+}
+
+.menu-items a {
+  color: inherit;
+}
+
+.menu-items a:hover {
+  //text-decoration: none;
+  color: gold;
+}
+
 section.content {
   background-color: $content;
   padding-bottom: 2em;
+}
+
+// watermark image for main page
+.content {
+  position: relative;
+  overflow: hidden;
+}
+.content::before {
+  opacity: 0.05;
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/img/stbasils.svg);
+  background-position: right;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+}
+
+// upcoming matches aside on home page
+.upcoming {
+  background-color: #fcfcfc;
+  border-radius: 0.7rem;
+  margin: 0 auto;
+  border: 1px solid #222;
+  width: 80%; // on small
+  margin-top: 1em; // on small
+  h4 {
+    background-color: #222;
+    color: #fcfcfc;
+    padding: 0.3em;
+    margin: 0;
+    border-radius: 0.7rem 0.7rem 0 0;    
+  }
+  td:first-child {
+    max-width: 3em;
+  }
+  table {
+    margin-bottom: 0;
+  }
 }
 
 footer {
@@ -58,12 +116,34 @@ footer {
 
 footer nav {
   //min-width: 40%;
-  width: 500px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bolder;
+  text-align: center;
+  margin: 2rem 0 2rem 0;
 }
 
 h2 {
+  font-family: sans-serif;
   text-align: center;
   margin: 1rem 0 2rem 0;
+}
+
+h3 {
+  font-family: sans-serif;
+}
+
+h4 {
+  text-align: center;
+}
+
+h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .foot {
@@ -87,7 +167,7 @@ h2 {
   div {
     color: white;
     text-align: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
   }
 }
 
@@ -104,6 +184,11 @@ h2 {
   }
 }
 
+#rules li {
+  margin-bottom: 0.5em;
+  font-size: 1.05em;
+}
+
 .sidebar {
   margin: 1em;
   background-color: inherit;
@@ -115,6 +200,9 @@ h2 {
     text-align: center;
     padding: 0.3em;
     font-size: 1.3rem;
+  }
+  p {
+    padding: 0 0.3em;
   }
 }
 
@@ -130,6 +218,16 @@ h2 {
 // add a gap between online flag icon and team name
 .flag-icon {
   margin: 0 0.3em;
+}
+
+// override flash message styling
+.alert {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.attributions li {
+  font-size: 0.9em;
 }
 
 .sideteam {

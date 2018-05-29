@@ -10,15 +10,21 @@
         </tr>
       </thead>
       <tbody>
-        {{#each confirmed }}
-        <tr>
-          <td>
-            <a href="/leagues/{{ id }}">{{ name }}</a>
-            {{#unless public }}<i class="fas fa-lock" title="private league"></i>{{/unless }}
-          </td>
-          <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
-        </tr>
-        {{/each }}
+        {{#if confirmed }}
+          {{#each confirmed }}
+          <tr>
+            <td>
+              <a href="/leagues/{{ id }}">{{ name }}</a>
+              {{#unless public }}<i class="fas fa-lock" title="private league"></i>{{/unless }}
+            </td>
+            <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
+          </tr>
+          {{/each }}
+        {{ else }}
+          <tr>
+            <td colspan="2" class="text-muted" style="text-align: center;">No user leagues yet. Why not <a href="/leagues/add">add</a> one?</td>
+          </tr>
+        {{/if }}
       </tbody>
     </table>
     <p>User leagues are separate from the main leaderboard. Anyone can <a href="/leagues/add/">create</a> and manage their own league, and set their own entry requirements and prizes. You will always score the same points as the main league.</p>

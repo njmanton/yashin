@@ -46,6 +46,8 @@ table.preds {
     background-color: #141301;
     color: #eee;
     border-bottom: none; }
+  table.preds tr.expired td {
+    background-color: #ddd; }
 
 td.away {
   text-align: left; }
@@ -116,14 +118,32 @@ table.match {
     padding: 0; }
     table.match td a:hover {
       background-color: gray;
+      color: gold;
       text-decoration: none; }
   table.match tr:nth-child(1) td {
     text-align: center;
     background-color: #666;
     max-width: 10em; }
 
+.scorers td {
+  vertical-align: top; }
+
+.scorers ul {
+  padding-left: 0; }
+
+.scorers li {
+  list-style-type: none;
+  font-size: 1.1rem;
+  color: black;
+  padding: 0 0.4rem; }
+
+.scorers svg.p {
+  color: green; }
+
+.scorers svg.o {
+  color: red; }
+
 span.ajax {
-  margin-left: -1.2em;
   min-width: 1.5em;
   display: inline-block;
   color: green;
@@ -134,6 +154,35 @@ span.ajax {
     -webkit-transition: opacity 1s linear;
     transition-delay: 1s;
     -webkit-transition-delay: 1s; }
+
+/* _forms.scss */
+#login input, #forgotPassword input, #resetPassword input, #sendInvite input, #sendInvite textarea, #confirmAccount input {
+  font-size: 1.5rem;
+  padding: 0.2em 0.3em;
+  margin-bottom: 0.2em;
+  display: inline-block; }
+
+.intrainput {
+  display: inline-block;
+  margin-left: -4.5rem;
+  font-weight: bold;
+  font-size: 1.5em;
+  min-width: 2.5rem;
+  text-align: center;
+  cursor: help;
+  color: green; }
+
+#homelogin input {
+  width: 70%;
+  margin: 0.2em auto;
+  font-size: 1.2em; }
+
+#homelogin .btn {
+  display: block; }
+
+.social {
+  margin: 0 auto;
+  text-align: center; }
 
 body {
   background-color: #141301; }
@@ -152,19 +201,84 @@ header {
   header .badge {
     margin: 0 0.5em; }
 
+.menu-items {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 1.5em; }
+
+.menu-items a {
+  color: inherit; }
+
+.menu-items a:hover {
+  color: gold; }
+
 section.content {
   background-color: #fcfcfc;
   padding-bottom: 2em; }
+
+.content {
+  position: relative;
+  overflow: hidden; }
+
+.content::before {
+  opacity: 0.05;
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/img/stbasils.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-attachment: fixed; }
+
+.upcoming {
+  background-color: #fcfcfc;
+  border-radius: 0.7rem;
+  margin: 0 auto;
+  border: 1px solid #222;
+  width: 80%;
+  margin-top: 1em; }
+  .upcoming h4 {
+    background-color: #222;
+    color: #fcfcfc;
+    padding: 0.3em;
+    margin: 0;
+    border-radius: 0.7rem 0.7rem 0 0; }
+  .upcoming td:first-child {
+    max-width: 3em; }
+  .upcoming table {
+    margin-bottom: 0; }
 
 footer {
   background-color: inherit; }
 
 footer nav {
-  width: 500px; }
+  width: 100%; }
+
+h1 {
+  font-size: 3rem;
+  font-weight: bolder;
+  text-align: center;
+  margin: 2rem 0 2rem 0; }
 
 h2 {
+  font-family: sans-serif;
   text-align: center;
   margin: 1rem 0 2rem 0; }
+
+h3 {
+  font-family: sans-serif; }
+
+h4 {
+  text-align: center; }
+
+h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center; }
 
 .foot {
   margin: 0 auto; }
@@ -183,7 +297,7 @@ h2 {
   .foot div {
     color: white;
     text-align: center;
-    margin-bottom: 0.5em; }
+    margin-bottom: 1em; }
 
 .logo {
   font-size: 2em;
@@ -195,17 +309,23 @@ h2 {
   .logo img {
     height: 1.7em; }
 
+#rules li {
+  margin-bottom: 0.5em;
+  font-size: 1.05em; }
+
 .sidebar {
   margin: 1em;
   background-color: inherit;
   border: 1px solid black; }
   .sidebar h3 {
     width: 100%;
-    background-color: orange;
+    background-color: #141301;
     color: white;
     text-align: center;
     padding: 0.3em;
     font-size: 1.3rem; }
+  .sidebar p {
+    padding: 0 0.3em; }
 
 .team-flag {
   width: 15em; }
@@ -215,6 +335,13 @@ h2 {
 
 .flag-icon {
   margin: 0 0.3em; }
+
+.alert {
+  border-radius: 0;
+  margin-bottom: 0; }
+
+.attributions li {
+  font-size: 0.9em; }
 
 .sideteam {
   border-right: 4px solid #eee;
@@ -246,4 +373,12 @@ td.hidesmall, th.hidesmall {
   table.league th, table.league td {
     font-size: 1.3em; }
   .team-logo {
-    max-width: 60%; } }
+    max-width: 60%; }
+  footer nav {
+    width: 500px; }
+  table.preds td {
+    font-size: 1.3em; }
+  h1 {
+    font-size: 4.5rem; }
+  .upcoming {
+    width: 90%; } }
