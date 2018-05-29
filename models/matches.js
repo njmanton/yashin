@@ -91,12 +91,12 @@ const match = (sequelize, DataTypes) => {
 
       current: () => {
         // find the matches for the closest two days to now
-        // using raw sql to handle the date manipulation and ugly join as normal subquery with limit clause not supported in mysql
+        // using raw sql to handle the date manipulation and ugly join, as normal subquery with limit clause not supported in mysql
         const models = require('.'),
               ga     = require('group-array'),
               moment = require('moment');
 
-        const sql = `SELECT M.id, M.date, M.result, A.name as home, A.sname as aflag, B.name AS away, B.sname AS bflag, M.group, M.stage FROM matches AS M 
+        const sql = `SELECT M.id, M.date, M.result, A.code as home, A.sname as aflag, B.code AS away, B.sname AS bflag, M.group, M.stage FROM matches AS M 
         LEFT JOIN teams AS A ON M.teama_id = A.id
         LEFT JOIN teams AS B ON M.teamb_id = B.id
         INNER JOIN
