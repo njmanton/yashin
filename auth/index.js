@@ -10,8 +10,9 @@ const models              = require('../models'),
       GoogleStrategy      = require('passport-google-oauth').OAuth2Strategy;
 
 // callback addresses
-const fb_cb = 'http://localhost:1960/auth/facebook/callback',
-      gl_cb = 'http://localhost:1960/auth/google/callback';
+const domain_cb = (process.env.YASHIN_PROD == 1) ? 'https://worldcup.goalmine.eu/' : 'http://localhost:1960/';
+const fb_cb = `${ domain_cb }auth/facebook/callback`,
+      gl_cb = `${ domain_cb }auth/google/callback`;
 
 module.exports.createHash = password => {
   return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
