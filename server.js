@@ -48,6 +48,7 @@ moment.updateLocale('en-GB', {
 
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 // set static route
 app.use(express.static(path.join(__dirname, 'assets')));
