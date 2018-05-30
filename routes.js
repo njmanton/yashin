@@ -122,7 +122,7 @@ const routes = app => {
 
   // any other static content
   app.get('/pages/:page', (req, res) => {
-    let path = `views/pages/${ req.params.page }.hbs`;
+    let path = `${ __dirname }/views/pages/${ req.params.page }.hbs`;
     try {
       fs.accessSync(path, fs.F_OK);
       res.render(`pages/${ req.params.page }`, {
