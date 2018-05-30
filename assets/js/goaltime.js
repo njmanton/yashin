@@ -25,20 +25,7 @@ $(function() {
       },
       tooltip: {
         formatter: function() {
-          var str;
-          str = this.point.scorer + ' (' + this.point.x + '\'';
-          if (this.point.tao) {
-            str += '+' + this.point.tao + '\'';
-          }
-          if (this.point.type == 'o') {
-            str += ' og';
-          } else if (this.point.type == 'p') {
-            str += ' pen';
-          }
-          str += ')<br>';
-          str += '<strong>' + this.point.team + '</strong> v ' + this.point.oppo;
-          str += '<br>Click to select match';
-          return str;
+          return this.point.str;
         }
       },
       xAxis: {
