@@ -85,19 +85,22 @@ const controller = {
     const g = models.Goal.find(id);
 
     Promise.join(m, p, g, (match, preds, goals) => {
-      if (!match) res.status(404).render('errors/404');
-      res.render(`${ folder }/view`, {
-        title: `Goalmine 2018 | ${ match.TeamA.name } vs ${ match.TeamB.name }`,
-        dt: moment(match.date).format(utils.ldateFormat),
-        match: match,
-        preds: preds,
-        goals: goals,
-        scripts: [
-          'https://code.highcharts.com/highcharts.js',
-          'https://code.highcharts.com/modules/heatmap.js',
-          '/js/goalmap.js'
-        ]
-      });
+      if (!match) {
+        res.status(404).render('errors/404');
+      } else {
+        res.render(`${ folder }/view`, {
+          title: `Goalmine 2018 | ${ match.TeamA.name } vs ${ match.TeamB.name }`,
+          dt: moment(match.date).format(utils.ldateFormat),
+          match: match,
+          preds: preds,
+          goals: goals,
+          scripts: [
+            'https://code.highcharts.com/highcharts.js',
+            'https://code.highcharts.com/modules/heatmap.js',
+            '/js/goalmap.js'
+          ]
+        });
+      }
     });
 
   },
