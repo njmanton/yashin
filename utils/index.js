@@ -1,7 +1,7 @@
 // jshint node: true, esversion: 6
 'use strict';
 
-const prod = process.env.YASHIN_PROD;
+const prod = +process.env.YASHIN_PROD;
 
 const debug = {
   expiry: 0 && !prod, // override deadline restriction
