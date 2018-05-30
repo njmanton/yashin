@@ -82,14 +82,18 @@ const controller = {
           yaxis = 0.2;
         }
         goal = {
-          x: (g.time + g.tao),
+          x: g.time == 45 ? 45 : (g.time + g.tao),
           y: yaxis,
+          time: g.time,
+          tao: g.tao,
           match: g.match.id,
           scorer: g.scorer,
           team: g.home ? g.match.TeamA.name : g.match.TeamB.name,
           oppo: g.home ? g.match.TeamB.name : g.match.TeamA.name,
           type: g.type
         };
+        goal.str = `${ g.scorer } (${ g.time }${ g.tao ? `+${ g.tao }` : '' }'${ g.type == 'o' ? ' og' : '' }${ g.type == 'p' ? ' pen' : '' })<br><strong>${ goal.team }</strong> v ${ goal.oppo }<br>Click to select match`;
+
         if (g.type == 'p') {
           goal.color = penColor;
           data.pens.push(goal);
