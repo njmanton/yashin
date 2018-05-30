@@ -30,6 +30,8 @@ const mail = {
       html: message(context)
     };
 
+    if (cc) data.cc = cc;
+
     mailgun.messages().send(data).then(response => {
       logger.info(`email sent to ${ recipient } with subject ${ subject }`);
       done(response);
