@@ -187,6 +187,7 @@ const user = (sequelize, DataTypes) => {
             let pred = {
               mid: m.id,
               group: m.group,
+              date: moment(m.date).format(utils.ldateFormat),
               stage: m.stage,
               result: m.result,
               teama: {

@@ -6,6 +6,7 @@
         <caption>{{ groupPrefix @key }}</caption>
         <thead>
           <tr>
+            <th class="hidesmall">&nbsp;</th>
             <th>&nbsp;</th>
             <th>Pred</th>
             <th class="score">Result</th>
@@ -15,6 +16,7 @@
         <tbody>
           {{#each this }}
           <tr {{#if expired }}class="expired"{{/if }}>
+            <td class="hidesmall">{{ date }}</td>
             <td style="text-align: right;"><a href="/teams/{{ teama.id }}">{{ teama.name }}</a> <span class="flag-icon flag-icon-{{ teama.sname }}"></span> </td>
             <td class="pred">
               {{#if expired }}

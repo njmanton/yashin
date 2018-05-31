@@ -61,6 +61,9 @@ td.score, th.score {
 td.narrow, th.narrow {
   max-width: 5em; }
 
+td.pred {
+  max-width: 7.5em; }
+
 table.group tr:nth-child(-n+2) td {
   background-color: #6c6;
   border-bottom: 1px solid #40bf40; }
