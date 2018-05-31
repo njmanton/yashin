@@ -84,14 +84,14 @@ $(function() {
         name: 'Pens',
         data: res.pens,
         marker: {
-          symbol: 'url(/img/futbol.svg)'
+          symbol: 'url(/img/futbol_p.svg)'
         }
       }, {
         type: 'scatter',
         name: 'Own Goals',
         data: res.ogs,
         marker: {
-          symbol: 'url(/img/futbol.svg)'
+          symbol: 'url(/img/futbol_o.svg)'
         }
       }]
     });
