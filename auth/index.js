@@ -43,6 +43,7 @@ module.exports = app => {
         let now = moment().format('YYYY-MM-DD HH:mm:ss');
         user.update({ resetpwd: null, lastlogin: now }); // nullify reset code, if present
         req.flash('success', `logged in. welcome back ${ user.username }`);
+        logger.info(`(local) ${ user.username } logged in`);
         if (!user.paid) {
           req.flash('error', 'You have not yet paid your entry fee. You can <a target="_blank" href="https://paypal.me/nickm/2">pay <i class="fab fa-paypal"></i></a> now.');
         }
@@ -87,9 +88,10 @@ module.exports = app => {
             where: { facebook_id: profile.id }
           }).then(user => {
             if (user) {
-              req.flash('success', 'Logged in via Facebook');
+              let now = moment().format('YYYY-MM-DD HH:mm:ss');
+              req.flash('success', `Logged in via Facebook. welcome back ${ user.username }`);
               logger.info(`(FB) ${ user.username } logged in`);
-              user.update({ resetpwd: null });
+              user.update({ resetpwd: null, lastlogin: now });
               return done(null, user);
             } else {
               req.flash('error', 'Can\'t find matching FB user');
@@ -136,8 +138,9 @@ module.exports = app => {
             where: { google_id: profile.id }
           }).then(user => {
             if (user) {
-              user.update({ resetpwd: null });
-              req.flash('success', 'Logged in via Google');
+              let now = moment().format('YYYY-MM-DD HH:mm:ss');
+              user.update({ resetpwd: null, lastlogin: now });
+              req.flash('success', `Logged in via Google. welcome back ${ user.username }`);
               logger.info(`(Google) ${ user.username } logged in`);
               return done(null, user);
             } else {
