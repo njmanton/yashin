@@ -355,6 +355,28 @@ h5 {
   margin: 1em auto;
   display: block; }
 
+#bg400 {
+  background-image: url(/img/sitedown.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 600px; }
+  #bg400 div {
+    background-color: rgba(240, 240, 240, 0.4);
+    height: 80%;
+    margin: 2em; }
+  #bg400 p {
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center; }
+  #bg400 svg {
+    width: 1.2em;
+    height: 1.2em;
+    margin-bottom: -0.2em; }
+  #bg400 path, #bg400 circle {
+    fill: black; }
+
 .longdate {
   display: none; }
 

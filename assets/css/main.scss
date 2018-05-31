@@ -241,4 +241,32 @@ h5 {
   display: block;
 }
 
+// styles for error pages
+#bg400 {
+  background-image: url(/img/sitedown.jpg);
+  background-position: center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
+  min-height: 600px;
+  div {
+    background-color: rgba(240, 240, 240, 0.4);
+    height: 80%;
+    margin: 2em;
+  }
+  p {
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+  }
+  svg {
+    width: 1.2em;
+    height: 1.2em;
+    margin-bottom: -0.2em;
+  }
+  path, circle {
+    fill: black;
+  }
+}
+
 @import 'sass/_media'; // last
