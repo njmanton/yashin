@@ -20,10 +20,12 @@
     {{!-- list of leagues, including main league --}}
     <section class="sidebar">
       <h3>my leagues</h3>
-      <ul id="homeUserLeagues">
+      <ul>
         {{#if user.paid }}
         <li><a href="/leaderboard">Main league</a></li>
-        {{/if }}
+        {{/if }}        
+      </ul>
+      <ul id="homeUserLeagues">
       </ul>    
     </section>
 
