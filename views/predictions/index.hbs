@@ -20,7 +20,7 @@
             <td style="text-align: right;"><a href="/teams/{{ teama.id }}">{{ teama.name }}</a> <span class="flag-icon flag-icon-{{ teama.sname }}"></span> </td>
             <td class="pred">
               {{#if expired }}
-                <span class="score">{{ pred }}</span>
+                <span class="score">{{#if pred }}{{ pred }}{{ else }} - {{/if }}</span>
                 <input type="radio" disabled="disabled" {{#if joker }}checked{{/if }} />
                 <span class="ajax hide">saved <i class="far fa-check-circle"></i></span>                  
               {{ else }}
