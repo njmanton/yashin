@@ -20,7 +20,7 @@ const controller = {
       }, {
         where: { id: req.body.mid }
       }).then(() => {
-        logger.info(`match ${ req.body.mid } result updated to ${ req.body.result }`);
+        logger.info(`match ${ req.body.mid } result updated to ${ req.body.result } by ${ req.user.username }`);
         const preds = models.Pred.findAll({
           where: { match_id: req.body.mid }
         });
