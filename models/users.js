@@ -214,8 +214,9 @@ const user = (sequelize, DataTypes) => {
               pred.joker = m.predictions[0].joker || (m.id > 62); // 3 place and final are both joker games
               pred.pts = m.predictions[0].points;
             }
-            let then = moment(m.date).subtract(1, 'h');
+            const then = moment(m.date).subtract(1, 'h');
             pred.expired = moment().isAfter(then) || !!m.result;
+            pred.visible = pred.pred && ((m.id < 48) || moment().isAfter(then));
             preds.push(pred);
           }
           return ga(preds, 'stage');

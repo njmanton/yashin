@@ -88,12 +88,14 @@ const controller = {
       if (!match) {
         res.status(404).render('errors/404');
       } else {
+        const visible = moment().isAfter(moment(match.date).subtract(1, 'h')) || match.id < 49;
         res.render(`${ folder }/view`, {
           title: `Goalmine 2018 | ${ match.TeamA.name } vs ${ match.TeamB.name }`,
           dt: moment(match.date).format(utils.ldateFormat),
           match: match,
           preds: preds,
           goals: goals,
+          visible: visible,
           scripts: [
             'https://code.highcharts.com/highcharts.js',
             'https://code.highcharts.com/modules/heatmap.js',

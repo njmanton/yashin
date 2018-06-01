@@ -55,7 +55,11 @@
             {{#each preds }}
             <tr>
               <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
+              {{#if ../visible }}
               <td class="score {{#if joker }}joker{{/if }} pts-{{ points }}">{{ prediction }}</td>
+              {{ else }}
+              <td>?-?</td>
+              {{/if }}
             </tr>
             {{/each }}
           </tbody>

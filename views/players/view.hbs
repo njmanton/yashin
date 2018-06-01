@@ -10,14 +10,10 @@
           {{#each this }}
           <tr>
             <td style="text-align: right;"><span title="{{ teama.name }}">{{ teama.code }}</span> <span class="flag-icon flag-icon-{{ teama.sname }}"></span></td>
-            {{#if expired }}
+            {{#if visible }}
             <td class="score pts-{{ pts }} {{#if joker}}joker{{/if }}">{{#if pred }}{{ pred }}{{ else }}-{{/if }}</td>
             {{ else }}
-              {{#if pred }}
-              <td class="score">?-?</td>
-              {{ else }}
-              <td class="score">-</td>
-              {{/if }}
+            <td class="score">{{#if pred }}?-?{{ else }}-{{/if }}</td>
             {{/if }}
             <td><span class="flag-icon flag-icon-{{ teamb.sname }}"></span> <span title="{{ teamb.name }}">{{ teamb.code }}</span></td>
           </tr>

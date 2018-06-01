@@ -36,7 +36,8 @@ const controller = {
           res.render(`${ folder }/view`, {
             title: user.username,
             player: user,
-            preds: preds
+            preds: preds,
+            debug: JSON.stringify(preds, null, 2)
           });
         } else {
           res.status(404).render('errors/404');
