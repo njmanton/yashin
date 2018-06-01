@@ -1,6 +1,6 @@
 {
   "name": "yashin",
-  "version": "9.0.4",
+  "version": "9.0.5",
   "description": "Goalmine world cup 2018 edition",
   "main": "server.js",
   "engines": {
