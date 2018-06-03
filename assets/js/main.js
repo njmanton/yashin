@@ -256,24 +256,32 @@ $(function() {
 
   user.on('keyup', function() {
     if (user.val().length > 2) {
-      uid_err.html(' <span>spinner</span>');
-      $.get('/users/available/' + user.val())
-        .done(function(res) {
-          if (res) {
-            uid_err
-              .removeClass('err')
-              .addClass('success')
-              .html('&#10003;')
-              .show();
-          } else {
-            uid_err
-              .addClass('err')
-              .removeClass('success')
-              .html('taken')
-              .show();
-          }
-          checkConfirm();
-      });
+      if (~user.val().indexOf(' ')) {
+        uid_err
+        .addClass('error')
+        .removeClass('success')
+        .html('<span class="fas fa-exclamation"></span>')
+        .show();
+      } else {
+        uid_err.html(' <span>spinner</span>');
+        $.get('/users/available/' + user.val())
+          .done(function(res) {
+            if (res) {
+              uid_err
+                .removeClass('err')
+                .addClass('success')
+                .html('&#10003;')
+                .show();
+            } else {
+              uid_err
+                .addClass('err')
+                .removeClass('success')
+                .html('taken')
+                .show();
+            }
+            checkConfirm();
+        });
+      }
     } else {
       uid_err.hide();
     }
@@ -284,24 +292,13 @@ $(function() {
         re = /\S+@\S+\.\S+/;
 
     if (add.match(re)) {
-      $.get('/users/available/' + add)
-        .done(function(res) {
-          if (res) {
-            email_err
-              .removeClass('error')
-              .addClass('success')
-              .html('&#10003;')
-              .show();
-          } else {
-            email_err
-              .addClass('error')
-              .removeClass('success')
-              .html('taken')
-              .show();
-          }
-        });
+      email_err
+        .removeClass('err')
+        .addClass('success')
+        .html('&#10003;')
+        .show();
     } else {
-      email_err.show().addClass('error').html('<span class="fas fa-exclamation"></span>');
+      email_err.show().addClass('err').removeClass('success').html('<span class="fas fa-exclamation"></span>');
     }
     checkConfirm();
 

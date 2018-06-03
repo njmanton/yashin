@@ -7,9 +7,9 @@
     <form action="/users/confirm" id="confirmAccount" method="post">
       <fieldset class="form-group">
         <div class="form-group row">
-          <label for="username" class="col-sm-3"><strong>username</strong> <small class="text-muted">(3-25 characters)</small></label>
+          <label for="username" class="col-sm-3"><strong>username</strong> <small class="text-muted">(3-25 characters, no spaces)</small></label>
           <div class="col-sm-9">
-            <input tabindex="1" class="form-control" autocomplete="off" placeholder="username (3-25 chars)" type="text" name="username" required id="username" /><span role="alert" class="intrainput" id="user-not-valid"></span>
+            <input tabindex="1" class="form-control" autocomplete="off" placeholder="username (3-25 chars with no spaces)" pattern="^\S{3,25}$" type="text" name="username" required id="username" /><span role="alert" class="intrainput" id="user-not-valid"></span>
         </div>
         </div>
         <div class="form-group row">
