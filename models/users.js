@@ -215,7 +215,7 @@ const user = (sequelize, DataTypes) => {
             }
             const then = moment(m.date).subtract(1, 'h');
             pred.expired = moment().isAfter(then) || !!m.result;
-            pred.visible = pred.pred && ((m.id < 48) || moment().isAfter(then));
+            pred.visible = pred.pred && ((m.id <= 48) || moment().isAfter(then));
             preds.push(pred);
           }
           return ga(preds, 'stage');
