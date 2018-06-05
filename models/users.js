@@ -1,4 +1,3 @@
-// jshint node: true, esversion: 6
 'use strict';
 
 let moment  = require('moment'),
@@ -256,16 +255,19 @@ const user = (sequelize, DataTypes) => {
       // get missing predictions for given player
       missing: uid => {
 
+        if (!uid) return Promise.resolve(null);
+
         const models = require('.');
 
         var qry = `SELECT
-          M.stage AS stage,
-          COUNT(M.id) AS missing
+          M.stage,
+          M.stageorder,
+          SUM(M.teama_id IS NOT NULL AND M.teamb_id IS NOT NULL) - COUNT(P.prediction) AS missing,
+          SUM(P.joker = 1) AS joker
           FROM matches M
-          LEFT JOIN predictions P
-          ON (P.match_id = M.id AND P.user_id = ?)
-          WHERE (M.teama_id IS NOT NULL AND M.teamb_id IS NOT NULL AND P.user_id IS NULL)
-          GROUP BY M.stage`;
+          LEFT JOIN predictions P ON (P.match_id = M.id AND P.user_id = ?)
+          GROUP BY M.stage, M.stageorder
+          ORDER BY M.stageorder DESC`;
         return models.sequelize.query(qry, { replacements: [uid], type: sequelize.QueryTypes.SELECT });
       }
     }

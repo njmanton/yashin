@@ -22,15 +22,23 @@ const routes = app => {
   app.get('/', (req, res) => {
     // calculate days until start of tournament
     const days = moment(start).diff(moment(), 'days') + 1;
+    const uid = req.user ? req.user.id : null;
 
-    models.Match.current().then(matches => {
+    const c = models.Match.current(),
+          m = models.User.missing(uid);
+
+    Promise.join(c, m, (current, missing) => {
+      if (missing) missing.map(i => i.hide = (i.missing == 0 && i.joker != 0));
       res.render('main', {
         title: 'Goalmine 2018 World Cup',
-        data: matches,
+        data: current,
+        missing: missing,
         days: days,
-        scripts: ['/js/vendor/textition.js']
+        scripts: ['/js/vendor/textition.js'],
+        debug: JSON.stringify(missing, null, 2)
       });
     });
+
   });
 
   app.get('/home', utils.isAuthenticated, (req, res) => {

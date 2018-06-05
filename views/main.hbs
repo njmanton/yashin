@@ -30,6 +30,31 @@
       </div>
       {{ else }}
       <div style="text-align: center; padding-top: 4em;">
+        {{#if missing }}
+          <table class="table" style="width: 40%">
+            <caption>You've still got some predictions to make!</caption>
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>Missing (joker)</th>
+              </tr>
+            </thead>
+            <tbody>
+            {{#each missing }}
+              {{#unless hide }}
+                <tr>
+                  <td>{{ stage }}</td>
+                  <td style="text-align: left; padding-left: 3em;">{{ missing }} 
+                    {{#unless joker }}<span class="fas fa-times"></span>{{/unless }}
+                  </td>
+                </tr>
+              {{/unless }}
+            {{/each }}              
+            </tbody>
+          </table>
+        {{ else }}
+        <p>Your predictions are all up to date!</p>
+        {{/if }}
         <a href="/predictions" class="btn btn-primary">Edit my predictions</a>
       </div>
       {{/unless }}

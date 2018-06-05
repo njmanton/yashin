@@ -25,7 +25,7 @@
                 <span class="ajax hide">saved <i class="far fa-check-circle"></i></span>                  
               {{ else }}
                 <input placeholder="X-X" pattern="\d{1,2}-\d{1,2}" class="score" maxlength="5" tabindex="{{ mid }}" type="text" value="{{ pred }}" data-mid="{{ mid }}" />
-                <input type="radio" data-mid="{{ mid }}" data-stage="{{ stage }}" name="joker[{{ @../key }}]" {{#if group_expired }}disabled="disabled"{{/if }} />
+                <input {{#if joker }}checked{{/if }} type="radio" data-mid="{{ mid }}" data-stage="{{ stage }}" name="joker[{{ @../key }}]" {{#if group_expired }}disabled="disabled"{{/if }} />
                 <span class="ajax hide">saved <i class="far fa-check-circle"></i></span>
               {{/if }}
             </td>
