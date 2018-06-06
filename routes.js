@@ -34,8 +34,7 @@ const routes = app => {
         data: current,
         missing: missing,
         days: days,
-        scripts: ['/js/vendor/textition.js'],
-        debug: JSON.stringify(missing, null, 2)
+        scripts: ['/js/vendor/textition.js']
       });
     });
 

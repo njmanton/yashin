@@ -266,6 +266,7 @@ const user = (sequelize, DataTypes) => {
           SUM(P.joker = 1) AS joker
           FROM matches M
           LEFT JOIN predictions P ON (P.match_id = M.id AND P.user_id = ?)
+          WHERE M.result IS NULL
           GROUP BY M.stage, M.stageorder
           ORDER BY M.stageorder DESC`;
         return models.sequelize.query(qry, { replacements: [uid], type: sequelize.QueryTypes.SELECT });
