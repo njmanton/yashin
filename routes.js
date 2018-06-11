@@ -127,6 +127,13 @@ const routes = app => {
     });
   });
 
+  app.get('/pages/matchpoints', (req, res) => {
+    res.render('pages/matchpoints', {
+      title: 'Points by match',
+      scripts: ['https://code.highcharts.com/highcharts.js', 'https://code.highcharts.com/highcharts-more.js', '/js/matchpoints.js']
+    });
+  });
+
   // any other static content
   app.get('/pages/:page', (req, res) => {
     let path = `${ __dirname }/views/pages/${ req.params.page }.hbs`;

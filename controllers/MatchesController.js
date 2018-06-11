@@ -5,6 +5,7 @@ const models  = require('../models'),
       folder = 'matches',
       moment  = require('moment'),
       Promise = require('bluebird'),
+      _       = require('lodash'),
       utils   = require('../utils'),
       ga      = require('group-array');
 
@@ -153,7 +154,54 @@ const controller = {
         res.send(null);
       }
     });
-  }
+  },
+
+  get_points: [utils.isAjax, function(req, res) {
+    models.Match.findAll({
+      where: { result: { $ne: null } },
+      attributes: [
+        'id',
+        'result',
+      ],
+      include: [{
+        model: models.Team,
+        as: 'TeamA',
+        attributes: ['name']
+      }, {
+        model: models.Team,
+        as: 'TeamB',
+        attributes: ['name']
+      }, {
+        model: models.Pred,
+        attributes: ['points', 'joker']
+      }]
+    }).then(matches => {
+      let data = [], labels = [], jokers = [], points = [];
+      for (let x = 0; x < matches.length; x++) {
+        let match = {
+          labels: `${ matches[x].TeamA.name } v ${ matches[x].TeamB.name }`,
+          jokers: matches[x].predictions.reduce((p, v) => { return p += v.joker; }, 0),
+          points: {
+            id: matches[x].id,
+            y: matches[x].predictions.reduce((p, v) => { return p += v.points; }, 0)
+          }
+        };
+        data.push(match);
+      }
+      data = _.orderBy(data, ['points.y'], ['desc']);
+
+      for (let x = 0; x < data.length; x++) {
+        labels.push(data[x].labels);
+        jokers.push(data[x].jokers);
+        points.push(data[x].points);
+      }
+      res.send({
+        labels: labels,
+        jokers: jokers,
+        points: points
+      });
+    });
+  }]
 };
 
 module.exports = controller;
