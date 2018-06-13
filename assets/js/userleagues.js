@@ -8,11 +8,13 @@ $(document).ready(function() {
   var uid  = $('h3').data('uid'),
       list = $('#homeUserLeagues');
 
-  $.get(`/users/${ uid }/leagues`).done(function(leagues) {
+  //$.get(`/users/${ uid }/leagues`).done(function(leagues) {
+  $.get('/users/' + uid + '/leagues').done(function(leagues) {
     if (leagues.length) {
       $.each(leagues, function(k, v) {
         const status = v.league.public ? '' : '<i class="fa fa-lock"></i>';
-        list.append(`<li><a href="leagues/${ v.league.id }">${ v.league.name }</a> ${ status }</li>`);
+        //list.append(`<li><a href="leagues/${ v.league.id }">${ v.league.name }</a> ${ status }</li>`);
+        list.append('<li><a href="leagues/' + v.league.id + '">' + v.league.name + '</a>' + status + '</li>');
       });
     } else {
       list.replaceWith('<p>You are not a member of any user leagues yet</p>');
@@ -22,4 +24,3 @@ $(document).ready(function() {
   });
 
 });
-
