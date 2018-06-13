@@ -38,10 +38,11 @@ $(function() {
     var lid = $('h2').data('lid');
     if (confirm('Are you sure you want to leave this league?')) {
       $.ajax({
-        url: `/leagues/${ lid }/user`,
+        //url: `/leagues/${ lid }/user`,
+        url: '/leagues/' + lid + '/user',
         method: 'delete'
       }).done(function(ret) {
-        console.log(ret);
+        //console.log(ret);
         if (ret) window.location.reload();
       });
     }
@@ -53,7 +54,8 @@ $(function() {
     const lid = $(this).data('lid');
     $.ajax({
       method: 'put',
-      url: `/leagues/${ lid }/join`
+      //url: `/leagues/${ lid }/join`,
+      url: '/leagues/' + lid + '/join',
     }).done(function(res) {
       if (res) window.location.reload();
     }).fail(function(e) {
@@ -68,7 +70,8 @@ $(function() {
     const lid = $(this).data('lid');
     $.ajax({
       method: 'put',
-      url: `/leagues/${ lid }/join`
+      //url: `/leagues/${ lid }/join`,
+      url: '/leagues/' + lid + '/join'
     }).done(function(res) {
       if (res) window.location.reload();
     }).fail(function(e) {
@@ -172,7 +175,8 @@ $(function() {
         uid = btn.data('uid'),
         decision = btn.data('decision');
 
-    $.post(`/leagues/${ lid }/decision`, {
+    //$.post(`/leagues/${ lid }/decision`, {
+    $.post('/leagues/' + lid + '/decision', {
       uid: uid,
       decision: decision
     }).done(function(res) {
