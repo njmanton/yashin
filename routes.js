@@ -28,11 +28,18 @@ const routes = app => {
           m = models.User.missing(uid);
 
     Promise.join(c, m, (current, missing) => {
-      if (missing) missing.map(i => i.hide = (i.missing == 0 && i.joker != 0));
+      let showmissing = 0;
+      if (missing) {
+        missing.map(i => {
+          i.hide = (i.missing == 0 && i.joker != 0);
+          showmissing |= !i.hide;
+        });
+      }
       res.render('main', {
         title: 'Goalmine 2018 World Cup',
         data: current,
         missing: missing,
+        show: showmissing,
         days: days,
         scripts: ['/js/vendor/textition.js']
       });
