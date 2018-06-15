@@ -82,6 +82,11 @@ td.pred {
   max-width: 7.5em;
 }
 
+// hilight color for preds table on mouseover goalmap
+.hc-hilite {
+  background-color: gold;
+}
+
 // styling for group tables (/teams/view)
 table.group {
   // select first two rows in a group (current qualifiers)
