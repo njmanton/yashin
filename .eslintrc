@@ -14,5 +14,8 @@
     "eol-last": ["error", "always"],
     "no-unreachable": ["error"],
     "no-path-concat": ["error"]
+  }, 
+  "parserOptions": {
+    "ecmaVersion": 2017
   }
 }

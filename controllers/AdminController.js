@@ -4,6 +4,7 @@ const models  = require('../models'),
       folder  = 'admin',
       mail    = require('../mail/'),
       logger  = require('winston'),
+      marked  = require('marked'),
       moment  = require('moment'),
       Promise = require('bluebird'),
       utils   = require('../utils/');
@@ -228,6 +229,26 @@ const controller = {
     }).then(r => {
       res.send(r > 0);
     });
+  }],
+
+  get_bulkmail: [utils.isAdmin, function(req, res) {
+    res.render(`${ folder }/bulkmail`, {
+      title: 'Send bulk mail'
+    });
+  }],
+
+  post_bulkmail: [utils.isAdmin, function(req, res) {
+
+    const template  = 'bulk.hbs',
+          to        = 'worldcup@goalmine.eu',
+          subject   = 'Goalmine 2018 update',
+          cc        = null,
+          context   = { message: marked(req.body.message) };
+
+    mail.send(to, cc, subject, template, context, done => {
+      res.send(done);
+    });
+
   }]
 
 };
