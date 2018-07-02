@@ -1,4 +1,3 @@
-// jshint node: true, esversion: 6
 'use strict';
 
 const models  = require('../models'),
@@ -7,8 +6,8 @@ const models  = require('../models'),
 
 const controller = {
 
-  get_index: function(req, res) {
-    models.Goal.findAll({
+  get_index: async function(req, res) {
+    const goals = await models.Goal.findAll({
       attributes: ['id', 'scorer', 'time', 'tao', 'type'],
       order: [['order', 'ASC']],
       raw: true,
@@ -28,17 +27,28 @@ const controller = {
           attributes: ['id', 'name', 'sname']
         }]
       }]
-    }).then(goals => {
-      goals.map(goal => {
-        goal.oppo = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.name'] : goal['match.TeamA.name'];
-        goal.oppoflag = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.sname'] : goal['match.TeamA.sname'];
-      });
-      res.render(`${ folder }/index`, {
-        data: goals,
-        title: 'All Goals',
-        //debug: JSON.stringify(goals, null, 2)
-      });
     });
+
+    const sql = `SELECT scorer, T.sname, COUNT(G.id) AS cnt
+      FROM goals G
+      JOIN teams T ON T.id = G.team_id
+      WHERE type IS NULL OR type <> 'o'
+      GROUP BY scorer, T.sname
+      ORDER BY 3 DESC`;
+
+    const scorers = await models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT });
+
+    goals.map(goal => {
+      goal.oppo = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.name'] : goal['match.TeamA.name'];
+      goal.oppoflag = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.sname'] : goal['match.TeamA.sname'];
+    });
+
+    res.render(`${ folder }/index`, {
+      data: goals,
+      scorers: scorers,
+      title: 'All Goals',
+    });
+
   },
 
   // send an array of all goals scored for goaltime chart
@@ -108,6 +118,25 @@ const controller = {
       }
       res.send(data);
     });
+  }],
+
+  // get the average prediction for each match
+  get_means: [utils.isAjax, async function(req, res) {
+    const sql = `SELECT 
+      match_id AS mid,
+      T1.name AS team1,
+      T2.name AS team2,
+      M.result AS result,
+      AVG(SUBSTRING(prediction, 1, 1) * 1) - SUBSTRING(M.result, 1, 1) AS x,
+      AVG(SUBSTRING(prediction, 3, 1) * 1) - SUBSTRING(M.result, 3, 1) AS y
+      FROM predictions P
+      JOIN matches M on M.id = P.match_id
+      JOIN teams T1 on M.teama_id = T1.id
+      JOIN teams T2 on M.teamb_id = T2.id
+      WHERE result IS NOT NULL
+      GROUP BY match_id, T1.name, T2.name, result`;
+    const means = await models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT });
+    res.send(means);
   }]
 };
 

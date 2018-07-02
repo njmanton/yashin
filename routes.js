@@ -141,6 +141,13 @@ const routes = app => {
     });
   });
 
+  app.get('/pages/diffpred', (req, res) => {
+    res.render('pages/diffpred', {
+      title: 'Accuracy of predictions',
+      scripts: ['https://code.highcharts.com/highcharts.js', 'https://code.highcharts.com/highcharts-more.js', '/js/diffpred.js']
+    });
+  });
+
   // any other static content
   app.get('/pages/:page', (req, res) => {
     let path = `${ __dirname }/views/pages/${ req.params.page }.hbs`;
