@@ -6,8 +6,8 @@ const models  = require('../models'),
 
 const controller = {
 
-  get_index: async function(req, res) {
-    const goals = await models.Goal.findAll({
+  get_index: function(req, res) {
+    const g = models.Goal.findAll({
       attributes: ['id', 'scorer', 'time', 'tao', 'type'],
       order: [['order', 'ASC']],
       raw: true,
@@ -36,17 +36,19 @@ const controller = {
       GROUP BY scorer, T.sname
       ORDER BY 3 DESC`;
 
-    const scorers = await models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT });
+    const s = models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT });
 
-    goals.map(goal => {
+    Promise.join(g, s, (goals, scorers) => {
+     goals.map(goal => {
       goal.oppo = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.name'] : goal['match.TeamA.name'];
       goal.oppoflag = goal['team.name'] == goal['match.TeamA.name'] ? goal['match.TeamB.sname'] : goal['match.TeamA.sname'];
-    });
+      });
 
-    res.render(`${ folder }/index`, {
-      data: goals,
-      scorers: scorers,
-      title: 'All Goals',
+      res.render(`${ folder }/index`, {
+        data: goals,
+        scorers: scorers,
+        title: 'All Goals',
+      });
     });
 
   },
@@ -121,7 +123,7 @@ const controller = {
   }],
 
   // get the average prediction for each match
-  get_means: [utils.isAjax, async function(req, res) {
+  get_means: [utils.isAjax, function(req, res) {
     const sql = `SELECT 
       match_id AS mid,
       T1.name AS team1,
@@ -135,13 +137,14 @@ const controller = {
       JOIN teams T2 on M.teamb_id = T2.id
       WHERE result IS NOT NULL
       GROUP BY match_id, T1.name, T2.name, result`;
-    const means = await models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT });
-    means.map(mean => {
-      let [h, a] = mean.result.split('-');
-      let dist = Math.sqrt(mean.x ** 2 + mean.y ** 2).toFixed(2);
-      mean.label = `<b>${ mean.team1 } ${ h }</b> (${ (h - mean.x).toFixed(2) })<br><b>${ mean.team2 } ${ a } </b>(${ (a - mean.y).toFixed(2)})<br>distance: ${ dist }<br>Click to see game`;
+    models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT }).then(means => {
+      means.map(mean => {
+        let [h, a] = mean.result.split('-');
+        let dist = Math.sqrt(mean.x ** 2 + mean.y ** 2).toFixed(2);
+        mean.label = `<b>${ mean.team1 } ${ h }</b> (${ (h - mean.x).toFixed(2) })<br><b>${ mean.team2 } ${ a } </b>(${ (a - mean.y).toFixed(2)})<br>distance: ${ dist }<br>Click to see game`;
+      });
+      res.send(means);
     });
-    res.send(means);
   }]
 };
 
