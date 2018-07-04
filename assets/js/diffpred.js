@@ -57,17 +57,7 @@ $(function() {
       },
       tooltip: {
         formatter: function() {
-          var text = null;
-          var dist = Math.pow((Math.pow(this.point.x, 2) + Math.pow(this.point.y, 2)), 0.5).toFixed(2);
-          if (this.series.name == 'Preds') {
-            var comph = this.point.x > 0 ? ' fewer' : ' more';
-            var compa = this.point.y > 0 ? ' fewer' : ' more';
-            text = [this.point.team1, ' scored ', Math.abs(this.point.x.toFixed(2)), comph, ' goals than predicted'].join('');
-            text += ['<br>', this.point.team2, ' scored ', Math.abs(this.point.y.toFixed(2)), compa, ' goals than predicted'].join('');
-            text += ['<br>', 'distance: ', dist].join('');
-            text += '<br><i>Click to see game';
-          }
-          return text;
+          return (this.series.name == 'Preds') ? this.point.label : null;
         }
       },
       series: [{

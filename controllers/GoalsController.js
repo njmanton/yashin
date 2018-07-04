@@ -127,8 +127,8 @@ const controller = {
       T1.name AS team1,
       T2.name AS team2,
       M.result AS result,
-      AVG(SUBSTRING(prediction, 1, 1) * 1) - SUBSTRING(M.result, 1, 1) AS x,
-      AVG(SUBSTRING(prediction, 3, 1) * 1) - SUBSTRING(M.result, 3, 1) AS y
+      SUBSTRING(M.result, 1, 1) - AVG(SUBSTRING(prediction, 1, 1) * 1) AS x,
+      SUBSTRING(M.result, 3, 1) - AVG(SUBSTRING(prediction, 3, 1) * 1) AS y
       FROM predictions P
       JOIN matches M on M.id = P.match_id
       JOIN teams T1 on M.teama_id = T1.id
@@ -136,6 +136,11 @@ const controller = {
       WHERE result IS NOT NULL
       GROUP BY match_id, T1.name, T2.name, result`;
     const means = await models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT });
+    means.map(mean => {
+      let [h, a] = mean.result.split('-');
+      let dist = Math.sqrt(mean.x ** 2 + mean.y ** 2).toFixed(2);
+      mean.label = `<b>${ mean.team1 } ${ h }</b> (${ (h - mean.x).toFixed(2) })<br><b>${ mean.team2 } ${ a } </b>(${ (a - mean.y).toFixed(2)})<br>distance: ${ dist }<br>Click to see game`;
+    });
     res.send(means);
   }]
 };
