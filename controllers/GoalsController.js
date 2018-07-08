@@ -1,6 +1,7 @@
 'use strict';
 
 const models  = require('../models'),
+      Promise = require('bluebird'),
       utils   = require('../utils'),
       folder  = 'goals';
 
