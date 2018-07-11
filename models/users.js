@@ -210,7 +210,7 @@ const user = (sequelize, DataTypes) => {
             if (m.predictions[0]) {
               pred.pid = m.predictions[0].id;
               pred.pred = m.predictions[0].prediction;
-              pred.joker = m.predictions[0].joker || (m.id > 62); // 3 place and final are both joker games
+              pred.joker = m.predictions[0].joker || (m.id > 63); // final is joker, 3P is not
               pred.pts = m.predictions[0].points;
             }
             const then = moment(m.date).subtract(1, 'h');

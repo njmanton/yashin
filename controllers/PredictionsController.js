@@ -20,6 +20,13 @@ const predictions = {
           if (preds[group][x].expired && preds[group][x].joker) {
             group_expired = true;
           }
+          // disable joker for 3P play-off, ensure final is a joker
+          if (group == '3P') {
+            group_expired = true;
+          }
+          if (group == 'Final') {
+            preds[group][x].joker = 1;
+          }
           preds[group][x].group_expired = preds[group][x].expired || group_expired;
         }
       }
