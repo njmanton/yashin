@@ -57,7 +57,8 @@ const predictions = {
             models.Pred.create({
               user_id: req.user.id,
               match_id: req.body.mid,
-              prediction: req.body.pred
+              prediction: req.body.pred,
+              joker: (req.body.mid == 64)
             }).then(() => { res.status(200).send({ updates: 1 }); });
           }
           logger.info(`user ${ req.user.username } set prediction ${ req.body.pred } on match ${ req.body.mid }`);
