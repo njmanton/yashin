@@ -11,7 +11,7 @@ June 2018 World Cup 2018
 
 * **8.0 ([dicanio](https://github.com/njmanton/dicanio))**
 Summer 2017
-First premiership verison of Goalmine to use Node
+First premiership version of Goalmine to use Node
 
 * **7.0 ([lyall](https://github.com/njmanton/lyall))**
 European Championships 2016
